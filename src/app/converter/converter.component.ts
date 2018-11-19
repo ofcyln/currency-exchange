@@ -26,7 +26,7 @@ export enum FormNames {
 @Component({
     selector: 'app-converter',
     templateUrl: './converter.component.html',
-    styleUrls: [ './converter.component.scss' ],
+    styleUrls: ['./converter.component.scss'],
 })
 export class ConverterComponent implements OnInit {
     periodicHistoryData: PeriodicHistoryElement[] = [
@@ -36,7 +36,7 @@ export class ConverterComponent implements OnInit {
         { date: '03/04/2018', exchangeRate: 1.13245342 },
         { date: '03/04/2018', exchangeRate: 1.13245342 },
     ];
-    displayedHistoricalColumns: string[] = [ 'date', 'exchangeRate' ];
+    displayedHistoricalColumns: string[] = ['date', 'exchangeRate'];
     periodicHistorySource = this.periodicHistoryData;
 
     statisticalData: Statistics[] = [
@@ -44,7 +44,7 @@ export class ConverterComponent implements OnInit {
         { name: 'Highest', summary: 1.13245342 },
         { name: 'Average', summary: 1.13245342 },
     ];
-    displayedStatisticalColumns: string[] = [ 'name', 'summary' ];
+    displayedStatisticalColumns: string[] = ['name', 'summary'];
     statisticalSource = this.statisticalData;
 
     selectedDuration = 'sevenDays';
@@ -64,8 +64,7 @@ export class ConverterComponent implements OnInit {
         public currencyExchangeService: CurrencyExchangeService,
         private apiRequestService: NomicsApiRequestService,
         private alertService: AlertService,
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
         this.converterForm = new FormGroup({
@@ -101,15 +100,30 @@ export class ConverterComponent implements OnInit {
 
         this.amount = Math.floor(this.converterForm.get('amountControl').value);
 
-        this.result = ((this.converterForm.get('amountControl').value * +this.fromRate) / +this.toRate).toFixed(3);
+        this.result = (
+            (this.converterForm.get('amountControl').value * +this.fromRate) /
+            +this.toRate
+        ).toFixed(3);
     }
 
-    changeExchangeValues(fromValue: string, toValue: string): void {
-        console.log(fromValue, toValue);
+    changeExchangeInputValues(): void {
+        let fromValue = this.converterForm.get('fromControl').value;
+        let toValue = this.converterForm.get('toControl').value;
+
+        fromValue = this.converterForm.get('toControl').value;
+        toValue = this.converterForm.get('fromControl').value;
+
+        this.converterForm = new FormGroup({
+            amountControl: new FormControl(this.converterForm.get('amountControl').value, [
+                Validators.required,
+            ]),
+            fromControl: new FormControl(fromValue, [Validators.required]),
+            toControl: new FormControl(toValue, [Validators.required]),
+        });
     }
 
     filterSelectedValue(value: string) {
-        return this.currencyExchangeService.exchangeRates.filter( (item: ExchangeRatesResponse) => {
+        return this.currencyExchangeService.exchangeRates.filter((item: ExchangeRatesResponse) => {
             return item.currency === this.converterForm.get(value).value;
         })[0];
     }
@@ -118,34 +132,37 @@ export class ConverterComponent implements OnInit {
         return this.currencyExchangeService.exchangeRates.map(
             (currencyItem: ExchangeRatesResponse) => {
                 return currencyItem.currency;
-            });
+            },
+        );
     }
 
     getFromValueChanges(stringValue: string): Observable<string[]> {
-        return this.converterForm.get(stringValue).valueChanges
-            .pipe(
-                startWith(''),
-                map(value => this.filterFromInputValue(value)),
-            );
+        return this.converterForm.get(stringValue).valueChanges.pipe(
+            startWith(''),
+            map((value) => this.filterFromInputValue(value)),
+        );
     }
 
     getToValueChanges(stringValue: string): Observable<string[]> {
-        return this.converterForm.get(stringValue).valueChanges
-            .pipe(
-                startWith(''),
-                map(value => this.filterToInputValue(value)),
-            );
+        return this.converterForm.get(stringValue).valueChanges.pipe(
+            startWith(''),
+            map((value) => this.filterToInputValue(value)),
+        );
     }
 
     private filterFromInputValue(value: string): string[] {
         const filterValue = value.toLowerCase();
 
-        return this.currencyExchangeService.fromCurrencies.filter(option => option.toLowerCase().includes(filterValue));
+        return this.currencyExchangeService.fromCurrencies.filter((option) =>
+            option.toLowerCase().includes(filterValue),
+        );
     }
 
     private filterToInputValue(value: string): string[] {
         const filterValue = value.toLowerCase();
 
-        return this.currencyExchangeService.toCurrencies.filter(option => option.toLowerCase().includes(filterValue));
+        return this.currencyExchangeService.toCurrencies.filter((option) =>
+            option.toLowerCase().includes(filterValue),
+        );
     }
 }

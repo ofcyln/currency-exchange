@@ -15,7 +15,6 @@
         "precommit": "lint-staged"
     },
     "lint-staged": {
-        "gitDir": "../",
         "src/**/*.ts": [
             "prettier --single-quote --trailing-comma all --print-width 100 --arrow-parens always --tab-width 4 --write",
             "tslint",
