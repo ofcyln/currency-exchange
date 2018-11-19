@@ -73,6 +73,9 @@ export class ConverterComponent implements OnInit {
             toControl: new FormControl('', [Validators.required]),
         });
 
+        this.converterForm.controls['fromControl'].disable();
+        this.converterForm.controls['toControl'].disable();
+
         this.apiRequestService.getExchangeRates().subscribe(
             (exchangeRate: ExchangeRatesResponse[]) => {
                 this.currencyExchangeService.exchangeRates = exchangeRate;
@@ -80,6 +83,9 @@ export class ConverterComponent implements OnInit {
                 this.currencyExchangeService.fromCurrencies = this.mapItemCurrencies();
 
                 this.currencyExchangeService.toCurrencies = this.mapItemCurrencies();
+
+                this.converterForm.controls['fromControl'].enable();
+                this.converterForm.controls['toControl'].enable();
             },
             (error) => {
                 this.alertService.error(`Error: ${error}`);
