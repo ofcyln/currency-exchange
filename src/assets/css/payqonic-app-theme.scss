@@ -1,0 +1,76 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$paqyqonic-red: (
+    50: #ffebee,
+    100: #ffcdd2,
+    200: #ef9a9a,
+    300: #e57373,
+    400: #ef5350,
+    500: #f44336,
+    600: #e53935,
+    700: #d32f2f,
+    800: #c62828,
+    900: #b71c1c,
+    A100: #c70d38,
+    A200: #ff5252,
+    A400: #ff1744,
+    A700: #d50000,
+    contrast: (
+        50: $dark-primary-text,
+        100: $dark-primary-text,
+        200: $dark-primary-text,
+        300: $dark-primary-text,
+        400: $dark-primary-text,
+        500: $light-primary-text,
+        600: $light-primary-text,
+        700: $light-primary-text,
+        800: $light-primary-text,
+        900: $light-primary-text,
+        A100: $dark-primary-text,
+        A200: $light-primary-text,
+        A400: $light-primary-text,
+        A700: $light-primary-text,
+    )
+);
+
+$paqyqonic-green: (
+    50: #f1f8e9,
+    100: #dcedc8,
+    200: #c5e1a5,
+    300: #aed581,
+    400: #9ccc65,
+    500: #8bc34a,
+    600: #7cb342,
+    700: #689f38,
+    800: #558b2f,
+    900: #33691e,
+    A100: #94c720,
+    A200: #b2ff59,
+    A400: #76ff03,
+    A700: #64dd17,
+    contrast: (
+        50: $dark-primary-text,
+        100: $dark-primary-text,
+        200: $dark-primary-text,
+        300: $dark-primary-text,
+        400: $dark-primary-text,
+        500: $dark-primary-text,
+        600: $dark-primary-text,
+        700: $light-primary-text,
+        800: $light-primary-text,
+        900: $light-primary-text,
+        A100: $dark-primary-text,
+        A200: $dark-primary-text,
+        A400: $dark-primary-text,
+        A700: $dark-primary-text,
+    )
+);
+
+$payqonic-app-primary: mat-palette($mat-teal);
+$payqonic-app-accent: mat-palette($paqyqonic-green, A100, A200, A400);
+$payqonic-app-warn: mat-palette($paqyqonic-red, A100);
+
+$payqonic-app-theme: mat-light-theme($payqonic-app-primary, $payqonic-app-accent, $payqonic-app-warn);
+
+@include angular-material-theme($payqonic-app-theme);

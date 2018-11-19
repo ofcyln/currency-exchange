@@ -1,0 +1,47 @@
+:host {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    width: 100%;
+    z-index: 99999;
+    overflow: hidden;
+    overflow-y: auto;
+    .alert-text-area {
+        font-size: 15px;
+    }
+    .alert {
+        padding: 7px 15px;
+        margin-bottom: 10px;
+        border-radius: 0;
+        font-size: 14px;
+    }
+    .alert-danger {
+        color: #ffffff;
+        background-color: #c70d38;
+        border-color: #c70d38;
+    }
+    .alert-success {
+        color: #fff;
+        background-color: #42af5c;
+        border-color: #42af5c;
+    }
+    .close {
+        opacity: 0.6;
+        cursor: pointer;
+        padding: 0 15px;
+        text-shadow: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-transition: opacity 0.1s ease-in-out;
+        -moz-transition: opacity 0.1s ease-in-out;
+        -ms-transition: opacity 0.1s ease-in-out;
+        -o-transition: opacity 0.1s ease-in-out;
+        transition: opacity 0.1s ease-in-out;
+        &:hover {
+            opacity: 1;
+            color: #fff;
+        }
+    }
+}

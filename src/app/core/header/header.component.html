@@ -1,0 +1,43 @@
+<header class="bg-light header-content">
+    <nav class="navbar navbar-expand navbar-light no--padding">
+        <a class="navbar-brand">
+            <span class="icon-find-replace d-inline-block"></span>
+
+            <p
+                class="m-0 pl-1 col d-inline-block"
+                aria-label="Currency Exchange">Currency<b>Exchange</b></p>
+        </a>
+
+        <div
+            class="collapse navbar-collapse justify-content-start m-auto"
+            *ngIf="authService.isAuthenticated()">
+            <ul class="navbar-nav">
+                <li
+                    class="nav-item"
+                    routerLinkActive="active">
+                    <a
+                        class="nav-link cursor-pointer"
+                        routerLink="converter"
+                        aria-label="Currency converter">CURRENCY CONVERTER</a>
+                </li>
+
+                <li
+                    class="nav-item"
+                    routerLinkActive="active">
+                    <a
+                        class="nav-link cursor-pointer"
+                        routerLink="history"
+                        aria-label="View conversion history">VIEW CONVERSION HISTORY</a>
+                </li>
+            </ul>
+        </div>
+
+        <button
+            mat-button
+            color="primary"
+            class="nav-link cursor--pointer logout-button"
+            (click)="authService.logout()"
+            *ngIf="authService.isAuthenticated()"
+            title="Logout">LOGOUT</button>
+    </nav>
+</header>

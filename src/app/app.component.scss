@@ -1,0 +1,12 @@
+:host {
+    .app-content {
+        height: calc(100vh - 56px);
+        overflow-y: auto;
+        position: relative;
+        background-color: #f7f7f7;
+    }
+    main {
+        max-width: 900px;
+        margin: 45px auto 0;
+    }
+}

@@ -1,0 +1,19 @@
+<section class="container-fluid font--roboto default--text-color body-text--font-size">
+    <article class="row">
+        <div class="col no--padding">
+            <app-header></app-header>
+
+            <ngx-loading-bar></ngx-loading-bar>
+        </div>
+    </article>
+
+    <article class="row app-content">
+        <app-alert></app-alert>
+
+        <main
+            class="col no--padding"
+            [ngClass]="authService.isAuthenticated() ? 'initial-margin' : 'mt-0'">
+            <router-outlet></router-outlet>
+        </main>
+    </article>
+</section>

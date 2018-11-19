@@ -1,0 +1,143 @@
+<article class="d-flex align-items-start">
+    <h1 class="page-title title--font-size font--roboto-bold">I want to convert</h1>
+</article>
+
+<form
+    class="conversion-area row"
+    [formGroup]="converterForm"
+    (ngSubmit)="exchangeRates()"
+    novalidate>
+
+    <mat-form-field class="margin-sm-right col-6 col-sm-3 col">
+        <input
+            matInput
+            placeholder="Amount"
+            formControlName="amountControl"
+            type="number">
+    </mat-form-field>
+
+    <mat-form-field class="margin-sm-left-right col-6 col-sm-3 col-md-3">
+        <input
+            type="text"
+            placeholder="From"
+            aria-label="From"
+            class="pb-0"
+            matInput
+            formControlName="fromControl"
+            [matAutocomplete]="fromAutoComplete">
+
+        <mat-autocomplete #fromAutoComplete="matAutocomplete">
+            <mat-option *ngFor="let fromItem of filteredFromValues | async" [value]="fromItem">
+                {{fromItem}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    <button
+        mat-raised-button
+        type="button"
+        (click)="changeExchangeValues(fromCurrency, toCurrency)"
+        class="icon-compare-arrows cursor--pointer primary--color margin-sm-left-right opposite-arrows"></button>
+
+    <mat-form-field class="margin-sm-left col-6 col-sm-3 col-md-3">
+        <input
+            type="text"
+            placeholder="To"
+            aria-label="To"
+            class="pb-0"
+            matInput
+            formControlName="toControl"
+            [matAutocomplete]="toAutoComplete">
+
+        <mat-autocomplete #toAutoComplete="matAutocomplete">
+            <mat-option *ngFor="let toItem of filteredToValues | async" [value]="toItem">
+                {{toItem}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    <button
+        mat-raised-button
+        class="margin-sm-left convert-button"
+        color="primary"
+        type="submit"
+        [disabled]="converterForm.invalid"
+    >CONVERT
+    </button>
+</form>
+
+<article *ngIf="result">
+    <section class="conversion-result-area justify-content-center mt-4 row">
+        <p class="title--font-size">{{ amount }} {{ fromCurrency }}</p>
+        <p class="title--font-size ml-3 mr-3">=</p>
+        <p class="title--font-size font--roboto-bold accent--color">{{ result }} {{ toCurrency }}</p>
+    </section>
+
+    <section class="conversion-info-area justify-content-center row">
+        <p class="body-text--font-size no--margin">
+            1 {{ fromCurrency }}
+            =
+            {{ (+this.fromRate / +this.toRate).toFixed(3) }} {{ toCurrency }}
+        </p>
+
+        <p class="w-100 no--margin"></p>
+
+        <p class="body-text--font-size no--margin">1 {{ toCurrency }} = {{ toRate }} {{ fromCurrency }}</p>
+    </section>
+</article>
+
+<article class="row">
+    <div class="col-12 mt-4 mb-2">
+        <hr>
+    </div>
+
+    <p class="section-title--font-size font--roboto-bold col-12 no--margin">Exchange History</p>
+
+    <div class="col-12 mt-4">
+        <mat-form-field>
+            <mat-select [(value)]="selectedDuration" placeholder="Duration">
+                <mat-option value="sevenDays">7 Days</mat-option>
+                <mat-option value="fourteenDays">14 Days</mat-option>
+                <mat-option value="thirtyDays">30 Days</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <section class="history-table col-12 mb-4">
+        <div class="d-flex flex-row no--padding mb-4">
+            <table mat-table [dataSource]="periodicHistorySource" class="mat-elevation-z8 col mr-2">
+                <!-- Date Column -->
+                <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef> Date</th>
+                    <td mat-cell *matCellDef="let element"> {{element.date}}</td>
+                </ng-container>
+
+                <!-- Exchange Rate Column -->
+                <ng-container matColumnDef="exchangeRate">
+                    <th mat-header-cell *matHeaderCellDef> Exchange rate</th>
+                    <td mat-cell *matCellDef="let element"> {{element.exchangeRate}}</td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedHistoricalColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedHistoricalColumns;"></tr>
+            </table>
+
+            <table mat-table [dataSource]="statisticalSource" class="mat-elevation-z8 col ml-2">
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Statistics</th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+                </ng-container>
+
+                <!-- Summary Column -->
+                <ng-container matColumnDef="summary">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element"> {{element.summary}}</td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedStatisticalColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedStatisticalColumns;"></tr>
+            </table>
+        </div>
+    </section>
+</article>

@@ -1,0 +1,80 @@
+.no--padding {
+    padding: 0 !important;
+}
+
+.no--margin {
+    margin: 0 !important;
+}
+
+.cursor--pointer {
+    cursor: pointer;
+}
+
+.font--roboto {
+    font-family: 'Roboto', Helvetica, Arial, serif;
+}
+
+.font--roboto-bold {
+    font-family: 'Roboto - Bold', Helvetica, Arial, serif;
+}
+
+.primary--color {
+    color: #009688;
+}
+
+.primary--background-color {
+    background-color: #009688;
+}
+
+.accent--color {
+    color: #94C720;
+}
+
+.accent--background-color {
+    background-color: #94C720;
+}
+
+.warn--color {
+    color: #C70D38;
+}
+
+.warn--background-color {
+    background-color: #C70D38;
+}
+
+.default--text-color {
+    color: #404040;
+}
+
+.table-header--text-color {
+    color: #8D8D8D;
+}
+
+.title--font-size {
+    font-size: 48px;
+}
+
+.section-title--font-size {
+    font-size: 24px;
+}
+
+.body-text--font-size {
+    font-size: 16px;
+}
+
+.margin-sm-left-right {
+    margin: 0 10px !important;
+}
+
+.margin-sm-left {
+    margin-left: 10px !important;;
+}
+
+.margin-sm-right {
+    margin-right: 10px !important;;
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 1px 1px #333 !important
+}

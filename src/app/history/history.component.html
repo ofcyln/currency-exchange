@@ -1,0 +1,38 @@
+<article class="d-flex align-items-start">
+    <h1 class="page-title title--font-size font--roboto-bold">Conversion history</h1>
+</article>
+
+<article class="row">
+    <section class="history-area-table col-12 mb-4">
+        <table mat-table [dataSource]="periodicHistorySource" class="mat-elevation-z8 col mr-2">
+            <!-- Date Column -->
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef> Date</th>
+                <td mat-cell *matCellDef="let element"> {{element.date}}</td>
+            </ng-container>
+
+            <!-- Event Rate Column -->
+            <ng-container matColumnDef="event">
+                <th mat-header-cell *matHeaderCellDef> Event</th>
+                <td mat-cell *matCellDef="let element"> {{element.event}}</td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> Actions</th>
+                <td mat-cell *matCellDef="let element">
+                    <button
+                        mat-button
+                        class="icon-red-eye primary--color">View</button>
+
+                    <button
+                        mat-button
+                        class="icon-delete-forever warn--color ml-2">Delete from history</button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedHistoricalColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedHistoricalColumns;"></tr>
+        </table>
+    </section>
+</article>
