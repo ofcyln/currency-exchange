@@ -7,6 +7,7 @@ import { AlertService } from '../core/alert/alert.service';
 import { CurrencyExchangeService } from '../shared/service/currency-exchange.service';
 import { ExchangeRatesResponse } from '../shared/interface/exchange-rates.model';
 import { map, startWith } from 'rxjs/operators';
+import * as moment from 'moment';
 
 export interface PeriodicHistoryElement {
     date: string;
