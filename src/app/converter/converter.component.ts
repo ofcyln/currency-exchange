@@ -98,7 +98,7 @@ export class ConverterComponent implements OnInit {
         this.filteredToValues = this.getToValueChanges(FormNames.ToControl);
     }
 
-    exchangeRates() {
+    exchangeRates(): void {
         this.fromRate = this.filterSelectedValue(FormNames.FromControl).rate;
         this.fromCurrency = this.filterSelectedValue(FormNames.FromControl).currency;
 
@@ -127,9 +127,17 @@ export class ConverterComponent implements OnInit {
             fromControl: new FormControl(fromValue, [Validators.required]),
             toControl: new FormControl(toValue, [Validators.required]),
         });
+
+        this.currencyExchangeService.fromCurrencies = this.mapItemCurrencies();
+
+        this.currencyExchangeService.toCurrencies = this.mapItemCurrencies();
+
+        this.filteredFromValues = this.getFromValueChanges(FormNames.FromControl);
+
+        this.filteredToValues = this.getToValueChanges(FormNames.ToControl);
     }
 
-    filterSelectedValue(value: string) {
+    filterSelectedValue(value: string): ExchangeRatesResponse {
         return this.currencyExchangeService.exchangeRates.filter((item: ExchangeRatesResponse) => {
             return item.currency === this.converterForm.get(value).value;
         })[0];
