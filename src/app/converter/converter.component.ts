@@ -4,15 +4,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { NomicsApiRequestService } from '../shared/service/nomics-api-request.service';
 import { AlertService } from '../core/alert/alert.service';
-import { CurrencyExchangeService } from '../shared/service/currency-exchange.service';
+import {
+    CurrencyExchangeService,
+    PeriodicHistoryElement,
+} from '../shared/service/currency-exchange.service';
 import { ExchangeRatesResponse } from '../shared/interface/exchange-rates.model';
 import { map, startWith } from 'rxjs/operators';
 import * as moment from 'moment';
-
-export interface PeriodicHistoryElement {
-    date: string;
-    exchangeRate: number;
-}
+import { StorageService } from '../shared/service/storage.service';
+import { MatTableDataSource } from '@angular/material';
 
 export interface Statistics {
     name: string;
@@ -30,13 +30,8 @@ export enum FormNames {
     styleUrls: ['./converter.component.scss'],
 })
 export class ConverterComponent implements OnInit {
-    periodicHistoryData: PeriodicHistoryElement[] = [
-        { date: '03/04/2018', exchangeRate: 1.13245342 },
-        { date: '03/04/2018', exchangeRate: 1.13245342 },
-        { date: '03/04/2018', exchangeRate: 1.13245342 },
-        { date: '03/04/2018', exchangeRate: 1.13245342 },
-        { date: '03/04/2018', exchangeRate: 1.13245342 },
-    ];
+    periodicHistoryData: PeriodicHistoryElement[] = this.currencyExchangeService
+        .periodicHistoryExchangeRates;
     displayedHistoricalColumns: string[] = ['date', 'exchangeRate'];
     periodicHistorySource = this.periodicHistoryData;
 
@@ -61,10 +56,13 @@ export class ConverterComponent implements OnInit {
     toCurrency: string;
     result: string;
 
+    dataSource = new MatTableDataSource(this.currencyExchangeService.periodicHistoryExchangeRates);
+
     constructor(
         public currencyExchangeService: CurrencyExchangeService,
         private apiRequestService: NomicsApiRequestService,
         private alertService: AlertService,
+        private storageService: StorageService,
     ) {}
 
     ngOnInit() {
@@ -111,21 +109,32 @@ export class ConverterComponent implements OnInit {
             (this.converterForm.get('amountControl').value * +this.fromRate) /
             +this.toRate
         ).toFixed(3);
+
+        this.currencyExchangeService.periodicHistoryExchangeRates.push({
+            date: moment().format('MM/DD/YYYY'),
+            exchangeRate: +this.result,
+        });
+
+        this.storageService.setObject('exchangeRates', [
+            ...this.currencyExchangeService.periodicHistoryExchangeRates,
+        ]);
+
+        this.periodicHistoryData = this.currencyExchangeService.periodicHistoryExchangeRates;
+
+        this.refreshTable();
     }
 
     changeExchangeInputValues(): void {
-        let fromValue = this.converterForm.get('fromControl').value;
-        let toValue = this.converterForm.get('toControl').value;
-
-        fromValue = this.converterForm.get('toControl').value;
-        toValue = this.converterForm.get('fromControl').value;
-
         this.converterForm = new FormGroup({
             amountControl: new FormControl(this.converterForm.get('amountControl').value, [
                 Validators.required,
             ]),
-            fromControl: new FormControl(fromValue, [Validators.required]),
-            toControl: new FormControl(toValue, [Validators.required]),
+            fromControl: new FormControl(this.converterForm.get('toControl').value, [
+                Validators.required,
+            ]),
+            toControl: new FormControl(this.converterForm.get('fromControl').value, [
+                Validators.required,
+            ]),
         });
 
         this.currencyExchangeService.fromCurrencies = this.mapItemCurrencies();
@@ -162,6 +171,12 @@ export class ConverterComponent implements OnInit {
         return this.converterForm.get(stringValue).valueChanges.pipe(
             startWith(''),
             map((value) => this.filterToInputValue(value)),
+        );
+    }
+
+    refreshTable() {
+        this.dataSource = new MatTableDataSource(
+            this.currencyExchangeService.periodicHistoryExchangeRates,
         );
     }
 
