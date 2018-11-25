@@ -10,7 +10,6 @@ import {
 } from '../shared/service/currency-exchange.service';
 import { ExchangeRatesResponse } from '../shared/interface/exchange-rates.model';
 import { map, startWith } from 'rxjs/operators';
-import * as moment from 'moment';
 import { StorageService } from '../shared/service/storage.service';
 import { MatTableDataSource } from '@angular/material';
 
@@ -111,7 +110,7 @@ export class ConverterComponent implements OnInit {
         ).toFixed(3);
 
         this.currencyExchangeService.periodicHistoryExchangeRates.push({
-            date: moment().format('MM/DD/YYYY'),
+            date: this.currencyExchangeService.getCurrentDate(),
             exchangeRate: +this.result,
         });
 

@@ -17,7 +17,19 @@ export class CurrencyExchangeService implements OnInit {
     fromCurrencies: string[] = [];
     toCurrencies: string[] = [];
 
+    currentDate: string;
+
     constructor(private storageService: StorageService) {}
 
     ngOnInit() {}
+
+    getCurrentDate(): string {
+        let currentDay = new Date().getDate();
+        let currentMonth = new Date().getMonth() + 1;
+        let currentYear = new Date().getFullYear();
+
+        this.currentDate = `${currentDay}/${currentMonth}/${currentYear}`;
+
+        return this.currentDate;
+    }
 }
