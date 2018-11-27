@@ -65,9 +65,6 @@ export class ConverterComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        console.log(this.getHighestRate());
-        console.log(this.getLowestRate());
-
         this.converterForm = new FormGroup({
             amountControl: new FormControl('', [Validators.required]),
             fromControl: new FormControl('', [Validators.required]),
@@ -212,7 +209,7 @@ export class ConverterComponent implements OnInit {
                 return Number(item.pureExchangeRate);
             },
         );
-        let summary = values.reduce((previous, current) => current + previous);
+        let summary = values.reduce((acc, current) => current + acc);
 
         return (summary / values.length).toFixed(5);
     }
