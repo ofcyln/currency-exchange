@@ -37,7 +37,7 @@ export class ConverterComponent implements OnInit {
     statisticalData: Statistics[] = [
         { name: 'Lowest', summary: this.getLowestRate() },
         { name: 'Highest', summary: this.getHighestRate() },
-        { name: 'Average', summary: this.getAverageRate() },
+        { name: 'Average', summary: this.getAverageRate() > -1 ? this.getAverageRate() : 0 },
     ];
     displayedStatisticalColumns: string[] = ['name', 'summary'];
     statisticalSource = this.statisticalData;
@@ -209,7 +209,7 @@ export class ConverterComponent implements OnInit {
                 return Number(item.pureExchangeRate);
             },
         );
-        let summary = values.reduce((acc, current) => current + acc);
+        let summary = values.reduce((acc, current) => current + acc, 0);
 
         return (summary / values.length).toFixed(5);
     }
