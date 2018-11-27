@@ -86,7 +86,7 @@
     </section>
 </article>
 
-<article class="row">
+<article class="row" *ngIf="this.currencyExchangeService.periodicHistoryExchangeRates.length > 0">
     <div class="col-12 mt-4 mb-2">
         <hr>
     </div>
