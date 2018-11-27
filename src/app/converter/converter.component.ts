@@ -65,6 +65,8 @@ export class ConverterComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        console.log(this.currencyExchangeService.getCurrentTime());
+
         this.converterForm = new FormGroup({
             amountControl: new FormControl('', [Validators.required]),
             fromControl: new FormControl('', [Validators.required]),
@@ -110,13 +112,16 @@ export class ConverterComponent implements OnInit {
         ).toFixed(3);
 
         this.currencyExchangeService.periodicHistoryExchangeRates.push({
-            date: this.currencyExchangeService.getCurrentDate(),
-            exchangeRate: +this.result,
+            date: `${this.currencyExchangeService.getCurrentDate()} @${this.currencyExchangeService.getCurrentTime()}`,
+            exchangeRate: `${this.fromCurrency} to ${this.toCurrency}
+\n${(+this.fromRate / +this.toRate).toFixed(5)}`,
         });
 
         this.storageService.setObject('exchangeRates', [
             ...this.currencyExchangeService.periodicHistoryExchangeRates,
         ]);
+
+        console.log(this.currencyExchangeService.periodicHistoryExchangeRates[0].exchangeRate);
 
         this.periodicHistoryData = this.currencyExchangeService.periodicHistoryExchangeRates;
 

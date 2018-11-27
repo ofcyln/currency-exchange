@@ -5,7 +5,7 @@ import { StorageService } from './storage.service';
 
 export interface PeriodicHistoryElement {
     date: string;
-    exchangeRate: number;
+    exchangeRate: string;
 }
 
 @Injectable()
@@ -18,6 +18,7 @@ export class CurrencyExchangeService implements OnInit {
     toCurrencies: string[] = [];
 
     currentDate: string;
+    currentTime: string;
 
     constructor(private storageService: StorageService) {}
 
@@ -31,5 +32,15 @@ export class CurrencyExchangeService implements OnInit {
         this.currentDate = `${currentDay}/${currentMonth}/${currentYear}`;
 
         return this.currentDate;
+    }
+
+    getCurrentTime(): string {
+        let currentHour = new Date().getHours();
+        let currentMinute = new Date().getMinutes();
+        let currentSecond = new Date().getSeconds();
+
+        this.currentTime = `${currentHour}:${currentMinute}:${currentSecond}`;
+
+        return this.currentTime;
     }
 }
