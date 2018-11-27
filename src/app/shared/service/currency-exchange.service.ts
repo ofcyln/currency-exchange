@@ -6,6 +6,7 @@ import { StorageService } from './storage.service';
 export interface PeriodicHistoryElement {
     date: string;
     exchangeRate: string;
+    pureExchangeRate?: number;
 }
 
 @Injectable()

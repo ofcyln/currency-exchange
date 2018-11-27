@@ -35,9 +35,9 @@ export class ConverterComponent implements OnInit {
     periodicHistorySource = this.periodicHistoryData;
 
     statisticalData: Statistics[] = [
-        { name: 'Lowest', summary: 1.13245342 },
-        { name: 'Highest', summary: 1.13245342 },
-        { name: 'Average', summary: 1.13245342 },
+        { name: 'Lowest', summary: this.getLowestRate() },
+        { name: 'Highest', summary: this.getHighestRate() },
+        { name: 'Average', summary: this.getAverageRate() },
     ];
     displayedStatisticalColumns: string[] = ['name', 'summary'];
     statisticalSource = this.statisticalData;
@@ -65,7 +65,8 @@ export class ConverterComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        console.log(this.currencyExchangeService.getCurrentTime());
+        console.log(this.getHighestRate());
+        console.log(this.getLowestRate());
 
         this.converterForm = new FormGroup({
             amountControl: new FormControl('', [Validators.required]),
@@ -115,6 +116,7 @@ export class ConverterComponent implements OnInit {
             date: `${this.currencyExchangeService.getCurrentDate()} @${this.currencyExchangeService.getCurrentTime()}`,
             exchangeRate: `${this.fromCurrency} to ${this.toCurrency}
 \n${(+this.fromRate / +this.toRate).toFixed(5)}`,
+            pureExchangeRate: (+this.fromRate / +this.toRate).toFixed(5),
         });
 
         this.storageService.setObject('exchangeRates', [
@@ -182,6 +184,37 @@ export class ConverterComponent implements OnInit {
         this.dataSource = new MatTableDataSource(
             this.currencyExchangeService.periodicHistoryExchangeRates,
         );
+    }
+
+    getHighestRate() {
+        return this.currencyExchangeService.periodicHistoryExchangeRates
+            .map((item: PeriodicHistoryElement) => {
+                return Number(item.pureExchangeRate);
+            })
+            .sort((first, second) => first - second)[
+            this.currencyExchangeService.periodicHistoryExchangeRates.length - 1
+        ];
+    }
+
+    getLowestRate() {
+        return this.currencyExchangeService.periodicHistoryExchangeRates
+            .map((item: PeriodicHistoryElement) => {
+                return Number(item.pureExchangeRate);
+            })
+            .sort((first, second) => second - first)[
+            this.currencyExchangeService.periodicHistoryExchangeRates.length - 1
+        ];
+    }
+
+    getAverageRate() {
+        let values = this.currencyExchangeService.periodicHistoryExchangeRates.map(
+            (item: PeriodicHistoryElement) => {
+                return Number(item.pureExchangeRate);
+            },
+        );
+        let summary = values.reduce((previous, current) => current + previous);
+
+        return (summary / values.length).toFixed(5);
     }
 
     private filterFromInputValue(value: string): string[] {
