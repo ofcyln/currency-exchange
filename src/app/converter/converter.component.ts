@@ -48,7 +48,7 @@ export class ConverterComponent implements OnInit {
     filteredFromValues: Observable<string[]>;
     filteredToValues: Observable<string[]>;
 
-    id: number = 0;
+    id: number = new Date().getTime();
     amount: number;
     fromRate: string;
     fromCurrency: string;
@@ -106,12 +106,14 @@ export class ConverterComponent implements OnInit {
             +this.toRate
         ).toFixed(3);
 
+        this.id += 1;
+
         this.currencyExchangeService.periodicHistoryExchangeRates.push({
-            id: this.id++,
+            id: this.id,
             date: `${this.currencyExchangeService.getCurrentDate()} @${this.currencyExchangeService.getCurrentTime()}`,
             exchangeRate: `${this.fromCurrency} to ${this.toCurrency}
 \n${(+this.fromRate / +this.toRate).toFixed(5)}`,
-            pureExchangeRate: (+this.fromRate / +this.toRate).toFixed(5),
+            pureExchangeRate: Number((+this.fromRate / +this.toRate).toFixed(5)),
             creationDate: this.currencyExchangeService.getCurrentDate(),
             fromCurrency: this.fromCurrency,
             toCurrency: this.toCurrency,
@@ -139,6 +141,8 @@ export class ConverterComponent implements OnInit {
                 Validators.required,
             ]),
         });
+
+        this.id += 1;
 
         this.currencyExchangeService.fromCurrencies = this.mapItemCurrencies();
 
@@ -211,7 +215,7 @@ export class ConverterComponent implements OnInit {
         );
         let summary = values.reduce((acc, current) => current + acc, 0);
 
-        return (summary / values.length).toFixed(5);
+        return Number((summary / values.length).toFixed(5));
     }
 
     selectedTimeInterval(): void {
