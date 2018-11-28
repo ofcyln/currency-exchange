@@ -114,13 +114,15 @@ export class ConverterComponent implements OnInit {
             exchangeRate: `${this.fromCurrency} to ${this.toCurrency}
 \n${(+this.fromRate / +this.toRate).toFixed(5)}`,
             pureExchangeRate: (+this.fromRate / +this.toRate).toFixed(5),
+            creationDate: this.currencyExchangeService.getCurrentDate(),
+            fromCurrency: this.fromCurrency,
+            toCurrency: this.toCurrency,
+            amount: this.amount,
         });
 
         this.storageService.setObject('exchangeRates', [
             ...this.currencyExchangeService.periodicHistoryExchangeRates,
         ]);
-
-        console.log(this.currencyExchangeService.periodicHistoryExchangeRates[0].exchangeRate);
 
         this.periodicHistoryData = this.currencyExchangeService.periodicHistoryExchangeRates;
 
@@ -177,13 +179,13 @@ export class ConverterComponent implements OnInit {
         );
     }
 
-    refreshTable() {
+    refreshTable(): void {
         this.dataSource = new MatTableDataSource(
             this.currencyExchangeService.periodicHistoryExchangeRates,
         );
     }
 
-    getHighestRate() {
+    getHighestRate(): number {
         return this.currencyExchangeService.periodicHistoryExchangeRates
             .map((item: PeriodicHistoryElement) => {
                 return Number(item.pureExchangeRate);
@@ -193,7 +195,7 @@ export class ConverterComponent implements OnInit {
         ];
     }
 
-    getLowestRate() {
+    getLowestRate(): number {
         return this.currencyExchangeService.periodicHistoryExchangeRates
             .map((item: PeriodicHistoryElement) => {
                 return Number(item.pureExchangeRate);
@@ -203,7 +205,7 @@ export class ConverterComponent implements OnInit {
         ];
     }
 
-    getAverageRate() {
+    getAverageRate(): number {
         let values = this.currencyExchangeService.periodicHistoryExchangeRates.map(
             (item: PeriodicHistoryElement) => {
                 return Number(item.pureExchangeRate);
@@ -212,6 +214,18 @@ export class ConverterComponent implements OnInit {
         let summary = values.reduce((acc, current) => current + acc, 0);
 
         return (summary / values.length).toFixed(5);
+    }
+
+    selectedTimeInterval(): void {
+        if (this.selectedDuration === 'sevenDays') {
+            this.currencyExchangeService.periodicHistoryExchangeRates.filter((item) => {
+                return this.currencyExchangeService.getCurrentDate() > item.creationDate;
+            });
+        } else if (this.selectedDuration === 'fourteenDays') {
+            console.log('fourteenDays');
+        } else {
+            console.log('thirtyDays');
+        }
     }
 
     private filterFromInputValue(value: string): string[] {

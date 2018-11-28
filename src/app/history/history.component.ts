@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {
+    CurrencyExchangeService,
+    PeriodicHistoryElement,
+} from '../shared/service/currency-exchange.service';
 
 export interface HistoryElement {
     date: string;
@@ -9,22 +13,28 @@ export interface HistoryElement {
 @Component({
     selector: 'app-history',
     templateUrl: './history.component.html',
-    styleUrls: [ './history.component.scss' ],
+    styleUrls: ['./history.component.scss'],
 })
 export class HistoryComponent implements OnInit {
-    periodicHistoryData: HistoryElement[] = [
-        { date: '03/04/2018', event: 'Converted an amount of 500 from EUR to USD', actions: '' },
-        { date: '03/04/2018', event: 'Converted an amount of 500 from EUR to USD', actions: '' },
-        { date: '03/04/2018', event: 'Converted an amount of 500 from EUR to USD', actions: '' },
-        { date: '03/04/2018', event: 'Converted an amount of 500 from EUR to USD', actions: '' },
-    ];
-    displayedHistoricalColumns: string[] = [ 'date', 'event', 'actions' ];
+    periodicHistoryData: HistoryElement[] = this.customHistoryData() || [];
+    displayedHistoricalColumns: string[] = ['date', 'event', 'actions'];
     periodicHistorySource = this.periodicHistoryData;
 
-    constructor() {
-    }
+    constructor(private currencyExchangeService: CurrencyExchangeService) {}
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 
+    customHistoryData() {
+        return this.currencyExchangeService.periodicHistoryExchangeRates.map(
+            (item: PeriodicHistoryElement): HistoryElement => {
+                return {
+                    date: item.date,
+                    event: `Converted an amount of ${item.amount} from ${item.fromCurrency} to ${
+                        item.toCurrency
+                    }`,
+                    actions: '',
+                };
+            },
+        );
+    }
 }

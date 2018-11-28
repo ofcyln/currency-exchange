@@ -7,6 +7,10 @@ export interface PeriodicHistoryElement {
     date: string;
     exchangeRate: string;
     pureExchangeRate?: number;
+    creationDate?: string;
+    fromCurrency?: string;
+    toCurrency?: string;
+    amount?: number;
 }
 
 @Injectable()
