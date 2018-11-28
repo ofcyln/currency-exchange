@@ -2,8 +2,10 @@ import { Injectable, OnInit } from '@angular/core';
 
 import { ExchangeRatesResponse } from '../interface/exchange-rates.model';
 import { StorageService } from './storage.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 export interface PeriodicHistoryElement {
+    id: number;
     date: string;
     exchangeRate: string;
     pureExchangeRate?: number;
@@ -15,6 +17,12 @@ export interface PeriodicHistoryElement {
 
 @Injectable()
 export class CurrencyExchangeService implements OnInit {
+    converterForm: FormGroup = new FormGroup({
+        amountControl: new FormControl('', [Validators.required]),
+        fromControl: new FormControl('', [Validators.required]),
+        toControl: new FormControl('', [Validators.required]),
+    });
+
     exchangeRates: ExchangeRatesResponse[];
     periodicHistoryExchangeRates: PeriodicHistoryElement[] =
         <PeriodicHistoryElement[]>this.storageService.getObject('exchangeRates') || [];

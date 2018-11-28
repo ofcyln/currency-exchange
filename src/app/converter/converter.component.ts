@@ -48,6 +48,7 @@ export class ConverterComponent implements OnInit {
     filteredFromValues: Observable<string[]>;
     filteredToValues: Observable<string[]>;
 
+    id: number = 0;
     amount: number;
     fromRate: string;
     fromCurrency: string;
@@ -65,11 +66,7 @@ export class ConverterComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.converterForm = new FormGroup({
-            amountControl: new FormControl('', [Validators.required]),
-            fromControl: new FormControl('', [Validators.required]),
-            toControl: new FormControl('', [Validators.required]),
-        });
+        this.converterForm = this.currencyExchangeService.converterForm;
 
         this.converterForm.controls['fromControl'].disable();
         this.converterForm.controls['toControl'].disable();
@@ -110,6 +107,7 @@ export class ConverterComponent implements OnInit {
         ).toFixed(3);
 
         this.currencyExchangeService.periodicHistoryExchangeRates.push({
+            id: this.id++,
             date: `${this.currencyExchangeService.getCurrentDate()} @${this.currencyExchangeService.getCurrentTime()}`,
             exchangeRate: `${this.fromCurrency} to ${this.toCurrency}
 \n${(+this.fromRate / +this.toRate).toFixed(5)}`,

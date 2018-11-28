@@ -23,10 +23,12 @@
                 <td mat-cell *matCellDef="let element">
                     <button
                         mat-button
+                        (click)="setCurrencyJob(element.amount, element.fromCurrency, element.toCurrency)"
                         class="icon-red-eye primary--color">View</button>
 
                     <button
                         mat-button
+                        (click)="removeCurrencyItem(element)"
                         class="icon-delete-forever warn--color ml-2">Delete from history</button>
                 </td>
             </ng-container>
