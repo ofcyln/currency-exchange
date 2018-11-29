@@ -56,7 +56,7 @@ export class ConverterComponent implements OnInit {
     toCurrency: string;
     result: string;
 
-    dataSource = new MatTableDataSource(this.currencyExchangeService.periodicHistoryExchangeRates);
+    dataSource = new MatTableDataSource(this.periodicHistorySource);
 
     constructor(
         public currencyExchangeService: CurrencyExchangeService,
@@ -124,9 +124,7 @@ export class ConverterComponent implements OnInit {
             ...this.currencyExchangeService.periodicHistoryExchangeRates,
         ]);
 
-        this.periodicHistoryData = this.currencyExchangeService.periodicHistoryExchangeRates;
-
-        this.refreshTable();
+        this.dataSource = new MatTableDataSource(this.periodicHistorySource);
     }
 
     changeExchangeInputValues(): void {

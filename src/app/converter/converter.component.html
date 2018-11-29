@@ -21,7 +21,7 @@
             type="text"
             placeholder="From"
             aria-label="From"
-            class="pb-0"
+            class="pb-0 from-control"
             matInput
             formControlName="fromControl"
             [matAutocomplete]="fromAutoComplete">
@@ -44,7 +44,7 @@
             type="text"
             placeholder="To"
             aria-label="To"
-            class="pb-0"
+            class="pb-0 to-control"
             matInput
             formControlName="toControl"
             [matAutocomplete]="toAutoComplete">
@@ -108,7 +108,7 @@
 
     <section class="history-table col-12 mb-4">
         <div class="d-flex flex-row no--padding mb-4">
-            <table mat-table [dataSource]="periodicHistorySource" class="mat-elevation-z8 col mr-2">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 col mr-2">
                 <!-- Date Column -->
                 <ng-container matColumnDef="date">
                     <th mat-header-cell *matHeaderCellDef> Date</th>
