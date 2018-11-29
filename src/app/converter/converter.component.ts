@@ -31,8 +31,8 @@ export enum FormNames {
 export class ConverterComponent implements OnInit {
     periodicHistoryData: PeriodicHistoryElement[] = this.currencyExchangeService
         .periodicHistoryExchangeRates;
+    dataSource = new MatTableDataSource(this.periodicHistoryData);
     displayedHistoricalColumns: string[] = ['date', 'exchangeRate'];
-    periodicHistorySource = this.periodicHistoryData;
 
     statisticalData: Statistics[] = [
         { name: 'Lowest', summary: this.getLowestRate() },
@@ -55,8 +55,6 @@ export class ConverterComponent implements OnInit {
     toRate: string;
     toCurrency: string;
     result: string;
-
-    dataSource = new MatTableDataSource(this.periodicHistorySource);
 
     constructor(
         public currencyExchangeService: CurrencyExchangeService,
@@ -124,7 +122,7 @@ export class ConverterComponent implements OnInit {
             ...this.currencyExchangeService.periodicHistoryExchangeRates,
         ]);
 
-        this.dataSource = new MatTableDataSource(this.periodicHistorySource);
+        this.dataSource = new MatTableDataSource(this.periodicHistoryData);
     }
 
     changeExchangeInputValues(): void {

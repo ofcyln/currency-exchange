@@ -6,6 +6,7 @@ import {
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { StorageService } from '../shared/service/storage.service';
+import { MatTableDataSource } from '@angular/material';
 
 export interface HistoryElement {
     id: number;
@@ -25,7 +26,7 @@ export interface HistoryElement {
 export class HistoryComponent implements OnInit {
     periodicHistoryData: HistoryElement[] = this.customHistoryData() || [];
     displayedHistoricalColumns: string[] = ['date', 'event', 'actions'];
-    periodicHistorySource = this.periodicHistoryData;
+    periodicHistoryDataSource = new MatTableDataSource(this.periodicHistoryData);
 
     constructor(
         private currencyExchangeService: CurrencyExchangeService,
@@ -66,7 +67,9 @@ export class HistoryComponent implements OnInit {
     removeCurrencyItem(element: PeriodicHistoryElement) {
         this.currencyExchangeService.periodicHistoryExchangeRates = this.filterHistoryList(element);
 
-        this.setFavoriteJokesToStorage();
+        this.setFilteredDataToStorage();
+
+        this.periodicHistoryDataSource = new MatTableDataSource(this.customHistoryData());
     }
 
     filterHistoryList(item: PeriodicHistoryElement): PeriodicHistoryElement[] {
@@ -75,7 +78,7 @@ export class HistoryComponent implements OnInit {
         );
     }
 
-    setFavoriteJokesToStorage() {
+    setFilteredDataToStorage() {
         this.storageService.setObject('exchangeRates', [
             ...this.currencyExchangeService.periodicHistoryExchangeRates,
         ]);
