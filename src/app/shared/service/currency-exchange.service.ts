@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 
-import { ExchangeRatesResponse } from '../interface/exchange-rates.model';
+import { ExchangeRatesResponse, MappedCurrencyRateObject } from '../interface/exchange-rates.model';
 import { StorageService } from './storage.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -23,7 +23,7 @@ export class CurrencyExchangeService implements OnInit {
         toControl: new FormControl('', [Validators.required]),
     });
 
-    exchangeRates: ExchangeRatesResponse[];
+    exchangeRates: MappedCurrencyRateObject[];
     periodicHistoryExchangeRates: PeriodicHistoryElement[] =
         <PeriodicHistoryElement[]>this.storageService.getObject('exchangeRates') || [];
 

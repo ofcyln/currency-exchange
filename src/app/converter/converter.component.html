@@ -77,16 +77,16 @@
         <p class="body-text--font-size no--margin">
             1 {{ fromCurrency }}
             =
-            {{ (+this.fromRate / +this.toRate).toFixed(5) }} {{ toCurrency }}
+            {{ (+toRate / +fromRate).toFixed(5) }} {{ toCurrency }}
         </p>
 
         <p class="w-100 no--margin"></p>
 
-        <p class="body-text--font-size no--margin">1 {{ toCurrency }} = {{ toRate }} {{ fromCurrency }}</p>
+        <p class="body-text--font-size no--margin">1 {{ toCurrency }} = {{ (+fromRate / +toRate).toFixed(5) }} {{ fromCurrency }}</p>
     </section>
 </article>
 
-<article class="row" *ngIf="this.currencyExchangeService.periodicHistoryExchangeRates.length > 0">
+<article class="row" *ngIf="currencyExchangeService.periodicHistoryExchangeRates.length > 0">
     <div class="col-12 mt-4 mb-2">
         <hr>
     </div>

@@ -26,7 +26,7 @@ export interface HistoryElement {
 export class HistoryComponent implements OnInit {
     periodicHistoryData: HistoryElement[] = this.customHistoryData() || [];
     displayedHistoricalColumns: string[] = ['date', 'event', 'actions'];
-    periodicHistoryDataSource = new MatTableDataSource(this.periodicHistoryData);
+    periodicHistoryDataSource = new MatTableDataSource(this.periodicHistoryData.reverse());
 
     constructor(
         private currencyExchangeService: CurrencyExchangeService,
@@ -37,21 +37,23 @@ export class HistoryComponent implements OnInit {
     ngOnInit() {}
 
     customHistoryData() {
-        return this.currencyExchangeService.periodicHistoryExchangeRates.map(
-            (item: PeriodicHistoryElement): HistoryElement => {
-                return {
-                    id: item.id,
-                    date: item.date,
-                    event: `Converted an amount of ${item.amount} from ${item.fromCurrency} to ${
-                        item.toCurrency
-                    }`,
-                    actions: '',
-                    amount: item.amount,
-                    fromCurrency: item.fromCurrency,
-                    toCurrency: item.toCurrency,
-                };
-            },
-        );
+        return this.currencyExchangeService.periodicHistoryExchangeRates
+            .map(
+                (item: PeriodicHistoryElement): HistoryElement => {
+                    return {
+                        id: item.id,
+                        date: item.date,
+                        event: `Converted an amount of ${item.amount} from ${
+                            item.fromCurrency
+                        } to ${item.toCurrency}`,
+                        actions: '',
+                        amount: item.amount,
+                        fromCurrency: item.fromCurrency,
+                        toCurrency: item.toCurrency,
+                    };
+                },
+            )
+            .reverse();
     }
 
     setCurrencyJob(amount: string, fromCurrency: string, toCurrency: string) {

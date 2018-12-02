@@ -9,9 +9,9 @@ import { ExchangeRatesResponse } from '../interface/exchange-rates.model';
 export class NomicsApiRequestService {
     constructor(public http: HttpClient) {}
 
-    public getExchangeRates(): Observable<ExchangeRatesResponse[]> {
-        return this.http.get<ExchangeRatesResponse[]>(
-            `${environment.exchangeRatesAPIUrl}/exchange-rates?key=${environment.nomicsAPIKey}`,
+    public getExchangeRates(baseCurrency: string): Observable<ExchangeRatesResponse> {
+        return this.http.get<ExchangeRatesResponse>(
+            `${environment.exchangeRatesAPIUrl}/latest?base=${baseCurrency}`,
         );
     }
 }

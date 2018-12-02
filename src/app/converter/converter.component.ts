@@ -8,7 +8,10 @@ import {
     CurrencyExchangeService,
     PeriodicHistoryElement,
 } from '../shared/service/currency-exchange.service';
-import { ExchangeRatesResponse } from '../shared/interface/exchange-rates.model';
+import {
+    ExchangeRatesResponse,
+    MappedCurrencyRateObject,
+} from '../shared/interface/exchange-rates.model';
 import { map, startWith } from 'rxjs/operators';
 import { StorageService } from '../shared/service/storage.service';
 import { MatTableDataSource } from '@angular/material';
@@ -31,7 +34,7 @@ export enum FormNames {
 export class ConverterComponent implements OnInit {
     periodicHistoryData: PeriodicHistoryElement[] = this.currencyExchangeService
         .periodicHistoryExchangeRates;
-    dataSource = new MatTableDataSource(this.periodicHistoryData);
+    dataSource = new MatTableDataSource(this.periodicHistoryData.reverse());
     displayedHistoricalColumns: string[] = ['date', 'exchangeRate'];
 
     statisticalData: Statistics[] = [
@@ -50,9 +53,9 @@ export class ConverterComponent implements OnInit {
 
     id: number = new Date().getTime();
     amount: number;
-    fromRate: string;
+    fromRate: number;
     fromCurrency: string;
-    toRate: string;
+    toRate: number;
     toCurrency: string;
     result: string;
 
@@ -69,9 +72,16 @@ export class ConverterComponent implements OnInit {
         this.converterForm.controls['fromControl'].disable();
         this.converterForm.controls['toControl'].disable();
 
-        this.apiRequestService.getExchangeRates().subscribe(
-            (exchangeRate: ExchangeRatesResponse[]) => {
-                this.currencyExchangeService.exchangeRates = exchangeRate;
+        this.apiRequestService.getExchangeRates('USD').subscribe(
+            (exchangeRate: ExchangeRatesResponse) => {
+                this.currencyExchangeService.exchangeRates = Object.keys(exchangeRate.rates).map(
+                    (item): MappedCurrencyRateObject => {
+                        return {
+                            currency: item,
+                            rate: exchangeRate.rates[item],
+                        };
+                    },
+                );
 
                 this.currencyExchangeService.fromCurrencies = this.mapItemCurrencies();
 
@@ -100,8 +110,8 @@ export class ConverterComponent implements OnInit {
         this.amount = Math.floor(this.converterForm.get('amountControl').value);
 
         this.result = (
-            (this.converterForm.get('amountControl').value * +this.fromRate) /
-            +this.toRate
+            (this.converterForm.get('amountControl').value * +this.toRate) /
+            +this.fromRate
         ).toFixed(3);
 
         this.id += 1;
@@ -110,8 +120,8 @@ export class ConverterComponent implements OnInit {
             id: this.id,
             date: `${this.currencyExchangeService.getCurrentDate()} @${this.currencyExchangeService.getCurrentTime()}`,
             exchangeRate: `${this.fromCurrency} to ${this.toCurrency}
-\n${(+this.fromRate / +this.toRate).toFixed(5)}`,
-            pureExchangeRate: Number((+this.fromRate / +this.toRate).toFixed(5)),
+\n${(+this.toRate / +this.fromRate).toFixed(5)}`,
+            pureExchangeRate: Number((+this.toRate / +this.fromRate).toFixed(5)),
             creationDate: this.currencyExchangeService.getCurrentDate(),
             fromCurrency: this.fromCurrency,
             toCurrency: this.toCurrency,
@@ -122,7 +132,7 @@ export class ConverterComponent implements OnInit {
             ...this.currencyExchangeService.periodicHistoryExchangeRates,
         ]);
 
-        this.dataSource = new MatTableDataSource(this.periodicHistoryData);
+        this.dataSource = new MatTableDataSource(this.periodicHistoryData.reverse());
     }
 
     changeExchangeInputValues(): void {
@@ -149,15 +159,17 @@ export class ConverterComponent implements OnInit {
         this.filteredToValues = this.getToValueChanges(FormNames.ToControl);
     }
 
-    filterSelectedValue(value: string): ExchangeRatesResponse {
-        return this.currencyExchangeService.exchangeRates.filter((item: ExchangeRatesResponse) => {
-            return item.currency === this.converterForm.get(value).value;
-        })[0];
+    filterSelectedValue(value: string): MappedCurrencyRateObject {
+        return this.currencyExchangeService.exchangeRates.filter(
+            (item: MappedCurrencyRateObject) => {
+                return item.currency === this.converterForm.get(value).value;
+            },
+        )[0];
     }
 
     mapItemCurrencies(): string[] {
         return this.currencyExchangeService.exchangeRates.map(
-            (currencyItem: ExchangeRatesResponse) => {
+            (currencyItem: MappedCurrencyRateObject) => {
                 return currencyItem.currency;
             },
         );
@@ -174,12 +186,6 @@ export class ConverterComponent implements OnInit {
         return this.converterForm.get(stringValue).valueChanges.pipe(
             startWith(''),
             map((value) => this.filterToInputValue(value)),
-        );
-    }
-
-    refreshTable(): void {
-        this.dataSource = new MatTableDataSource(
-            this.currencyExchangeService.periodicHistoryExchangeRates,
         );
     }
 
