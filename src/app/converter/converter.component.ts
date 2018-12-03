@@ -74,14 +74,7 @@ export class ConverterComponent implements OnInit {
 
         this.apiRequestService.getExchangeRates('USD').subscribe(
             (exchangeRate: ExchangeRatesResponse) => {
-                this.currencyExchangeService.exchangeRates = Object.keys(exchangeRate.rates).map(
-                    (item): MappedCurrencyRateObject => {
-                        return {
-                            currency: item,
-                            rate: exchangeRate.rates[item],
-                        };
-                    },
-                );
+                this.currencyExchangeService.exchangeRates = this.mapResponseData(exchangeRate);
 
                 this.currencyExchangeService.fromCurrencies = this.mapItemCurrencies();
 
@@ -109,12 +102,9 @@ export class ConverterComponent implements OnInit {
 
         this.amount = Math.floor(this.converterForm.get('amountControl').value);
 
-        this.result = (
-            (this.converterForm.get('amountControl').value * +this.toRate) /
-            +this.fromRate
-        ).toFixed(3);
+        this.result = this.calculateExchangeRate();
 
-        this.id += 1;
+        this.incrementId();
 
         this.currencyExchangeService.periodicHistoryExchangeRates.push({
             id: this.id,
@@ -148,7 +138,7 @@ export class ConverterComponent implements OnInit {
             ]),
         });
 
-        this.id += 1;
+        this.incrementId();
 
         this.currencyExchangeService.fromCurrencies = this.mapItemCurrencies();
 
@@ -171,6 +161,17 @@ export class ConverterComponent implements OnInit {
         return this.currencyExchangeService.exchangeRates.map(
             (currencyItem: MappedCurrencyRateObject) => {
                 return currencyItem.currency;
+            },
+        );
+    }
+
+    mapResponseData(responseData: ExchangeRatesResponse) {
+        return Object.keys(responseData.rates).map(
+            (item): MappedCurrencyRateObject => {
+                return {
+                    currency: item,
+                    rate: responseData.rates[item],
+                };
             },
         );
     }
@@ -218,6 +219,17 @@ export class ConverterComponent implements OnInit {
         let summary = values.reduce((acc, current) => current + acc, 0);
 
         return Number((summary / values.length).toFixed(5));
+    }
+
+    calculateExchangeRate(): string {
+        return (
+            (this.converterForm.get('amountControl').value * +this.toRate) /
+            +this.fromRate
+        ).toFixed(3);
+    }
+
+    incrementId(): number {
+        return (this.id += 1);
     }
 
     selectedTimeInterval(): void {
