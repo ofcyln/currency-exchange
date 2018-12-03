@@ -59,11 +59,6 @@ export class ConverterComponent implements OnInit {
     toCurrency: string;
     result: string;
 
-    protected readonly STARTING_VALUE = 0;
-    protected readonly FRACTION_DIGITS_FIVE = 5;
-    protected readonly FRACTION_DIGITS_THREE = 3;
-    protected readonly TO_GET_LENGTH = 1;
-
     constructor(
         public currencyExchangeService: CurrencyExchangeService,
         private apiRequestService: NomicsApiRequestService,
@@ -115,10 +110,8 @@ export class ConverterComponent implements OnInit {
             id: this.id,
             date: `${this.currencyExchangeService.getCurrentDate()} @${this.currencyExchangeService.getCurrentTime()}`,
             exchangeRate: `${this.fromCurrency} to ${this.toCurrency}
-\n${(+this.toRate / +this.fromRate).toFixed(this.FRACTION_DIGITS_FIVE)}`,
-            pureExchangeRate: Number(
-                (+this.toRate / +this.fromRate).toFixed(this.FRACTION_DIGITS_FIVE),
-            ),
+\n${(+this.toRate / +this.fromRate).toFixed(5)}`,
+            pureExchangeRate: Number((+this.toRate / +this.fromRate).toFixed(5)),
             creationDate: this.currencyExchangeService.getCurrentDate(),
             fromCurrency: this.fromCurrency,
             toCurrency: this.toCurrency,
@@ -203,7 +196,7 @@ export class ConverterComponent implements OnInit {
                 return Number(item.pureExchangeRate);
             })
             .sort((first, second) => first - second)[
-            this.currencyExchangeService.periodicHistoryExchangeRates.length - this.TO_GET_LENGTH
+            this.currencyExchangeService.periodicHistoryExchangeRates.length - 1
         ];
     }
 
@@ -213,7 +206,7 @@ export class ConverterComponent implements OnInit {
                 return Number(item.pureExchangeRate);
             })
             .sort((first, second) => second - first)[
-            this.currencyExchangeService.periodicHistoryExchangeRates.length - this.TO_GET_LENGTH
+            this.currencyExchangeService.periodicHistoryExchangeRates.length - 1
         ];
     }
 
@@ -223,16 +216,16 @@ export class ConverterComponent implements OnInit {
                 return Number(item.pureExchangeRate);
             },
         );
-        let summary = values.reduce((acc, current) => current + acc, this.STARTING_VALUE);
+        let summary = values.reduce((acc, current) => current + acc, 5);
 
-        return Number((summary / values.length).toFixed(this.FRACTION_DIGITS_FIVE));
+        return Number((summary / values.length).toFixed(5));
     }
 
     calculateExchangeRate(): string {
         return (
             (this.converterForm.get('amountControl').value * +this.toRate) /
             +this.fromRate
-        ).toFixed(this.FRACTION_DIGITS_THREE);
+        ).toFixed(3);
     }
 
     incrementId(): number {
