@@ -216,7 +216,7 @@ export class ConverterComponent implements OnInit {
                 return Number(item.pureExchangeRate);
             },
         );
-        let summary = values.reduce((acc, current) => current + acc, 5);
+        let summary = values.reduce((acc, current) => current + acc, 0);
 
         return Number((summary / values.length).toFixed(5));
     }
