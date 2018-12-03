@@ -42,8 +42,8 @@ export class ConverterComponent implements OnInit {
         { name: 'Highest', summary: this.getHighestRate() },
         { name: 'Average', summary: this.getAverageRate() > -1 ? this.getAverageRate() : 0 },
     ];
+    statisticalDataSource = new MatTableDataSource(this.statisticalData);
     displayedStatisticalColumns: string[] = ['name', 'summary'];
-    statisticalSource = this.statisticalData;
 
     selectedDuration = 'sevenDays';
 

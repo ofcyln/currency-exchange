@@ -125,7 +125,8 @@
                 <tr mat-row *matRowDef="let row; columns: displayedHistoricalColumns;"></tr>
             </table>
 
-            <table mat-table [dataSource]="statisticalSource" class="mat-elevation-z8 col ml-2">
+            <table
+                mat-table [dataSource]="statisticalDataSource" class="mat-elevation-z8 col ml-2">
                 <!-- Name Column -->
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef> Statistics</th>

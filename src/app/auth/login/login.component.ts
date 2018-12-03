@@ -4,11 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { AuthService } from '../auth.service';
 import { AlertService } from '../../core/alert/alert.service';
+import { interval } from 'rxjs';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
-    styleUrls: [ './login.component.scss' ],
+    styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
     public loginForm: FormGroup;
@@ -30,8 +31,8 @@ export class LoginComponent implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/converter';
 
         this.loginForm = new FormGroup({
-            username: new FormControl('', [Validators.required]),
-            password: new FormControl('', [Validators.required]),
+            username: new FormControl('user1', [Validators.required]),
+            password: new FormControl('pass1', [Validators.required]),
         });
     }
 

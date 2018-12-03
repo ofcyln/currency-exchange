@@ -31,7 +31,7 @@
             border-bottom: 1px solid #dedede;
             color: #616161;
             background: transparent;
-            &.ng-valid-required, &.ng-valid.ng-dirty, &.ng-dirty {
+            &.ng-valid-required, &.ng-valid.ng-touched, &.ng-valid.ng-dirty, &.ng-valid {
                 ~ {
                     label {
                         top: -10px;
