@@ -24,9 +24,9 @@ export interface HistoryElement {
     styleUrls: ['./history.component.scss'],
 })
 export class HistoryComponent implements OnInit {
-    periodicHistoryData: HistoryElement[] = this.customHistoryData() || [];
+    periodicHistoryData: HistoryElement[];
     displayedHistoricalColumns: string[] = ['date', 'event', 'actions'];
-    periodicHistoryDataSource = new MatTableDataSource(this.periodicHistoryData.reverse());
+    periodicHistoryDataSource: MatTableDataSource;
 
     constructor(
         private currencyExchangeService: CurrencyExchangeService,
@@ -34,26 +34,27 @@ export class HistoryComponent implements OnInit {
         private storageService: StorageService,
     ) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.periodicHistoryData = this.customHistoryData().reverse() || [];
+        this.periodicHistoryDataSource = new MatTableDataSource(this.periodicHistoryData.reverse());
+    }
 
     customHistoryData() {
-        return this.currencyExchangeService.periodicHistoryExchangeRates
-            .map(
-                (item: PeriodicHistoryElement): HistoryElement => {
-                    return {
-                        id: item.id,
-                        date: item.date,
-                        event: `Converted an amount of ${item.amount} from ${
-                            item.fromCurrency
-                        } to ${item.toCurrency}`,
-                        actions: '',
-                        amount: item.amount,
-                        fromCurrency: item.fromCurrency,
-                        toCurrency: item.toCurrency,
-                    };
-                },
-            )
-            .reverse();
+        return this.currencyExchangeService.periodicHistoryExchangeRates.map(
+            (item: PeriodicHistoryElement): HistoryElement => {
+                return {
+                    id: item.id,
+                    date: item.date,
+                    event: `Converted an amount of ${item.amount} from ${item.fromCurrency} to ${
+                        item.toCurrency
+                    }`,
+                    actions: '',
+                    amount: item.amount,
+                    fromCurrency: item.fromCurrency,
+                    toCurrency: item.toCurrency,
+                };
+            },
+        );
     }
 
     setCurrencyJob(amount: string, fromCurrency: string, toCurrency: string) {

@@ -165,9 +165,9 @@ export class ConverterComponent implements OnInit {
             .sort();
     }
 
-    mapResponseData(responseData: ExchangeRatesResponse) {
+    mapResponseData(responseData: ExchangeRatesResponse): MappedCurrencyRateObject[] {
         return Object.keys(responseData.rates).map(
-            (item): MappedCurrencyRateObject => {
+            (item: string): MappedCurrencyRateObject => {
                 return {
                     currency: item,
                     rate: responseData.rates[item],
