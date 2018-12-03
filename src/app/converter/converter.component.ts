@@ -104,7 +104,7 @@ export class ConverterComponent implements OnInit {
 
         this.result = this.calculateExchangeRate();
 
-        this.incrementId();
+        this.incrementNumberForID();
 
         this.currencyExchangeService.periodicHistoryExchangeRates.push({
             id: this.id,
@@ -138,7 +138,7 @@ export class ConverterComponent implements OnInit {
             ]),
         });
 
-        this.incrementId();
+        this.incrementNumberForID();
 
         this.currencyExchangeService.fromCurrencies = this.mapItemCurrencies();
 
@@ -228,7 +228,7 @@ export class ConverterComponent implements OnInit {
         ).toFixed(3);
     }
 
-    incrementId(): number {
+    incrementNumberForID(): number {
         return (this.id += 1);
     }
 
