@@ -26,7 +26,7 @@ export interface HistoryElement {
 export class HistoryComponent implements OnInit {
     periodicHistoryData: HistoryElement[];
     displayedHistoricalColumns: string[] = ['date', 'event', 'actions'];
-    periodicHistoryDataSource: MatTableDataSource;
+    periodicHistoryDataSource: MatTableDataSource<HistoryElement>;
 
     constructor(
         private currencyExchangeService: CurrencyExchangeService,
