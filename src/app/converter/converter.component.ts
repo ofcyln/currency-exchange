@@ -158,11 +158,11 @@ export class ConverterComponent implements OnInit {
     }
 
     mapItemCurrencies(): string[] {
-        return this.currencyExchangeService.exchangeRates.map(
-            (currencyItem: MappedCurrencyRateObject) => {
+        return this.currencyExchangeService.exchangeRates
+            .map((currencyItem: MappedCurrencyRateObject) => {
                 return currencyItem.currency;
-            },
-        );
+            })
+            .sort();
     }
 
     mapResponseData(responseData: ExchangeRatesResponse) {
