@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Observable } from 'rxjs';
-import { NomicsApiRequestService } from '../shared/service/nomics-api-request.service';
+import { ExchangeRatesApiRequestService } from '../shared/service/exchange-rates-api-request.service';
 import { AlertService } from '../core/alert/alert.service';
 import {
     CurrencyExchangeService,
@@ -32,36 +32,36 @@ export enum FormNames {
     styleUrls: ['./converter.component.scss'],
 })
 export class ConverterComponent implements OnInit {
-    periodicHistoryData: PeriodicHistoryElement[] = this.currencyExchangeService
+    public periodicHistoryData: PeriodicHistoryElement[] = this.currencyExchangeService
         .periodicHistoryExchangeRates;
-    dataSource = new MatTableDataSource(this.periodicHistoryData.reverse());
-    displayedHistoricalColumns: string[] = ['date', 'exchangeRate'];
+    public dataSource = new MatTableDataSource(this.periodicHistoryData.reverse());
+    public displayedHistoricalColumns: string[] = ['date', 'exchangeRate'];
 
-    statisticalData: Statistics[] = [
+    public statisticalData: Statistics[] = [
         { name: 'Lowest', summary: this.getLowestRate() },
         { name: 'Highest', summary: this.getHighestRate() },
         { name: 'Average', summary: this.getAverageRate() > -1 ? this.getAverageRate() : 0 },
     ];
-    statisticalDataSource = new MatTableDataSource(this.statisticalData);
-    displayedStatisticalColumns: string[] = ['name', 'summary'];
+    public statisticalDataSource = new MatTableDataSource(this.statisticalData);
+    public displayedStatisticalColumns: string[] = ['name', 'summary'];
 
-    selectedDuration = 'sevenDays';
+    public selectedDuration = 'sevenDays';
 
-    converterForm: FormGroup;
-    filteredFromValues: Observable<string[]>;
-    filteredToValues: Observable<string[]>;
+    public converterForm: FormGroup;
+    public filteredFromValues: Observable<string[]>;
+    public filteredToValues: Observable<string[]>;
 
-    id: number = new Date().getTime();
-    amount: number;
-    fromRate: number;
-    fromCurrency: string;
-    toRate: number;
-    toCurrency: string;
-    result: string;
+    public id: number = new Date().getTime();
+    public amount: number;
+    public fromRate: number;
+    public fromCurrency: string;
+    public toRate: number;
+    public toCurrency: string;
+    public result: string;
 
     constructor(
         public currencyExchangeService: CurrencyExchangeService,
-        private apiRequestService: NomicsApiRequestService,
+        private apiRequestService: ExchangeRatesApiRequestService,
         private alertService: AlertService,
         private storageService: StorageService,
     ) {}

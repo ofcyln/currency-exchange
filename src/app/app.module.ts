@@ -17,17 +17,13 @@ import {
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatTableModule
+    MatTableModule,
 } from '@angular/material';
-import { NomicsApiRequestService } from './shared/service/nomics-api-request.service';
+import { ExchangeRatesApiRequestService } from './shared/service/exchange-rates-api-request.service';
 import { CurrencyExchangeService } from './shared/service/currency-exchange.service';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        ConverterComponent,
-        HistoryComponent,
-    ],
+    declarations: [AppComponent, ConverterComponent, HistoryComponent],
     imports: [
         BrowserModule,
         HttpClientModule,
@@ -44,11 +40,7 @@ import { CurrencyExchangeService } from './shared/service/currency-exchange.serv
         MatTableModule,
         MatAutocompleteModule,
     ],
-    providers: [
-        NomicsApiRequestService,
-        CurrencyExchangeService,
-    ],
-    bootstrap: [ AppComponent ],
+    providers: [ExchangeRatesApiRequestService, CurrencyExchangeService],
+    bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

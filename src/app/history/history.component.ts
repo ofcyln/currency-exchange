@@ -24,9 +24,9 @@ export interface HistoryElement {
     styleUrls: ['./history.component.scss'],
 })
 export class HistoryComponent implements OnInit {
-    periodicHistoryData: HistoryElement[];
-    displayedHistoricalColumns: string[] = ['date', 'event', 'actions'];
-    periodicHistoryDataSource: MatTableDataSource<HistoryElement>;
+    public periodicHistoryData: HistoryElement[];
+    public displayedHistoricalColumns: string[] = ['date', 'event', 'actions'];
+    public periodicHistoryDataSource: MatTableDataSource<HistoryElement>;
 
     constructor(
         private currencyExchangeService: CurrencyExchangeService,

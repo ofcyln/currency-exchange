@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { ExchangeRatesResponse } from '../interface/exchange-rates.model';
 
 @Injectable()
-export class NomicsApiRequestService {
+export class ExchangeRatesApiRequestService {
     constructor(public http: HttpClient) {}
 
     public getExchangeRates(baseCurrency: string): Observable<ExchangeRatesResponse> {
