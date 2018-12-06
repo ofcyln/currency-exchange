@@ -37,26 +37,32 @@ export class CurrencyExchangeService implements OnInit {
 
     ngOnInit() {}
 
-    getCurrentDate(): string {
-        let currentDay = new Date().getDate();
-        let currentMonth = new Date().getMonth() + 1;
-        let currentYear = new Date().getFullYear();
+    toTwoDigits(givenNumber: number) {
+        return givenNumber > 9 ? `${givenNumber}` : `0${givenNumber}`;
+    }
 
-        this.currentDate = `${currentDay < 10 ? '0' : ''}${currentDay}/${
-            currentMonth < 10 ? '0' : ''
-        }${currentMonth}/${currentYear}`;
+    getCurrentDate(): string {
+        const now = new Date();
+
+        const currentDay = now.getDate();
+        const currentMonth = now.getMonth() + 1;
+        const currentYear = now.getFullYear();
+
+        this.currentDate = [currentDay, currentMonth, currentYear].map(this.toTwoDigits).join('/');
 
         return this.currentDate;
     }
 
     getCurrentTime(): string {
-        let currentHour = new Date().getHours();
-        let currentMinute = new Date().getMinutes();
-        let currentSecond = new Date().getSeconds();
+        const now = new Date();
 
-        this.currentTime = `${currentHour < 10 ? '0' : ''}${currentHour}:${
-            currentMinute < 10 ? '0' : ''
-        }${currentMinute}:${currentSecond < 10 ? '0' : ''}${currentSecond}`;
+        const currentHour = now.getHours();
+        const currentMinute = now.getMinutes();
+        const currentSecond = now.getSeconds();
+
+        this.currentTime = [currentHour, currentMinute, currentSecond]
+            .map(this.toTwoDigits)
+            .join(':');
 
         return this.currentTime;
     }
