@@ -108,11 +108,12 @@ export class ConverterComponent implements OnInit {
 
         this.currencyExchangeService.periodicHistoryExchangeRates.push({
             id: this.id,
-            date: `${this.currencyExchangeService.getCurrentDate()} @${this.currencyExchangeService.getCurrentTime()}`,
+            date: `${this.currencyExchangeService.getCurrentDate('/')}
+\n@${this.currencyExchangeService.getCurrentTime(':')}`,
             exchangeRate: `${this.fromCurrency} to ${this.toCurrency}
 \n${(+this.toRate / +this.fromRate).toFixed(5)}`,
             pureExchangeRate: Number((+this.toRate / +this.fromRate).toFixed(5)),
-            creationDate: this.currencyExchangeService.getCurrentDate(),
+            creationDate: this.currencyExchangeService.getCurrentDate('/'),
             fromCurrency: this.fromCurrency,
             toCurrency: this.toCurrency,
             amount: this.amount,
@@ -235,7 +236,7 @@ export class ConverterComponent implements OnInit {
     selectedTimeInterval(): void {
         if (this.selectedDuration === 'sevenDays') {
             this.currencyExchangeService.periodicHistoryExchangeRates.filter((item) => {
-                return this.currencyExchangeService.getCurrentDate() > item.creationDate;
+                return this.currencyExchangeService.getCurrentDate('/') > item.creationDate;
             });
         } else if (this.selectedDuration === 'fourteenDays') {
             console.log('fourteenDays');

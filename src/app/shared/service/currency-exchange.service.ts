@@ -41,19 +41,21 @@ export class CurrencyExchangeService implements OnInit {
         return givenNumber > 9 ? `${givenNumber}` : `0${givenNumber}`;
     }
 
-    getCurrentDate(): string {
+    getCurrentDate(seperator: string): string {
         const now = new Date();
 
         const currentDay = now.getDate();
         const currentMonth = now.getMonth() + 1;
         const currentYear = now.getFullYear();
 
-        this.currentDate = [currentDay, currentMonth, currentYear].map(this.toTwoDigits).join('/');
+        this.currentDate = [currentDay, currentMonth, currentYear]
+            .map(this.toTwoDigits)
+            .join(seperator);
 
         return this.currentDate;
     }
 
-    getCurrentTime(): string {
+    getCurrentTime(seperator: string): string {
         const now = new Date();
 
         const currentHour = now.getHours();
@@ -62,7 +64,7 @@ export class CurrencyExchangeService implements OnInit {
 
         this.currentTime = [currentHour, currentMinute, currentSecond]
             .map(this.toTwoDigits)
-            .join(':');
+            .join(seperator);
 
         return this.currentTime;
     }
