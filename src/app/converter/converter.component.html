@@ -8,7 +8,7 @@
     (ngSubmit)="exchangeRates()"
     novalidate>
 
-    <mat-form-field class="margin-sm-right col-6 col-sm-3 col">
+    <mat-form-field class="margin-sm-right col-12 col-md-6 col-lg-3 col-xl-3">
         <input
             matInput
             placeholder="Amount"
@@ -16,7 +16,7 @@
             type="number">
     </mat-form-field>
 
-    <mat-form-field class="margin-sm-left-right col-6 col-sm-3 col-md-3">
+    <mat-form-field class="margin-sm-left-right col-12 col-md-6 col-lg-3 col-xl-3">
         <input
             type="text"
             placeholder="From"
@@ -39,7 +39,7 @@
         (click)="changeExchangeInputValues()"
         class="icon-compare-arrows cursor--pointer primary--color margin-sm-left-right opposite-arrows"></button>
 
-    <mat-form-field class="margin-sm-left col-6 col-sm-3 col-md-3">
+    <mat-form-field class="margin-sm-left col-12 col-md-6 col-lg-3 col-xl-3">
         <input
             type="text"
             placeholder="To"
@@ -106,42 +106,51 @@
         <!--</mat-form-field>-->
     <!--</div>-->
 
-    <section class="history-table col-12 mb-4">
-        <div class="d-flex flex-row no--padding mb-4">
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 col mr-2">
-                <!-- Date Column -->
-                <ng-container matColumnDef="date">
-                    <th mat-header-cell *matHeaderCellDef> Date</th>
-                    <td mat-cell *matCellDef="let element"> {{element.date}}</td>
-                </ng-container>
+    <section class="history-table col-12 mb-4 pl-2 pr-2">
+        <div class="row flex-xl-row flex-lg-row flex-md-row flex-sm-column no--padding m-0 mb-4">
+            <div class="col-12 col-md-6 col-lg-6 col-xl-6 p-0 pr-lg-2 pr-md-2 pr-xl-2">
+                <table
+                    mat-table
+                    [dataSource]="dataSource"
+                    class="mat-elevation-z8 w-100">
+                    <!-- Date Column -->
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef> Date</th>
+                        <td mat-cell *matCellDef="let element"> {{element.date}}</td>
+                    </ng-container>
 
-                <!-- Exchange Rate Column -->
-                <ng-container matColumnDef="exchangeRate">
-                    <th mat-header-cell *matHeaderCellDef> Exchange rate</th>
-                    <td mat-cell *matCellDef="let element"> {{element.exchangeRate}}</td>
-                </ng-container>
+                    <!-- Exchange Rate Column -->
+                    <ng-container matColumnDef="exchangeRate">
+                        <th mat-header-cell *matHeaderCellDef> Exchange rate</th>
+                        <td mat-cell *matCellDef="let element"> {{element.exchangeRate}}</td>
+                    </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="displayedHistoricalColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedHistoricalColumns;"></tr>
-            </table>
+                    <tr mat-header-row *matHeaderRowDef="displayedHistoricalColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedHistoricalColumns;"></tr>
+                </table>
+            </div>
 
-            <table
-                mat-table [dataSource]="statisticalDataSource" class="mat-elevation-z8 col ml-2">
-                <!-- Name Column -->
-                <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef> Statistics</th>
-                    <td mat-cell *matCellDef="let element"> {{element.name}}</td>
-                </ng-container>
+            <div class="col-12 col-md-6 col-lg-6 col-xl-6 p-0 pl-lg-2 pl-md-2 pl-xl-2 mt-4 mt-sm-0">
+                <table
+                    mat-table
+                    [dataSource]="statisticalDataSource"
+                    class="mat-elevation-z8 w-100">
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> Statistics</th>
+                        <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+                    </ng-container>
 
-                <!-- Summary Column -->
-                <ng-container matColumnDef="summary">
-                    <th mat-header-cell *matHeaderCellDef></th>
-                    <td mat-cell *matCellDef="let element"> {{element.summary}}</td>
-                </ng-container>
+                    <!-- Summary Column -->
+                    <ng-container matColumnDef="summary">
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let element"> {{element.summary}}</td>
+                    </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="displayedStatisticalColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedStatisticalColumns;"></tr>
-            </table>
+                    <tr mat-header-row *matHeaderRowDef="displayedStatisticalColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedStatisticalColumns;"></tr>
+                </table>
+            </div>
         </div>
     </section>
 </article>

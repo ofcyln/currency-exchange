@@ -1,3 +1,58 @@
-@media only screen and (max-width: 991px) {
-
+@media only screen and (max-width: 678px) {
+    .margin-sm-left-right, .margin-sm-left {
+        margin: 0 !important;
+    }
+    .title--font-size {
+        font-size: 24px !important;
+    }
+    .icon-compare-arrows {
+        width: 20% !important;
+        margin: 0 auto !important;
+        &:before {
+            transform: rotate(90deg);
+        }
+    }
+    .conversion-area {
+        .convert-button {
+            width: 40% !important;
+            margin: 0 auto !important;
+        }
+    }
+    .navbar-brand {
+        padding: 10px 0 !important;
+    }
+    table.mat-table {
+        width: 100% !important;
+    }
+    main {
+        margin-top: 20px !important;
+    }
+    .header-content .navbar .logout-button {
+        order: 2;
+        position: absolute;
+        right: 0;
+    }
+    .navbar-expand .navbar-collapse {
+        order: 3;
+    }
+    .header-content .navbar .navbar-nav .nav-item .nav-link {
+        font-size: 12px !important;
+    }
+    .history-area-table {
+        tr {
+            .mat-column-actions {
+                min-width: 155px !important;
+                max-width: 155px !important;
+                button {
+                    display: inherit !important;
+                    margin: 0 !important;
+                    font-size: 12px !important;
+                }
+            }
+        }
+    }
+    td.mat-cell {
+        font-size: 11px !important;
+        padding: 10px !important;;
+    }
 }
