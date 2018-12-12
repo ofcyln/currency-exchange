@@ -34,7 +34,8 @@ export enum FormNames {
 export class ConverterComponent implements OnInit {
     public periodicHistoryData: PeriodicHistoryElement[] = this.currencyExchangeService
         .periodicHistoryExchangeRates;
-    public dataSource = new MatTableDataSource(this.periodicHistoryData.reverse());
+
+    public dataSource = new MatTableDataSource(this.periodicHistoryData);
     public displayedHistoricalColumns: string[] = ['date', 'exchangeRate'];
 
     public statisticalData: Statistics[] = [
@@ -123,7 +124,7 @@ export class ConverterComponent implements OnInit {
             ...this.currencyExchangeService.periodicHistoryExchangeRates,
         ]);
 
-        this.dataSource = new MatTableDataSource(this.periodicHistoryData.reverse());
+        this.dataSource = new MatTableDataSource(this.periodicHistoryData);
     }
 
     changeExchangeInputValues(): void {

@@ -35,8 +35,8 @@ export class HistoryComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.periodicHistoryData = this.customHistoryData().reverse() || [];
-        this.periodicHistoryDataSource = new MatTableDataSource(this.periodicHistoryData.reverse());
+        this.periodicHistoryData = this.customHistoryData() || [];
+        this.periodicHistoryDataSource = new MatTableDataSource(this.periodicHistoryData);
     }
 
     customHistoryData() {
