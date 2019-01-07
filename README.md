@@ -1,10 +1,14 @@
-# Payconiq Currency Converter - IN PROGRESS
+# Currency Converter - (Formerly assessment of Payqonic)
 
-Payconiq Assessment - Currency Converter app assessment solution authored by Osman Fikret Ceylan.
+Currency Converter app assessment solution authored by Osman Fikret Ceylan.
 
 ## Usage
 
 ### Using the project on your local environment
+
+The final app hosted on [https://currencyexchange.work](https://currencyexchange.work).
+
+----------------
 
 Run these commands in the terminal to run the app on your local environment
 
