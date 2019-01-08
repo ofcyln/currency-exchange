@@ -7,6 +7,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export interface PeriodicHistoryElement {
     id: number;
     date: string;
+    time: string;
     exchangeRate: string;
     pureExchangeRate?: number;
     creationDate?: string;

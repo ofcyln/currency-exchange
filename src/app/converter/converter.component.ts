@@ -85,7 +85,7 @@ export class ConverterComponent implements OnInit {
                 this.converterForm.controls['toControl'].enable();
             },
             (error) => {
-                this.alertService.error(`Error: ${error}`);
+                this.alertService.error(`Error: ${error.message}`);
             },
         );
 
@@ -107,10 +107,11 @@ export class ConverterComponent implements OnInit {
 
         this.incrementNumberForID();
 
-        this.currencyExchangeService.periodicHistoryExchangeRates.push({
+        this.currencyExchangeService.periodicHistoryExchangeRates.unshift({
             id: this.id,
             date: `${this.currencyExchangeService.getCurrentDate('/')}
 \n@${this.currencyExchangeService.getCurrentTime(':')}`,
+            time: this.currencyExchangeService.getCurrentTime(':'),
             exchangeRate: `${this.fromCurrency} to ${this.toCurrency}
 \n${(+this.toRate / +this.fromRate).toFixed(5)}`,
             pureExchangeRate: Number((+this.toRate / +this.fromRate).toFixed(5)),
