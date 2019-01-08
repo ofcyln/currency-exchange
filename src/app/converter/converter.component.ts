@@ -38,11 +38,7 @@ export class ConverterComponent implements OnInit {
     public dataSource = new MatTableDataSource(this.periodicHistoryData);
     public displayedHistoricalColumns: string[] = ['date', 'exchangeRate'];
 
-    public statisticalData: Statistics[] = [
-        { name: 'Lowest', summary: this.getLowestRate() },
-        { name: 'Highest', summary: this.getHighestRate() },
-        { name: 'Average', summary: this.getAverageRate() > -1 ? this.getAverageRate() : 0 },
-    ];
+    public statisticalData: Statistics[];
     public statisticalDataSource = new MatTableDataSource(this.statisticalData);
     public displayedStatisticalColumns: string[] = ['name', 'summary'];
 
@@ -92,6 +88,14 @@ export class ConverterComponent implements OnInit {
         this.filteredFromValues = this.getFromValueChanges(FormNames.FromControl);
 
         this.filteredToValues = this.getToValueChanges(FormNames.ToControl);
+
+        this.statisticalData = [
+            { name: 'Lowest', summary: this.getLowestRate() },
+            { name: 'Highest', summary: this.getHighestRate() },
+            { name: 'Average', summary: this.getAverageRate() > -1 ? this.getAverageRate() : 0 },
+        ];
+
+        this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
     }
 
     exchangeRates(): void {
@@ -126,6 +130,13 @@ export class ConverterComponent implements OnInit {
         ]);
 
         this.dataSource = new MatTableDataSource(this.periodicHistoryData);
+        this.statisticalData = [
+            { name: 'Lowest', summary: this.getLowestRate() },
+            { name: 'Highest', summary: this.getHighestRate() },
+            { name: 'Average', summary: this.getAverageRate() > -1 ? this.getAverageRate() : 0 },
+        ];
+
+        this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
     }
 
     changeExchangeInputValues(): void {
