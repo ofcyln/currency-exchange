@@ -246,9 +246,22 @@ export class ConverterComponent implements OnInit {
         return (this.id += 1);
     }
 
-    filterTableUponTime(date: string, timeInterval: number): PeriodicHistoryElement[] {
+    filterTableUponDay(date: string, dayInterval: number): PeriodicHistoryElement[] {
         return this.currencyExchangeService.periodicHistoryExchangeRates.filter((item) => {
-            return Math.abs(+item.creationDate.split('/')[0] - +date.split('/')[0]) <= timeInterval;
+            return Math.abs(+item.creationDate.split('/')[0] - +date.split('/')[0]) <= dayInterval;
+        });
+    }
+
+    filterTableUponMonth(
+        date: string,
+        dayInterval: number,
+        monthInterval: number,
+    ): PeriodicHistoryElement[] {
+        return this.currencyExchangeService.periodicHistoryExchangeRates.filter((item) => {
+            return (
+                Math.abs(+item.creationDate.split('/')[0] - +date.split('/')[0]) <= dayInterval &&
+                Math.abs(+item.creationDate.split('/')[1] - +date.split('/')[1]) <= monthInterval
+            );
         });
     }
 
@@ -256,15 +269,15 @@ export class ConverterComponent implements OnInit {
         const date = this.currencyExchangeService.getCurrentDate('/');
 
         if (this.selectedDuration === 'sevenDays') {
-            const sevenDaysData = this.filterTableUponTime(date, 6);
+            const sevenDaysData = this.filterTableUponDay(date, 6);
 
             this.dataSource = new MatTableDataSource(sevenDaysData);
         } else if (this.selectedDuration === 'fourteenDays') {
-            const fourteenDaysData = this.filterTableUponTime(date, 13);
+            const fourteenDaysData = this.filterTableUponMonth(date, 13, 0);
 
             this.dataSource = new MatTableDataSource(fourteenDaysData);
         } else if (this.selectedDuration === 'thirtyDays') {
-            const thirtyDays = this.filterTableUponTime(date, 30);
+            const thirtyDays = this.filterTableUponMonth(date, 30, 1);
 
             this.dataSource = new MatTableDataSource(thirtyDays);
         } else {
