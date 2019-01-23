@@ -42,7 +42,7 @@ export class ConverterComponent implements OnInit {
     public statisticalDataSource = new MatTableDataSource(this.statisticalData);
     public displayedStatisticalColumns: string[] = ['name', 'summary'];
 
-    public selectedDuration = 'sevenDays';
+    public selectedDuration = 'allTime';
 
     public converterForm: FormGroup;
     public filteredFromValues: Observable<string[]>;
@@ -246,15 +246,29 @@ export class ConverterComponent implements OnInit {
         return (this.id += 1);
     }
 
+    filterTableUponTime(date: string, interval: number): PeriodicHistoryElement[] {
+        return this.currencyExchangeService.periodicHistoryExchangeRates.filter((item) => {
+            return Math.abs(+item.creationDate.split('/')[0] - +date.split('/')[0]) <= interval;
+        });
+    }
+
     selectedTimeInterval(): void {
+        const date = this.currencyExchangeService.getCurrentDate('/');
+
         if (this.selectedDuration === 'sevenDays') {
-            this.currencyExchangeService.periodicHistoryExchangeRates.filter((item) => {
-                return this.currencyExchangeService.getCurrentDate('/') > item.creationDate;
-            });
+            const sevenDaysData = this.filterTableUponTime(date, 6);
+
+            this.dataSource = new MatTableDataSource(sevenDaysData);
         } else if (this.selectedDuration === 'fourteenDays') {
-            console.log('fourteenDays');
+            const fourteenDaysData = this.filterTableUponTime(date, 13);
+
+            this.dataSource = new MatTableDataSource(fourteenDaysData);
+        } else if (this.selectedDuration === 'thirtyDays') {
+            const thirtyDays = this.filterTableUponTime(date, 30);
+
+            this.dataSource = new MatTableDataSource(thirtyDays);
         } else {
-            console.log('thirtyDays');
+            this.dataSource = new MatTableDataSource(this.periodicHistoryData);
         }
     }
 

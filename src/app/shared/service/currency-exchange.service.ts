@@ -42,6 +42,8 @@ export class CurrencyExchangeService implements OnInit {
         return givenNumber > 9 ? `${givenNumber}` : `0${givenNumber}`;
     }
 
+    // TODO: pure yap
+
     getCurrentDate(separator: string): string {
         const now = new Date();
 

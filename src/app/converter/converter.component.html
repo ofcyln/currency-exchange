@@ -93,18 +93,19 @@
 
     <p class="section-title--font-size font--roboto-bold col-12">Exchange History</p>
 
-    <!--<div class="col-12 mt-4">-->
-        <!--<mat-form-field>-->
-            <!--<mat-select-->
-                <!--[(value)]="selectedDuration"-->
-                <!--(valueChange)="selectedTimeInterval()"-->
-                <!--placeholder="Duration">-->
-                <!--<mat-option value="sevenDays">7 Days</mat-option>-->
-                <!--<mat-option value="fourteenDays">14 Days</mat-option>-->
-                <!--<mat-option value="thirtyDays">30 Days</mat-option>-->
-            <!--</mat-select>-->
-        <!--</mat-form-field>-->
-    <!--</div>-->
+    <div class="col-12 mt-4">
+        <mat-form-field>
+            <mat-select
+                [(value)]="selectedDuration"
+                (valueChange)="selectedTimeInterval()"
+                placeholder="Duration">
+                <mat-option value="allTime">All</mat-option>
+                <mat-option value="sevenDays">7 Days</mat-option>
+                <mat-option value="fourteenDays">14 Days</mat-option>
+                <mat-option value="thirtyDays">30 Days</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
 
     <section class="history-table col-12 mb-4 pl-3 pr-3">
         <div class="row flex-xl-row flex-lg-row flex-md-row flex-sm-column no--padding m-0 mb-4">
