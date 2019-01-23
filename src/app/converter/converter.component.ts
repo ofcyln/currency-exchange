@@ -246,9 +246,9 @@ export class ConverterComponent implements OnInit {
         return (this.id += 1);
     }
 
-    filterTableUponTime(date: string, interval: number): PeriodicHistoryElement[] {
+    filterTableUponTime(date: string, timeInterval: number): PeriodicHistoryElement[] {
         return this.currencyExchangeService.periodicHistoryExchangeRates.filter((item) => {
-            return Math.abs(+item.creationDate.split('/')[0] - +date.split('/')[0]) <= interval;
+            return Math.abs(+item.creationDate.split('/')[0] - +date.split('/')[0]) <= timeInterval;
         });
     }
 
