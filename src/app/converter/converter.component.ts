@@ -242,6 +242,8 @@ export class ConverterComponent implements OnInit {
         );
     }
 
+    // TODO: five digits after comma
+
     getHighestRate(calculationArray: PeriodicHistoryElement[]): number {
         return calculationArray
             .map((item: PeriodicHistoryElement) => {
@@ -297,7 +299,7 @@ export class ConverterComponent implements OnInit {
         });
     }
 
-    calculateAvarageFromNewArray(newDataTableArray: PeriodicHistoryElement[]): void {
+    calculateStatisticsFromNewArray(newDataTableArray: PeriodicHistoryElement[]): void {
         this.statisticalData = [
             {
                 name: 'Lowest',
@@ -321,33 +323,33 @@ export class ConverterComponent implements OnInit {
         const date = this.currencyExchangeService.getCurrentDate('/');
 
         if (this.selectedDuration === 'sevenDays') {
-            const sevenDaysData = this.filterTableUponDay(date, 6);
+            const sevenDaysConversions = this.filterTableUponDay(date, 6);
 
-            this.dataSource = new MatTableDataSource(sevenDaysData);
+            this.dataSource = new MatTableDataSource(sevenDaysConversions);
 
-            this.calculateAvarageFromNewArray(sevenDaysData);
+            this.calculateStatisticsFromNewArray(sevenDaysConversions);
 
             this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
         } else if (this.selectedDuration === 'fourteenDays') {
-            const fourteenDaysData = this.filterTableUponMonth(date, 13, 0);
+            const fourteenDaysConversions = this.filterTableUponMonth(date, 13, 0);
 
-            this.dataSource = new MatTableDataSource(fourteenDaysData);
+            this.dataSource = new MatTableDataSource(fourteenDaysConversions);
 
-            this.calculateAvarageFromNewArray(fourteenDaysData);
+            this.calculateStatisticsFromNewArray(fourteenDaysConversions);
 
             this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
-        } else if (this.selectedDuration === 'thirtyDays') {
-            const thirtyDays = this.filterTableUponMonth(date, 30, 1);
+        } else if (this.selectedDuration === 'thirtyDaysConversions') {
+            const thirtyDaysConversions = this.filterTableUponMonth(date, 30, 1);
 
-            this.dataSource = new MatTableDataSource(thirtyDays);
+            this.dataSource = new MatTableDataSource(thirtyDaysConversions);
 
-            this.calculateAvarageFromNewArray(thirtyDays);
+            this.calculateStatisticsFromNewArray(thirtyDaysConversions);
 
             this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
         } else {
             this.dataSource = new MatTableDataSource(this.periodicHistoryData);
 
-            this.calculateAvarageFromNewArray(
+            this.calculateStatisticsFromNewArray(
                 this.currencyExchangeService.periodicHistoryExchangeRates,
             );
 
