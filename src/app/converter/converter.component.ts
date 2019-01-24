@@ -280,15 +280,20 @@ export class ConverterComponent implements OnInit {
         return (this.id += 1);
     }
 
-    filterTableUponDay(date: string, dayInterval: number): PeriodicHistoryElement[] {
+    filterTableUponDay(
+        date: string,
+        dayInterval: number,
+        monthInterval: number,
+    ): PeriodicHistoryElement[] {
         return this.currencyExchangeService.periodicHistoryExchangeRates.filter((item) => {
-            return Math.abs(+item.creationDate.split('/')[0] - +date.split('/')[0]) <= dayInterval;
+            return (
+                Math.abs(+item.creationDate.split('/')[0] - +date.split('/')[0]) <= dayInterval &&
+                Math.abs(+item.creationDate.split('/')[1] - +date.split('/')[1]) === monthInterval
+            );
         });
     }
 
     // TODO: monthly calculation is not working properly
-
-    // TODO: github settings are not working properly
 
     filterTableUponMonth(
         date: string,
@@ -327,7 +332,7 @@ export class ConverterComponent implements OnInit {
         const date = this.currencyExchangeService.getCurrentDate('/');
 
         if (this.selectedDuration === 'sevenDays') {
-            const sevenDaysConversions = this.filterTableUponDay(date, 6);
+            const sevenDaysConversions = this.filterTableUponDay(date, 6, 0);
 
             this.dataSource = new MatTableDataSource(sevenDaysConversions);
 
@@ -335,7 +340,7 @@ export class ConverterComponent implements OnInit {
 
             this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
         } else if (this.selectedDuration === 'fourteenDays') {
-            const fourteenDaysConversions = this.filterTableUponMonth(date, 13, 0);
+            const fourteenDaysConversions = this.filterTableUponMonth(date, 14, 0);
 
             this.dataSource = new MatTableDataSource(fourteenDaysConversions);
 
