@@ -286,6 +286,8 @@ export class ConverterComponent implements OnInit {
         });
     }
 
+    // TODO: monthly calculation is not working properly
+
     filterTableUponMonth(
         date: string,
         dayInterval: number,
