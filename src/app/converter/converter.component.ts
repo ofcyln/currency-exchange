@@ -288,6 +288,8 @@ export class ConverterComponent implements OnInit {
 
     // TODO: monthly calculation is not working properly
 
+    // TODO: github settings are not working properly
+
     filterTableUponMonth(
         date: string,
         dayInterval: number,
