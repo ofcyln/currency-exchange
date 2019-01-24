@@ -90,9 +90,28 @@ export class ConverterComponent implements OnInit {
         this.filteredToValues = this.getToValueChanges(FormNames.ToControl);
 
         this.statisticalData = [
-            { name: 'Lowest', summary: this.getLowestRate() },
-            { name: 'Highest', summary: this.getHighestRate() },
-            { name: 'Average', summary: this.getAverageRate() > -1 ? this.getAverageRate() : 0 },
+            {
+                name: 'Lowest',
+                summary: this.getLowestRate(
+                    this.currencyExchangeService.periodicHistoryExchangeRates,
+                ),
+            },
+            {
+                name: 'Highest',
+                summary: this.getHighestRate(
+                    this.currencyExchangeService.periodicHistoryExchangeRates,
+                ),
+            },
+            {
+                name: 'Average',
+                summary:
+                    this.getAverageRate(this.currencyExchangeService.periodicHistoryExchangeRates) >
+                    -1
+                        ? this.getAverageRate(
+                              this.currencyExchangeService.periodicHistoryExchangeRates,
+                          )
+                        : 0,
+            },
         ];
 
         this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
@@ -131,9 +150,28 @@ export class ConverterComponent implements OnInit {
 
         this.dataSource = new MatTableDataSource(this.periodicHistoryData);
         this.statisticalData = [
-            { name: 'Lowest', summary: this.getLowestRate() },
-            { name: 'Highest', summary: this.getHighestRate() },
-            { name: 'Average', summary: this.getAverageRate() > -1 ? this.getAverageRate() : 0 },
+            {
+                name: 'Lowest',
+                summary: this.getLowestRate(
+                    this.currencyExchangeService.periodicHistoryExchangeRates,
+                ),
+            },
+            {
+                name: 'Highest',
+                summary: this.getHighestRate(
+                    this.currencyExchangeService.periodicHistoryExchangeRates,
+                ),
+            },
+            {
+                name: 'Average',
+                summary:
+                    this.getAverageRate(this.currencyExchangeService.periodicHistoryExchangeRates) >
+                    -1
+                        ? this.getAverageRate(
+                              this.currencyExchangeService.periodicHistoryExchangeRates,
+                          )
+                        : 0,
+            },
         ];
 
         this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
@@ -204,32 +242,26 @@ export class ConverterComponent implements OnInit {
         );
     }
 
-    getHighestRate(): number {
-        return this.currencyExchangeService.periodicHistoryExchangeRates
+    getHighestRate(calculationArray: PeriodicHistoryElement[]): number {
+        return calculationArray
             .map((item: PeriodicHistoryElement) => {
                 return Number(item.pureExchangeRate);
             })
-            .sort((first, second) => first - second)[
-            this.currencyExchangeService.periodicHistoryExchangeRates.length - 1
-        ];
+            .sort((first, second) => first - second)[calculationArray.length - 1];
     }
 
-    getLowestRate(): number {
-        return this.currencyExchangeService.periodicHistoryExchangeRates
+    getLowestRate(calculationArray: PeriodicHistoryElement[]): number {
+        return calculationArray
             .map((item: PeriodicHistoryElement) => {
                 return Number(item.pureExchangeRate);
             })
-            .sort((first, second) => second - first)[
-            this.currencyExchangeService.periodicHistoryExchangeRates.length - 1
-        ];
+            .sort((first, second) => second - first)[calculationArray.length - 1];
     }
 
-    getAverageRate(): number {
-        let values = this.currencyExchangeService.periodicHistoryExchangeRates.map(
-            (item: PeriodicHistoryElement) => {
-                return Number(item.pureExchangeRate);
-            },
-        );
+    getAverageRate(calculationArray: PeriodicHistoryElement[]): number {
+        let values = calculationArray.map((item: PeriodicHistoryElement) => {
+            return Number(item.pureExchangeRate);
+        });
         let summary = values.reduce((acc, current) => current + acc, 0);
 
         return Number((summary / values.length).toFixed(5));
@@ -265,6 +297,26 @@ export class ConverterComponent implements OnInit {
         });
     }
 
+    calculateAvarageFromNewArray(newDataTableArray: PeriodicHistoryElement[]): void {
+        this.statisticalData = [
+            {
+                name: 'Lowest',
+                summary: this.getLowestRate(newDataTableArray),
+            },
+            {
+                name: 'Highest',
+                summary: this.getHighestRate(newDataTableArray),
+            },
+            {
+                name: 'Average',
+                summary:
+                    this.getAverageRate(newDataTableArray) > -1
+                        ? this.getAverageRate(newDataTableArray)
+                        : 0,
+            },
+        ];
+    }
+
     selectedTimeInterval(): void {
         const date = this.currencyExchangeService.getCurrentDate('/');
 
@@ -272,16 +324,34 @@ export class ConverterComponent implements OnInit {
             const sevenDaysData = this.filterTableUponDay(date, 6);
 
             this.dataSource = new MatTableDataSource(sevenDaysData);
+
+            this.calculateAvarageFromNewArray(sevenDaysData);
+
+            this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
         } else if (this.selectedDuration === 'fourteenDays') {
             const fourteenDaysData = this.filterTableUponMonth(date, 13, 0);
 
             this.dataSource = new MatTableDataSource(fourteenDaysData);
+
+            this.calculateAvarageFromNewArray(fourteenDaysData);
+
+            this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
         } else if (this.selectedDuration === 'thirtyDays') {
             const thirtyDays = this.filterTableUponMonth(date, 30, 1);
 
             this.dataSource = new MatTableDataSource(thirtyDays);
+
+            this.calculateAvarageFromNewArray(thirtyDays);
+
+            this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
         } else {
             this.dataSource = new MatTableDataSource(this.periodicHistoryData);
+
+            this.calculateAvarageFromNewArray(
+                this.currencyExchangeService.periodicHistoryExchangeRates,
+            );
+
+            this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
         }
     }
 
