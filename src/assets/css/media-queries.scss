@@ -71,4 +71,23 @@
             }
         }
     }
+    .margin-sm-left-right, .margin-sm-left {
+        margin: 0 !important;
+    }
+    .conversion-area .opposite-arrows {
+        margin: auto !important;
+    }
+    .conversion-area {
+        .convert-button {
+            width: 40% !important;
+            margin: 0 auto !important;
+        }
+    }
+    .icon-compare-arrows {
+        width: 20% !important;
+        margin: 0 auto !important;
+        &:before {
+            transform: rotate(90deg);
+        }
+    }
 }
