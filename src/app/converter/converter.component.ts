@@ -249,7 +249,7 @@ export class ConverterComponent implements OnInit {
             .map((item: PeriodicHistoryElement) => {
                 return Number(item.pureExchangeRate);
             })
-            .sort((first, second) => first - second)[calculationArray.length - 1];
+            .sort((firstItem, secondItem) => firstItem - secondItem)[calculationArray.length - 1];
     }
 
     getLowestRate(calculationArray: PeriodicHistoryElement[]): number {
@@ -257,7 +257,7 @@ export class ConverterComponent implements OnInit {
             .map((item: PeriodicHistoryElement) => {
                 return Number(item.pureExchangeRate);
             })
-            .sort((first, second) => second - first)[calculationArray.length - 1];
+            .sort((firstItem, secondItem) => secondItem - firstItem)[calculationArray.length - 1];
     }
 
     getAverageRate(calculationArray: PeriodicHistoryElement[]): number {
@@ -292,8 +292,6 @@ export class ConverterComponent implements OnInit {
             );
         });
     }
-
-    // TODO: monthly calculation is not working properly
 
     filterTableUponMonth(
         date: string,
