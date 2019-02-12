@@ -1,4 +1,4 @@
-# Currency Converter - (Formerly assessment of Payqonic)
+# Currency Converter - Personal Project
 
 Currency Converter app assessment solution authored by Osman Fikret Ceylan.
 
