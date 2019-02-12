@@ -1,4 +1,4 @@
-# Currency Converter - Personal Project
+# Currency Exchange Project
 
 Currency Converter app assessment solution authored by Osman Fikret Ceylan.
 
