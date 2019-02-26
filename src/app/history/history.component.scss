@@ -1,20 +1,20 @@
 .page-title {
-    margin-bottom: 45px;
+	margin-bottom: 45px;
 }
 
 .history-area-table {
-    .mat-column-actions {
-        min-width: 230px;
-        max-width: 230px;
-        button {
-            display: none;
-        }
-    }
-    tr:hover {
-        .mat-column-actions {
-            button {
-                display: inherit;
-            }
-        }
-    }
+	.mat-column-actions {
+		min-width: 230px;
+		max-width: 230px;
+		button {
+			display: none;
+		}
+	}
+	tr:hover {
+		.mat-column-actions {
+			button {
+				display: inherit;
+			}
+		}
+	}
 }
