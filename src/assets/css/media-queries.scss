@@ -12,6 +12,60 @@
             transform: rotate(90deg);
         }
     }
+    .history-area-table {
+        tr {
+            &.mat-row:last-child {
+                border: 0;
+            }
+            &.mat-header-row {
+                display: none;
+            }
+            &.mat-footer-row, &.mat-row {
+                height: 48px;
+                flex-direction: column;
+                display: flex;
+                flex: 1;
+                min-height: max-content;
+                border-bottom: 2px groove #eaeaea;
+            }
+        }
+        td {
+            &.mat-cell {
+                font-size: 12px !important;
+                padding: 15px !important;
+                padding-left: 24px!important;
+            }
+            &.mat-cell:last-of-type, &.mat-footer-cell:last-of-type {
+                justify-content: center;
+                display: flex;
+                width: 100%;
+                padding-left: 0!important;
+                max-width: 100% !important;
+            }
+        }
+        th {
+            &.mat-header-cell:last-of-type {
+                justify-content: center;
+                display: flex;
+                width: 100%;
+                padding-left: 0!important;
+                max-width: 100% !important;
+            }
+        }
+        .mat-column-actions {
+            display: flex;
+            width: 100%;
+            max-width: 100%!important;
+        }
+        .icon-red-eye:before, .icon-delete-forever:before {
+            height: 100%;
+            display: flex;
+            margin-top: 9px;
+            margin-right: 10px;
+            margin-left: 10px;
+            font-size: 18px;
+        }
+    }
     .conversion-area {
         .convert-button {
             width: 40% !important;
@@ -70,6 +124,20 @@
                 }
             }
         }
+    }
+    .header-content .navbar .logout-button {
+        order: 2;
+        position: absolute;
+        right: 0;
+    }
+    d.mat-cell:last-of-type, td.mat-footer-cell:last-of-type, th.mat-header-cell:last-of-type {
+        padding-left: 0!important;
+    }
+    td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type, th.mat-header-cell:first-of-type {
+        padding-left: 24px!important;
+    }
+    td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type, th.mat-header-cell:last-of-type {
+        padding-left: 0!important;
     }
     .margin-sm-left-right, .margin-sm-left {
         margin: 0 !important;
