@@ -77,12 +77,12 @@
         <p class="body-text--font-size no--margin">
             1 {{ fromCurrency }}
             =
-            {{ (+toRate / +fromRate).toFixed(5) }} {{ toCurrency }}
+            {{ (+toRate / +fromRate) | number:'1.5-5' }} {{ toCurrency }}
         </p>
 
         <p class="w-100 no--margin"></p>
 
-        <p class="body-text--font-size no--margin">1 {{ toCurrency }} = {{ (+fromRate / +toRate).toFixed(5) }} {{ fromCurrency }}</p>
+        <p class="body-text--font-size no--margin">1 {{ toCurrency }} = {{ (+fromRate / +toRate) | number:'1.5-5' }} {{ fromCurrency }}</p>
     </section>
 </article>
 
