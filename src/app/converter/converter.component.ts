@@ -299,6 +299,7 @@ export class ConverterComponent implements OnInit {
 				this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
 
 				break;
+
 			case 'fourteenDays':
 				const fourteenDaysConversions = this.filterTableUponMonth(date, 14, 0);
 
