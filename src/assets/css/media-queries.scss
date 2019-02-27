@@ -112,6 +112,9 @@
 }
 
 @media only screen and (max-width: 805px) {
+	.page-title {
+		margin-bottom: 25px !important;
+	}
 	.history-area-table {
 		tr {
 			.mat-column-actions {
