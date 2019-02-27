@@ -8,8 +8,10 @@
         "build:prod": "ng build --prod",
         "deploy:firebase": "firebase deploy",
         "test": "ng test",
+        "format": "prettier --single-quote --trailing-comma all --print-width 120 --arrow-parens always --tab-width 4 --write",
         "tslint": "tslint",
-        "lint": "ng lint",
+        "stylelint": "stylelint src/**/*.scss --fix",
+        "lint": "ng lint --fix",
         "update": "ng update",
         "update:cli": "ng update @angular/cli",
         "update:core": "ng update @angular/core",
@@ -18,8 +20,12 @@
     },
     "lint-staged": {
         "src/**/*.ts": [
-            "prettier --single-quote --trailing-comma all --print-width 120 --arrow-parens always --tab-width 4 --write",
-            "tslint",
+            "npm run format",
+            "npm run lint",
+            "git add"
+        ],
+        "src/**/*.scss": [
+            "npm run stylelint",
             "git add"
         ]
     },
@@ -66,6 +72,8 @@
         "prettier": "^1.13.7",
         "protractor": "^5.4.1",
         "puppeteer": "^1.7.0",
+        "stylelint": "^9.10.1",
+        "stylelint-config-standard": "^18.2.0",
         "ts-node": "^7.0.1",
         "tslint": "^5.13.0",
         "typescript": "^3.1.6"
