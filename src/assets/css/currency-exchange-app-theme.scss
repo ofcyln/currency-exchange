@@ -2,7 +2,7 @@
 
 @include mat-core();
 
-$paqyqonic-red: (
+$currency-exchange-red: (
 	50: #ffebee,
 	100: #ffcdd2,
 	200: #ef9a9a,
@@ -35,7 +35,7 @@ $paqyqonic-red: (
 	)
 );
 
-$paqyqonic-green: (
+$currency-exchange-green: (
 	50: #f1f8e9,
 	100: #dcedc8,
 	200: #c5e1a5,
@@ -68,10 +68,10 @@ $paqyqonic-green: (
 	)
 );
 
-$payqonic-app-primary: mat-palette($mat-teal);
-$payqonic-app-accent: mat-palette($paqyqonic-green, A100, A200, A400);
-$payqonic-app-warn: mat-palette($paqyqonic-red, A100);
+$currency-exchange-app-primary: mat-palette($mat-teal);
+$currency-exchange-app-accent: mat-palette($currency-exchange-green, A100, A200, A400);
+$currency-exchange-app-warn: mat-palette($currency-exchange-red, A100);
 
-$payqonic-app-theme: mat-light-theme($payqonic-app-primary, $payqonic-app-accent, $payqonic-app-warn);
+$currency-exchange-app-theme: mat-light-theme($currency-exchange-app-primary, $currency-exchange-app-accent, $currency-exchange-app-warn);
 
-@include angular-material-theme($payqonic-app-theme);
+@include angular-material-theme($currency-exchange-app-theme);

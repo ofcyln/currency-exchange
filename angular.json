@@ -27,7 +27,7 @@
               "src/assets"
             ],
             "styles": [
-                "src/assets/css/payqonic-app-theme.scss",
+                "src/assets/css/currency-exchange-app-theme.scss",
                 "node_modules/bootstrap/dist/css/bootstrap.css",
                 "src/assets/css/fonts.scss",
                 "src/assets/css/animations.scss",
@@ -82,7 +82,7 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-                "src/assets/css/payqonic-app-theme.scss",
+                "src/assets/css/currency-exchange-app-theme.scss",
                 "node_modules/bootstrap/dist/css/bootstrap.css",
                 "src/assets/css/fonts.scss",
                 "src/assets/css/animations.scss",

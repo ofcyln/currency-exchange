@@ -3,9 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-    production: false,
-    baseAPIUrl: 'https://payqonic-assessment.firebaseapp.com',
-    exchangeRatesAPIUrl: 'https://api.exchangeratesapi.io',
+	production: false,
+	baseAPIUrl: 'https://currency-exchange-assessment.firebaseapp.com',
+	exchangeRatesAPIUrl: 'https://api.exchangeratesapi.io',
 };
 
 /*
