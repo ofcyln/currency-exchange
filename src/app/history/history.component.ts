@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-    CurrencyExchangeService,
-    PeriodicHistoryElement,
-} from '../shared/service/currency-exchange.service';
+import { CurrencyExchangeService, PeriodicHistoryElement } from '../shared/service/currency-exchange.service';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { StorageService } from '../shared/service/storage.service';
@@ -28,11 +25,7 @@ export class HistoryComponent implements OnInit {
     public displayedHistoricalColumns: string[] = ['date', 'event', 'actions'];
     public periodicHistoryDataSource: MatTableDataSource<HistoryElement>;
 
-    constructor(
-        private currencyExchangeService: CurrencyExchangeService,
-        private router: Router,
-        private storageService: StorageService,
-    ) {}
+    constructor(private currencyExchangeService: CurrencyExchangeService, private router: Router) {}
 
     ngOnInit() {
         this.periodicHistoryData = this.customHistoryData() || [];
@@ -45,9 +38,7 @@ export class HistoryComponent implements OnInit {
                 return {
                     id: item.id,
                     date: item.date,
-                    event: `Converted an amount of ${item.amount} from ${item.fromCurrency} to ${
-                        item.toCurrency
-                    }`,
+                    event: `Converted an amount of ${item.amount} from ${item.fromCurrency} to ${item.toCurrency}`,
                     actions: '',
                     amount: item.amount,
                     fromCurrency: item.fromCurrency,
@@ -82,8 +73,6 @@ export class HistoryComponent implements OnInit {
     }
 
     setFilteredDataToStorage() {
-        this.storageService.setObject('exchangeRates', [
-            ...this.currencyExchangeService.periodicHistoryExchangeRates,
-        ]);
+        StorageService.setObject('exchangeRates', [...this.currencyExchangeService.periodicHistoryExchangeRates]);
     }
 }

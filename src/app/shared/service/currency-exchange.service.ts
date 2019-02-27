@@ -26,7 +26,7 @@ export class CurrencyExchangeService implements OnInit {
 
     public exchangeRates: MappedCurrencyRateObject[];
     public periodicHistoryExchangeRates: PeriodicHistoryElement[] =
-        <PeriodicHistoryElement[]>this.storageService.getObject('exchangeRates') || [];
+        <PeriodicHistoryElement[]>StorageService.getObject('exchangeRates') || [];
 
     public fromCurrencies: string[] = [];
     public toCurrencies: string[] = [];
@@ -34,15 +34,13 @@ export class CurrencyExchangeService implements OnInit {
     public currentDate: string;
     public currentTime: string;
 
-    constructor(private storageService: StorageService) {}
-
-    ngOnInit() {}
-
-    toTwoDigits(givenNumber: number) {
+    static toTwoDigits(givenNumber: number) {
         return givenNumber > 9 ? `${givenNumber}` : `0${givenNumber}`;
     }
 
-    // TODO: pure yap
+    constructor() {}
+
+    ngOnInit() {}
 
     getCurrentDate(separator: string): string {
         const now = new Date();
@@ -52,7 +50,7 @@ export class CurrencyExchangeService implements OnInit {
         const currentYear = now.getFullYear();
 
         this.currentDate = [currentDay, currentMonth, currentYear]
-            .map(this.toTwoDigits)
+            .map(CurrencyExchangeService.toTwoDigits)
             .join(separator);
 
         return this.currentDate;
@@ -66,7 +64,7 @@ export class CurrencyExchangeService implements OnInit {
         const currentSecond = now.getSeconds();
 
         this.currentTime = [currentHour, currentMinute, currentSecond]
-            .map(this.toTwoDigits)
+            .map(CurrencyExchangeService.toTwoDigits)
             .join(separator);
 
         return this.currentTime;

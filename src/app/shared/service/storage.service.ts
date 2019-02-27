@@ -4,13 +4,7 @@ import { Injectable } from '@angular/core';
     providedIn: 'root',
 })
 export class StorageService {
-    constructor() {
-        if (typeof Storage === 'undefined') {
-            throw new Error('StorageService: Local storage is not supported');
-        }
-    }
-
-    public setObject(key: string, data: Object) {
+    static setObject(key: string, data: Object) {
         try {
             const serializedData = JSON.stringify(data);
             localStorage.setItem(key, serializedData);
@@ -19,22 +13,28 @@ export class StorageService {
         }
     }
 
-    public getObject(key: string): Object {
+    static getObject(key: string): Object {
         const item = localStorage.getItem(key);
         return item && JSON.parse(item);
     }
 
-    public setItem(key: string, data: string): string {
+    static setItem(key: string, data: string): string {
         localStorage.setItem(key, data);
         return data;
     }
 
-    public getItem(key: string): string {
+    static getItem(key: string): string {
         const data = localStorage.getItem(key);
         return data;
     }
 
-    public removeItem(key: string) {
+    static removeItem(key: string) {
         localStorage.removeItem(key);
+    }
+
+    constructor() {
+        if (typeof Storage === 'undefined') {
+            throw new Error('StorageService: Local storage is not supported');
+        }
     }
 }

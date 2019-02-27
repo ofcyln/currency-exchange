@@ -35,7 +35,7 @@ export class ConverterComponent implements OnInit {
     public statisticalDataSource = new MatTableDataSource(this.statisticalData);
     public displayedStatisticalColumns: string[] = ['name', 'summary'];
 
-    public selectedDuration = this.storageService.getItem('selected-time-interval') || 'allTime';
+    public selectedDuration = StorageService.getItem('selected-time-interval') || 'allTime';
 
     public converterForm: FormGroup;
     public filteredFromValues: Observable<string[]>;
@@ -132,7 +132,7 @@ export class ConverterComponent implements OnInit {
             amount: this.amount,
         });
 
-        this.storageService.setObject('exchangeRates', [...this.currencyExchangeService.periodicHistoryExchangeRates]);
+        StorageService.setObject('exchangeRates', [...this.currencyExchangeService.periodicHistoryExchangeRates]);
 
         this.dataSource = new MatTableDataSource(this.periodicHistoryData);
         this.statisticalData = [
@@ -329,7 +329,7 @@ export class ConverterComponent implements OnInit {
                 break;
         }
 
-        this.storageService.setItem('selected-time-interval', this.selectedDuration);
+        StorageService.setItem('selected-time-interval', this.selectedDuration);
     }
 
     private filterFromInputValue(value: string): string[] {

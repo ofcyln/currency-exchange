@@ -9,31 +9,22 @@ import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService implements OnInit {
-    constructor(
-        private http: HttpClient,
-        private router: Router,
-        private route: ActivatedRoute,
-        private storageService: StorageService,
-    ) {
-    }
+    constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) {}
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 
     login(username: string, password: string) {
-        return this.http
-            .post<LoginResponse>(`${environment.baseAPIUrl}/login`, { username, password })
-            .pipe(
-                tap((response: LoginResponse) => {
-                    if (response.token) {
-                        this.storageService.setItem('token', response.token);
-                    }
-                }),
-            );
+        return this.http.post<LoginResponse>(`${environment.baseAPIUrl}/login`, { username, password }).pipe(
+            tap((response: LoginResponse) => {
+                if (response.token) {
+                    StorageService.setItem('token', response.token);
+                }
+            }),
+        );
     }
 
     removeToken() {
-        this.storageService.removeItem('token');
+        StorageService.removeItem('token');
     }
 
     logout() {
@@ -41,7 +32,6 @@ export class AuthService implements OnInit {
     }
 
     isAuthenticated(): boolean {
-        return this.storageService.getItem('token') !== null;
+        return StorageService.getItem('token') !== null;
     }
-
 }
