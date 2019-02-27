@@ -288,36 +288,44 @@ export class ConverterComponent implements OnInit {
 	selectedTimeInterval(): void {
 		const date = this.currencyExchangeService.getCurrentDate('/');
 
-		if (this.selectedDuration === 'sevenDays') {
-			const sevenDaysConversions = this.filterTableUponDay(date, 6, 0);
+		switch (this.selectedDuration) {
+			case 'sevenDays':
+				const sevenDaysConversions = this.filterTableUponDay(date, 6, 0);
 
-			this.dataSource = new MatTableDataSource(sevenDaysConversions);
+				this.dataSource = new MatTableDataSource(sevenDaysConversions);
 
-			this.calculateStatisticsFromNewArray(sevenDaysConversions);
+				this.calculateStatisticsFromNewArray(sevenDaysConversions);
 
-			this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
-		} else if (this.selectedDuration === 'fourteenDays') {
-			const fourteenDaysConversions = this.filterTableUponMonth(date, 14, 0);
+				this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
 
-			this.dataSource = new MatTableDataSource(fourteenDaysConversions);
+				break;
+			case 'fourteenDays':
+				const fourteenDaysConversions = this.filterTableUponMonth(date, 14, 0);
 
-			this.calculateStatisticsFromNewArray(fourteenDaysConversions);
+				this.dataSource = new MatTableDataSource(fourteenDaysConversions);
 
-			this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
-		} else if (this.selectedDuration === 'thirtyDaysConversions') {
-			const thirtyDaysConversions = this.filterTableUponMonth(date, 30, 1);
+				this.calculateStatisticsFromNewArray(fourteenDaysConversions);
 
-			this.dataSource = new MatTableDataSource(thirtyDaysConversions);
+				this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
 
-			this.calculateStatisticsFromNewArray(thirtyDaysConversions);
+				break;
+			case 'thirtyDaysConversions':
+				const thirtyDaysConversions = this.filterTableUponMonth(date, 30, 1);
 
-			this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
-		} else {
-			this.dataSource = new MatTableDataSource(this.periodicHistoryData);
+				this.dataSource = new MatTableDataSource(thirtyDaysConversions);
 
-			this.calculateStatisticsFromNewArray(this.currencyExchangeService.periodicHistoryExchangeRates);
+				this.calculateStatisticsFromNewArray(thirtyDaysConversions);
 
-			this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
+				this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
+
+				break;
+			default:
+				this.dataSource = new MatTableDataSource(this.periodicHistoryData);
+
+				this.calculateStatisticsFromNewArray(this.currencyExchangeService.periodicHistoryExchangeRates);
+
+				this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
+				break;
 		}
 
 		this.storageService.setItem('selected-time-interval', this.selectedDuration);
