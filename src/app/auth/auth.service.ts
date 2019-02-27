@@ -1,11 +1,11 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
 
 import { StorageService } from '../shared/service/storage.service';
 import { LoginResponse } from '../shared/interface/user.model';
 import { environment } from '../../environments/environment.prod';
-import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService implements OnInit {

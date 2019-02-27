@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { AuthService } from '../auth.service';
 import { AlertService } from '../../core/alert/alert.service';
-import { interval } from 'rxjs';
 
 @Component({
     selector: 'app-login',
@@ -40,18 +39,16 @@ export class LoginComponent implements OnInit {
         this.loading = true;
         this.animationActive = !this.animationActive;
 
-        this.authenticationService
-            .login(this.loginForm.value.username, this.loginForm.value.password)
-            .subscribe(
-                () => {
-                    this.router.navigate([this.returnUrl]);
-                },
-                (err: string) => {
-                    this.alertService.error(err);
+        this.authenticationService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe(
+            () => {
+                this.router.navigate([this.returnUrl]);
+            },
+            (err: string) => {
+                this.alertService.error(err);
 
-                    this.loading = false;
-                    this.animationActive = false;
-                },
-            );
+                this.loading = false;
+                this.animationActive = false;
+            },
+        );
     }
 }

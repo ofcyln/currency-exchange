@@ -1,14 +1,8 @@
 import { Injectable } from '@angular/core';
-import {
-    HttpRequest,
-    HttpResponse,
-    HttpHandler,
-    HttpEvent,
-    HttpInterceptor,
-} from '@angular/common/http';
-
+import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
+
 import { LoginResponse } from '../../interface/user.model';
 
 @Injectable()
@@ -26,7 +20,8 @@ export class MockBackendServerInterceptor implements HttpInterceptor {
                                     username: 'user1',
                                     password: 'pass1',
                                     fullName: 'John Doe',
-                                }, {
+                                },
+                                {
                                     username: 'user2',
                                     password: 'pass2',
                                     fullName: 'Adam Smith',
@@ -36,11 +31,10 @@ export class MockBackendServerInterceptor implements HttpInterceptor {
                             request = request.clone();
 
                             if (
-                                ( request.body.username === testUser[ 0 ].username &&
-                                    request.body.password === testUser[ 0 ].password )
-                                ||
-                                ( request.body.username === testUser[ 1 ].username &&
-                                    request.body.password === testUser[ 1 ].password )
+                                (request.body.username === testUser[0].username &&
+                                    request.body.password === testUser[0].password) ||
+                                (request.body.username === testUser[1].username &&
+                                    request.body.password === testUser[1].password)
                             ) {
                                 const body: LoginResponse = {
                                     token:
@@ -49,10 +43,9 @@ export class MockBackendServerInterceptor implements HttpInterceptor {
                                         'NCwiZW1haWwiOiJuaWVrLmhlZXplbWFuc0Bmcm9udG1lbi5ubCIsImlhdCI6MTUx' +
                                         'NzUwefwef3Mjk2NH0.Ykirzr4b7GdsIPGV6PDjCpFHOAqohKazJl5pWJFw',
                                     user: {
-                                        fullName: request.body.username === testUser[ 0 ].username ?
-                                            'John Doe' : 'Adam Smith',
-                                        username: request.body.username === testUser[ 0 ].username ?
-                                            'user1' : 'user2',
+                                        fullName:
+                                            request.body.username === testUser[0].username ? 'John Doe' : 'Adam Smith',
+                                        username: request.body.username === testUser[0].username ? 'user1' : 'user2',
                                     },
                                 };
 

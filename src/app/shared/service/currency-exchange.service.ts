@@ -1,8 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { MappedCurrencyRateObject } from '../interface/exchange-rates.model';
 import { StorageService } from './storage.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 export interface PeriodicHistoryElement {
     id: number;
