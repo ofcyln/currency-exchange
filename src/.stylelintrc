@@ -6,7 +6,8 @@
 			{
 				"ignoreAtRules": [
 					"extends",
-					"ignores"
+					"ignores",
+					"include"
 				]
 			}
 		],
@@ -18,6 +19,7 @@
 			"deg",
 			"px",
 			"%",
+			"s",
 			"vw",
 			"vh"
 		],
@@ -30,9 +32,8 @@
 		"unit-no-unknown": true,
 		"selector-attribute-quotes": "always",
 		"string-quotes": "single",
-		"max-nesting-depth": 4,
-		"selector-max-compound-selectors": 4,
-		"selector-max-specificity": "0,3,2",
+		"max-nesting-depth": 6,
+		"selector-max-compound-selectors": 6,
 		"declaration-no-important": null,
 		"selector-class-pattern": "[a-z-]+",
 		"selector-id-pattern": "[a-z-]+",

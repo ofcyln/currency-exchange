@@ -1,7 +1,9 @@
 @font-face {
 	font-family: 'fontello';
 	src: url('../font/fontello/fontello.eot?82928597');
-	src: url('../font/fontello/fontello.eot?82928597#iefix') format('embedded-opentype'),
+	src:
+
+		url('../font/fontello/fontello.eot?82928597#iefix') format('embedded-opentype'),
 		url('../font/fontello/fontello.woff2?82928597') format('woff2'),
 		url('../font/fontello/fontello.woff?82928597') format('woff'),
 		url('../font/fontello/fontello.ttf?82928597') format('truetype'),
@@ -11,7 +13,9 @@
 }
 
 /* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+
 /* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+
 /*
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
@@ -21,20 +25,21 @@
 }
 */
 
-[class^="icon-"]:before, [class*=" icon-"]:before {
-	font-family: "fontello";
+[class^='icon-']::before,
+[class*=' icon-']::before {
+	font-family: 'fontello';
 	font-style: normal;
 	font-weight: normal;
 	speak: none;
-
 	display: inline-block;
 	text-decoration: inherit;
 	width: 1em;
 	margin-right: .2em;
 	text-align: center;
+
 	/* opacity: .8; */
 
-	/* For safety - reset parent styles, that can break glyph codes*/
+	/* For safety - reset parent styles, that can break glyph codes */
 	font-variant: normal;
 	text-transform: none;
 
@@ -42,10 +47,12 @@
 	line-height: 1em;
 
 	/* Animation center compensation - margins should be symmetric */
+
 	/* remove if not needed */
 	margin-left: .2em;
 
 	/* you can be more comfortable with increased icons size */
+
 	/* font-size: 120%; */
 
 	/* Font smoothing. That was taken from TWBS */
@@ -53,10 +60,27 @@
 	-moz-osx-font-smoothing: grayscale;
 
 	/* Uncomment for 3D effect */
+
 	/* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
 
-.icon-compare-arrows:before { content: '\e804'; } /* '' */
-.icon-delete-forever:before { content: '\e805'; } /* '' */
-.icon-find-replace:before { content: '\e806'; } /* '' */
-.icon-red-eye:before { content: '\e807'; } /* '' */
+.icon-compare-arrows::before {
+	content: '\e804';
+}
+
+/* '' */
+.icon-delete-forever::before {
+	content: '\e805';
+}
+
+/* '' */
+.icon-find-replace::before {
+	content: '\e806';
+}
+
+/* '' */
+.icon-red-eye::before {
+	content: '\e807';
+}
+
+/* '' */

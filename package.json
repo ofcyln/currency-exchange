@@ -10,7 +10,7 @@
         "test": "ng test",
         "format": "prettier --single-quote --trailing-comma all --print-width 120 --arrow-parens always --tab-width 4 --write",
         "tslint": "tslint",
-        "stylelint": "stylelint --syntax=scss --fix",
+        "stylelint": "stylelint \"src/**/*.scss\"",
         "lint": "ng lint --fix",
         "update": "ng update",
         "update:cli": "ng update @angular/cli",
