@@ -12,9 +12,10 @@ branches:
         - master
 
 before_script:
-    - npm install -g @angular/cli
+    - npm install -g @angular/cli @angular/core
+    - npm i
 
 script:
-    - ng tslint
-    - ng stylelint
-    - ng build --prod --base-href https://ofcyln.github.io/currency-exchange/
+    - npm run tslint
+    - npm run stylelint
+    - npm run build:prod
