@@ -124,8 +124,8 @@ export class ConverterComponent implements OnInit {
 \n@${this.currencyExchangeService.getCurrentTime(':')}`,
             time: this.currencyExchangeService.getCurrentTime(':'),
             exchangeRate: `${this.fromCurrency} to ${this.toCurrency}
-\n${(+this.toRate / +this.fromRate).toFixed(5)}`,
-            pureExchangeRate: Number((+this.toRate / +this.fromRate).toFixed(5)),
+\n${(this.toRate / this.fromRate).toFixed(5)}`,
+            pureExchangeRate: Number((this.toRate / this.fromRate).toFixed(5)),
             creationDate: this.currencyExchangeService.getCurrentDate('/'),
             fromCurrency: this.fromCurrency,
             toCurrency: this.toCurrency,
@@ -243,7 +243,7 @@ export class ConverterComponent implements OnInit {
     }
 
     calculateExchangeRate(): string {
-        return ((this.converterForm.get('amountControl').value * +this.toRate) / +this.fromRate).toFixed(3);
+        return ((this.converterForm.get('amountControl').value * this.toRate) / this.fromRate).toFixed(3);
     }
 
     incrementNumberForID(): number {
