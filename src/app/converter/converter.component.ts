@@ -9,15 +9,18 @@ import { AlertService } from '../core/alert/alert.service';
 import { CurrencyExchangeService, PeriodicHistoryElement } from '../shared/service/currency-exchange.service';
 import { ExchangeRatesResponse, MappedCurrencyRateObject } from '../shared/interface/exchange-rates.model';
 import { StorageService } from '../shared/service/storage.service';
+import {
+    Currency,
+    FormNames,
+    LocalStorageItems,
+    StatisticalDataTableFields,
+    TableColumnNames,
+    TimeIntervalTypes,
+} from '../shared/interface/enums.model';
 
 export interface Statistics {
     name: string;
     summary: number;
-}
-
-export enum FormNames {
-    FromControl = 'fromControl',
-    ToControl = 'toControl',
 }
 
 @Component({
@@ -29,13 +32,14 @@ export class ConverterComponent implements OnInit {
     public periodicHistoryData: PeriodicHistoryElement[] = this.currencyExchangeService.periodicHistoryExchangeRates;
 
     public dataSource = new MatTableDataSource(this.periodicHistoryData);
-    public displayedHistoricalColumns: string[] = ['date', 'exchangeRate'];
+    public displayedHistoricalColumns: string[] = [TableColumnNames.Date, TableColumnNames.ExchangeRate];
 
     public statisticalData: Statistics[];
     public statisticalDataSource = new MatTableDataSource(this.statisticalData);
-    public displayedStatisticalColumns: string[] = ['name', 'summary'];
+    public displayedStatisticalColumns: string[] = [TableColumnNames.Name, TableColumnNames.Summary];
 
-    public selectedDuration = StorageService.getItem('selected-time-interval') || 'allTime';
+    public selectedDuration =
+        StorageService.getItem(LocalStorageItems.SelectedTimeInterval) || TimeIntervalTypes.AllTime;
 
     public converterForm: FormGroup;
     public filteredFromValues: Observable<string[]>;
@@ -53,16 +57,15 @@ export class ConverterComponent implements OnInit {
         public currencyExchangeService: CurrencyExchangeService,
         private apiRequestService: ExchangeRatesApiRequestService,
         private alertService: AlertService,
-        private storageService: StorageService,
     ) {}
 
     ngOnInit() {
         this.converterForm = this.currencyExchangeService.converterForm;
 
-        this.converterForm.controls['fromControl'].disable();
-        this.converterForm.controls['toControl'].disable();
+        this.converterForm.controls[FormNames.FromControl].disable();
+        this.converterForm.controls[FormNames.ToControl].disable();
 
-        this.apiRequestService.getExchangeRates('USD').subscribe(
+        this.apiRequestService.getExchangeRates(Currency.USD).subscribe(
             (exchangeRate: ExchangeRatesResponse) => {
                 this.currencyExchangeService.exchangeRates = this.mapResponseData(exchangeRate);
 
@@ -70,8 +73,8 @@ export class ConverterComponent implements OnInit {
 
                 this.currencyExchangeService.toCurrencies = this.mapItemCurrencies();
 
-                this.converterForm.controls['fromControl'].enable();
-                this.converterForm.controls['toControl'].enable();
+                this.converterForm.controls[FormNames.FromControl].enable();
+                this.converterForm.controls[FormNames.ToControl].enable();
             },
             (error) => {
                 this.alertService.error(`Error: ${error.message}`);
@@ -84,15 +87,15 @@ export class ConverterComponent implements OnInit {
 
         this.statisticalData = [
             {
-                name: 'Lowest',
+                name: StatisticalDataTableFields.Lowest,
                 summary: this.getLowestRate(this.currencyExchangeService.periodicHistoryExchangeRates),
             },
             {
-                name: 'Highest',
+                name: StatisticalDataTableFields.Highest,
                 summary: this.getHighestRate(this.currencyExchangeService.periodicHistoryExchangeRates),
             },
             {
-                name: 'Average',
+                name: StatisticalDataTableFields.Average,
                 summary:
                     this.getAverageRate(this.currencyExchangeService.periodicHistoryExchangeRates) > -1
                         ? this.getAverageRate(this.currencyExchangeService.periodicHistoryExchangeRates)
@@ -112,7 +115,7 @@ export class ConverterComponent implements OnInit {
         this.toRate = this.filterSelectedValue(FormNames.ToControl).rate;
         this.toCurrency = this.filterSelectedValue(FormNames.ToControl).currency;
 
-        this.amount = Math.floor(this.converterForm.get('amountControl').value);
+        this.amount = Math.floor(this.converterForm.get(FormNames.AmountControl).value);
 
         this.result = this.calculateExchangeRate();
 
@@ -132,20 +135,22 @@ export class ConverterComponent implements OnInit {
             amount: this.amount,
         });
 
-        StorageService.setObject('exchangeRates', [...this.currencyExchangeService.periodicHistoryExchangeRates]);
+        StorageService.setObject(LocalStorageItems.ExchangeRates, [
+            ...this.currencyExchangeService.periodicHistoryExchangeRates,
+        ]);
 
         this.dataSource = new MatTableDataSource(this.periodicHistoryData);
         this.statisticalData = [
             {
-                name: 'Lowest',
+                name: StatisticalDataTableFields.Lowest,
                 summary: this.getLowestRate(this.currencyExchangeService.periodicHistoryExchangeRates),
             },
             {
-                name: 'Highest',
+                name: StatisticalDataTableFields.Highest,
                 summary: this.getHighestRate(this.currencyExchangeService.periodicHistoryExchangeRates),
             },
             {
-                name: 'Average',
+                name: StatisticalDataTableFields.Average,
                 summary:
                     this.getAverageRate(this.currencyExchangeService.periodicHistoryExchangeRates) > -1
                         ? this.getAverageRate(this.currencyExchangeService.periodicHistoryExchangeRates)
@@ -160,9 +165,11 @@ export class ConverterComponent implements OnInit {
 
     changeExchangeInputValues(): void {
         this.converterForm = new FormGroup({
-            amountControl: new FormControl(this.converterForm.get('amountControl').value, [Validators.required]),
-            fromControl: new FormControl(this.converterForm.get('toControl').value, [Validators.required]),
-            toControl: new FormControl(this.converterForm.get('fromControl').value, [Validators.required]),
+            amountControl: new FormControl(this.converterForm.get(FormNames.AmountControl).value, [
+                Validators.required,
+            ]),
+            fromControl: new FormControl(this.converterForm.get(FormNames.ToControl).value, [Validators.required]),
+            toControl: new FormControl(this.converterForm.get(FormNames.FromControl).value, [Validators.required]),
         });
 
         this.incrementNumberForID();
@@ -243,27 +250,17 @@ export class ConverterComponent implements OnInit {
     }
 
     calculateExchangeRate(): string {
-        return ((this.converterForm.get('amountControl').value * this.toRate) / this.fromRate).toFixed(3);
+        return ((this.converterForm.get(FormNames.AmountControl).value * this.toRate) / this.fromRate).toFixed(3);
     }
 
     incrementNumberForID(): number {
         return (this.id += 1);
     }
 
-    filterTableUponOneWeek(date: string, dayInterval: number): PeriodicHistoryElement[] {
+    filterTableUponDaySelection(date: string, dayInterval: number): PeriodicHistoryElement[] {
         return this.currencyExchangeService.periodicHistoryExchangeRates.filter((item) => {
             if (Math.abs(+item.creationDate.split('/')[1] - +date.split('/')[1]) === 1) {
-                return Math.abs(+item.creationDate.split('/')[0] - +date.split('/')[0]) >= 23;
-            } else if (Math.abs(+item.creationDate.split('/')[1] - +date.split('/')[1]) === 0) {
-                return Math.abs(+item.creationDate.split('/')[0] - +date.split('/')[0]) <= dayInterval;
-            }
-        });
-    }
-
-    filterTableUponTwoWeeks(date: string, dayInterval: number): PeriodicHistoryElement[] {
-        return this.currencyExchangeService.periodicHistoryExchangeRates.filter((item) => {
-            if (Math.abs(+item.creationDate.split('/')[1] - +date.split('/')[1]) === 1) {
-                return Math.abs(+item.creationDate.split('/')[0] - +date.split('/')[0]) >= 16;
+                return Math.abs(+item.creationDate.split('/')[0] - +date.split('/')[0]) >= 30 - dayInterval;
             } else if (Math.abs(+item.creationDate.split('/')[1] - +date.split('/')[1]) === 0) {
                 return Math.abs(+item.creationDate.split('/')[0] - +date.split('/')[0]) <= dayInterval;
             }
@@ -282,15 +279,15 @@ export class ConverterComponent implements OnInit {
     calculateStatisticsFromNewArray(newDataTableArray: PeriodicHistoryElement[]): void {
         this.statisticalData = [
             {
-                name: 'Lowest',
+                name: StatisticalDataTableFields.Lowest,
                 summary: this.getLowestRate(newDataTableArray),
             },
             {
-                name: 'Highest',
+                name: StatisticalDataTableFields.Highest,
                 summary: this.getHighestRate(newDataTableArray),
             },
             {
-                name: 'Average',
+                name: StatisticalDataTableFields.Average,
                 summary: this.getAverageRate(newDataTableArray) > -1 ? this.getAverageRate(newDataTableArray) : 0,
             },
         ];
@@ -300,8 +297,8 @@ export class ConverterComponent implements OnInit {
         const date = this.currencyExchangeService.getCurrentDate('/');
 
         switch (this.selectedDuration) {
-            case 'sevenDays':
-                const sevenDaysConversions = this.filterTableUponOneWeek(date, 6);
+            case TimeIntervalTypes.SevenDays:
+                const sevenDaysConversions = this.filterTableUponDaySelection(date, 6);
 
                 this.dataSource = new MatTableDataSource(sevenDaysConversions);
 
@@ -311,8 +308,8 @@ export class ConverterComponent implements OnInit {
 
                 break;
 
-            case 'fourteenDays':
-                const fourteenDaysConversions = this.filterTableUponTwoWeeks(date, 14);
+            case TimeIntervalTypes.FourteenDays:
+                const fourteenDaysConversions = this.filterTableUponDaySelection(date, 14);
 
                 this.dataSource = new MatTableDataSource(fourteenDaysConversions);
 
@@ -322,7 +319,7 @@ export class ConverterComponent implements OnInit {
 
                 break;
 
-            case 'thirtyDaysConversions':
+            case TimeIntervalTypes.ThirtyDaysConversions:
                 const thirtyDaysConversions = this.filterTableUponMonth(date, 30, 1);
 
                 this.dataSource = new MatTableDataSource(thirtyDaysConversions);
@@ -343,7 +340,7 @@ export class ConverterComponent implements OnInit {
                 break;
         }
 
-        StorageService.setItem('selected-time-interval', this.selectedDuration);
+        StorageService.setItem(LocalStorageItems.SelectedTimeInterval, this.selectedDuration);
     }
 
     private filterFromInputValue(value: string): string[] {
