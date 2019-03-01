@@ -7,8 +7,8 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display Login message if user is not authenticated', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to client!');
+    expect(page.getParagraphText()).toEqual('Login');
   });
 });

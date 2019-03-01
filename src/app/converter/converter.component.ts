@@ -250,12 +250,23 @@ export class ConverterComponent implements OnInit {
         return (this.id += 1);
     }
 
-    filterTableUponDay(date: string, dayInterval: number, monthInterval: number): PeriodicHistoryElement[] {
+    filterTableUponOneWeek(date: string, dayInterval: number): PeriodicHistoryElement[] {
         return this.currencyExchangeService.periodicHistoryExchangeRates.filter((item) => {
-            return (
-                Math.abs(+item.creationDate.split('/')[0] - +date.split('/')[0]) <= dayInterval &&
-                Math.abs(+item.creationDate.split('/')[1] - +date.split('/')[1]) === monthInterval
-            );
+            if (Math.abs(+item.creationDate.split('/')[1] - +date.split('/')[1]) === 1) {
+                return Math.abs(+item.creationDate.split('/')[0] - +date.split('/')[0]) >= 23;
+            } else if (Math.abs(+item.creationDate.split('/')[1] - +date.split('/')[1]) === 0) {
+                return Math.abs(+item.creationDate.split('/')[0] - +date.split('/')[0]) <= dayInterval;
+            }
+        });
+    }
+
+    filterTableUponTwoWeeks(date: string, dayInterval: number): PeriodicHistoryElement[] {
+        return this.currencyExchangeService.periodicHistoryExchangeRates.filter((item) => {
+            if (Math.abs(+item.creationDate.split('/')[1] - +date.split('/')[1]) === 1) {
+                return Math.abs(+item.creationDate.split('/')[0] - +date.split('/')[0]) >= 16;
+            } else if (Math.abs(+item.creationDate.split('/')[1] - +date.split('/')[1]) === 0) {
+                return Math.abs(+item.creationDate.split('/')[0] - +date.split('/')[0]) <= dayInterval;
+            }
         });
     }
 
@@ -290,7 +301,7 @@ export class ConverterComponent implements OnInit {
 
         switch (this.selectedDuration) {
             case 'sevenDays':
-                const sevenDaysConversions = this.filterTableUponDay(date, 6, 0);
+                const sevenDaysConversions = this.filterTableUponOneWeek(date, 6);
 
                 this.dataSource = new MatTableDataSource(sevenDaysConversions);
 
@@ -301,7 +312,7 @@ export class ConverterComponent implements OnInit {
                 break;
 
             case 'fourteenDays':
-                const fourteenDaysConversions = this.filterTableUponMonth(date, 14, 0);
+                const fourteenDaysConversions = this.filterTableUponTwoWeeks(date, 14);
 
                 this.dataSource = new MatTableDataSource(fourteenDaysConversions);
 
@@ -310,6 +321,7 @@ export class ConverterComponent implements OnInit {
                 this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
 
                 break;
+
             case 'thirtyDaysConversions':
                 const thirtyDaysConversions = this.filterTableUponMonth(date, 30, 1);
 
@@ -320,12 +332,14 @@ export class ConverterComponent implements OnInit {
                 this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
 
                 break;
+
             default:
                 this.dataSource = new MatTableDataSource(this.periodicHistoryData);
 
                 this.calculateStatisticsFromNewArray(this.currencyExchangeService.periodicHistoryExchangeRates);
 
                 this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
+
                 break;
         }
 
