@@ -65,21 +65,29 @@ export class ConverterComponent implements OnInit {
         this.converterForm.controls[FormNames.FromControl].disable();
         this.converterForm.controls[FormNames.ToControl].disable();
 
-        this.apiRequestService.getExchangeRates(Currency.USD).subscribe(
-            (exchangeRate: ExchangeRatesResponse) => {
-                this.currencyExchangeService.exchangeRates = this.mapResponseData(exchangeRate);
+        if (
+            this.currencyExchangeService.exchangeRates === undefined ||
+            this.currencyExchangeService.exchangeRates.length <= 0
+        ) {
+            this.apiRequestService.getExchangeRates(Currency.USD).subscribe(
+                (exchangeRate: ExchangeRatesResponse) => {
+                    this.currencyExchangeService.exchangeRates = this.mapResponseData(exchangeRate);
 
-                this.currencyExchangeService.fromCurrencies = this.mapItemCurrencies();
+                    this.currencyExchangeService.fromCurrencies = this.mapItemCurrencies();
 
-                this.currencyExchangeService.toCurrencies = this.mapItemCurrencies();
+                    this.currencyExchangeService.toCurrencies = this.mapItemCurrencies();
 
-                this.converterForm.controls[FormNames.FromControl].enable();
-                this.converterForm.controls[FormNames.ToControl].enable();
-            },
-            (error) => {
-                this.alertService.error(`Error: ${error.message}`);
-            },
-        );
+                    this.converterForm.controls[FormNames.FromControl].enable();
+                    this.converterForm.controls[FormNames.ToControl].enable();
+                },
+                (error) => {
+                    this.alertService.error(`Error: ${error.message}`);
+                },
+            );
+        } else {
+            this.converterForm.controls[FormNames.FromControl].enable();
+            this.converterForm.controls[FormNames.ToControl].enable();
+        }
 
         this.filteredFromValues = this.getFromValueChanges(FormNames.FromControl);
 
