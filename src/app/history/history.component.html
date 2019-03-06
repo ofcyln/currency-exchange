@@ -2,9 +2,13 @@
     <h1 class="page-title title--font-size font--roboto-bold">Conversion history</h1>
 </article>
 
-<article class="row">
-    <section class="history-area-table col-12 mb-4">
-        <table mat-table [dataSource]="periodicHistoryDataSource" class="mat-elevation-z8 col mr-2">
+<article class="row no--margin">
+    <section class="history-area-table col-12 mb-4 mat-elevation-z8 no--padding">
+        <table
+            mat-table
+            [dataSource]="periodicHistoryDataSource"
+            class="col mr-2"
+            *ngIf="periodicHistoryData.length > 0; else noHistoricalData">
             <!-- Date Column -->
             <ng-container matColumnDef="date">
                 <th mat-header-cell *matHeaderCellDef> Date</th>
@@ -24,17 +28,25 @@
                     <button
                         mat-button
                         (click)="setCurrencyJob(element.amount, element.fromCurrency, element.toCurrency)"
-                        class="icon-red-eye primary--color">View</button>
+                        class="icon-red-eye primary--color">View
+                    </button>
 
                     <button
                         mat-button
                         (click)="removeCurrencyItem(element)"
-                        class="icon-delete-forever warn--color ml-2">Delete from history</button>
+                        class="icon-delete-forever warn--color ml-2">Delete from history
+                    </button>
                 </td>
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedHistoricalColumns"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedHistoricalColumns; sticky: true"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedHistoricalColumns;"></tr>
         </table>
+
+        <ng-template #noHistoricalData>
+            <p class="p-4 no--margin">
+                There is no historical data to show yet!
+            </p>
+        </ng-template>
     </section>
 </article>

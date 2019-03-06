@@ -3,6 +3,9 @@
 }
 
 .history-area-table {
+	max-height: 393px;
+	overflow-y: auto;
+
 	.mat-column-actions {
 		min-width: 230px;
 		max-width: 230px;
