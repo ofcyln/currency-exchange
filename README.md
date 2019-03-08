@@ -1,4 +1,7 @@
 [![Build Status](https://travis-ci.org/ofcyln/currency-exchange.svg?branch=master)](https://travis-ci.org/ofcyln/currency-exchange)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+
+
 
 # Currency Exchange Project
 
