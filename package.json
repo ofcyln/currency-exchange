@@ -5,14 +5,16 @@
 		"ng": "ng",
 		"start": "ng serve",
 		"build": "ng build",
-		"build:prod": "ng build --prod",
+		"build:prod": "ng build --prod --aot --build-optimizer",
+		"prod:stats": "ng build --prod --aot --build-optimizer --stats-json",
+		"prod:details": "webpack-bundle-analyzer ./dist/client/stats.json",
 		"deploy:firebase": "firebase deploy",
 		"test": "ng test",
 		"format": "prettier --single-quote --trailing-comma all --print-width 120 --arrow-parens always --tab-width 4 --write",
 		"tslint": "tslint \"src/**/*.ts\"",
 		"stylelint": "stylelint \"src/**/*.scss\"",
 		"lint": "ng lint \"src/**/*.ts\"",
-		"update": "ng update",
+		"update": "ng update @angular/cli @angular/core",
 		"update:cli": "ng update @angular/cli",
 		"update:core": "ng update @angular/core",
 		"e2e": "ng e2e",
@@ -76,6 +78,7 @@
 		"stylelint-config-standard": "^18.2.0",
 		"ts-node": "^7.0.1",
 		"tslint": "^5.13.0",
+		"webpack-bundle-analyzer": "^3.1.0",
 		"typescript": "3.2.4"
 	}
 }
