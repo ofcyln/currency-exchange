@@ -18,4 +18,5 @@ before_script:
 script:
     - npm run tslint
     - npm run stylelint
+    - npm run test
     - npm run build:prod
