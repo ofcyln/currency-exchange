@@ -29,7 +29,6 @@ export interface Statistics {
     styleUrls: ['./converter.component.scss'],
 })
 export class ConverterComponent implements OnInit {
-    public welcomeText = 'I want to convert';
     public periodicHistoryData: PeriodicHistoryElement[] = this.currencyExchangeService.periodicHistoryExchangeRates;
 
     public dataSource = new MatTableDataSource(this.periodicHistoryData);

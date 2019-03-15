@@ -89,8 +89,10 @@ describe('ConverterComponent', () => {
             });
     }));
 
-    it('should have as text `I want to convert`', async(() => {
-        expect(compiled.welcomeText).toEqual('I want to convert');
+    it('should have a header which says `I want to convert`', async(() => {
+        hElement = fixture.debugElement.query(By.css('h1')).nativeElement;
+
+        expect(hElement.innerText).toEqual('I want to convert');
     }));
 
     it('should not be able to click `CONVERT` button while it is disabled', async(() => {
