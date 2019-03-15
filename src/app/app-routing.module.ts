@@ -7,7 +7,7 @@ import { ConverterComponent } from './components/converter/converter.component';
 import { HistoryComponent } from './components/history/history.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 
-const appRoutes: Routes = [
+export const appRoutes: Routes = [
     {
         path: '',
         redirectTo: '/converter',

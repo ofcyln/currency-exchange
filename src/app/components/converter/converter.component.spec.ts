@@ -17,15 +17,12 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from '../../auth/auth.module';
 import { CoreModule } from '../../core/core.module';
-import { AppRoutingModule } from '../../app-routing.module';
+import { appRoutes, AppRoutingModule } from '../../app-routing.module';
 import { HistoryComponent } from '../history/history.component';
 import { CurrencyExchangeService } from '../../shared/service/currency-exchange.service';
 import { ExchangeRatesApiRequestService } from '../../shared/service/exchange-rates-api-request.service';
 import { StorageService } from '../../shared/service/storage.service';
-import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from '../../auth/login/login.component';
-import { AuthGuardService } from '../../auth/auth-guard.service';
-import { NotFoundComponent } from '../../core/not-found/not-found.component';
+import { RouterModule } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
 
 describe('ConverterComponent', () => {
@@ -33,19 +30,6 @@ describe('ConverterComponent', () => {
     let fixture: ComponentFixture<ConverterComponent>;
     let dElement: DebugElement;
     let hElement: HTMLElement;
-
-    const appRoutes: Routes = [
-        {
-            path: '',
-            redirectTo: '/converter',
-            pathMatch: 'full',
-        },
-        { path: 'login', component: LoginComponent },
-        { path: 'converter', component: ConverterComponent, canActivate: [AuthGuardService] },
-        { path: 'history', component: HistoryComponent, canActivate: [AuthGuardService] },
-        { path: 'not-found', component: NotFoundComponent },
-        { path: '**', redirectTo: 'not-found' },
-    ];
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
