@@ -107,7 +107,7 @@
         </mat-form-field>
     </div>
 
-    <section class="history-table col-12 mb-4 pl-3 pr-3" *ngIf="this.dataSource.data.length > 0">
+    <section class="history-table col-12 mb-4 pl-3 pr-3" *ngIf="this.dataSource.data.length > 0; else noDataTimeline">
         <div class="row flex-xl-row flex-lg-row flex-md-row flex-sm-column no--padding m-0 mb-4">
             <div class="col-12 col-md-6 col-lg-6 col-xl-6 p-0 pr-lg-2 pr-md-2 pr-xl-2">
                 <table
@@ -154,4 +154,12 @@
             </div>
         </div>
     </section>
+
+    <ng-template #noDataTimeline>
+        <div class="col-12">
+            <p class="mat-elevation-z8 p-4 color--matte-red">
+                There is no data for selected timeline!
+            </p>
+        </div>
+    </ng-template>
 </article>

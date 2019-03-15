@@ -4,11 +4,11 @@ import { MatTableDataSource } from '@angular/material';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
-import { ExchangeRatesApiRequestService } from '../shared/service/exchange-rates-api-request.service';
-import { AlertService } from '../core/alert/alert.service';
-import { CurrencyExchangeService, PeriodicHistoryElement } from '../shared/service/currency-exchange.service';
-import { ExchangeRatesResponse, MappedCurrencyRateObject } from '../shared/interface/exchange-rates.model';
-import { StorageService } from '../shared/service/storage.service';
+import { ExchangeRatesApiRequestService } from '../../shared/service/exchange-rates-api-request.service';
+import { AlertService } from '../../core/alert/alert.service';
+import { CurrencyExchangeService, PeriodicHistoryElement } from '../../shared/service/currency-exchange.service';
+import { ExchangeRatesResponse, MappedCurrencyRateObject } from '../../shared/interface/exchange-rates.model';
+import { StorageService } from '../../shared/service/storage.service';
 import {
     Currency,
     FormNames,
@@ -16,7 +16,7 @@ import {
     StatisticalDataTableFields,
     TableColumnNames,
     TimeIntervalTypes,
-} from '../shared/interface/enums.model';
+} from '../../shared/interface/enums.model';
 
 export interface Statistics {
     name: string;

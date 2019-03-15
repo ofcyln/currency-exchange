@@ -13,8 +13,8 @@ import {
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { ConverterComponent } from './converter/converter.component';
-import { HistoryComponent } from './history/history.component';
+import { ConverterComponent } from './components/converter/converter.component';
+import { HistoryComponent } from './components/history/history.component';
 import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';

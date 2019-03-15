@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material';
 
-import { CurrencyExchangeService, PeriodicHistoryElement } from '../shared/service/currency-exchange.service';
-import { StorageService } from '../shared/service/storage.service';
+import { CurrencyExchangeService, PeriodicHistoryElement } from '../../shared/service/currency-exchange.service';
+import { StorageService } from '../../shared/service/storage.service';
 
 export interface HistoryElement {
     id: number;
