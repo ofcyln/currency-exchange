@@ -62,54 +62,15 @@ export class ConverterComponent implements OnInit {
     ngOnInit() {
         this.converterForm = this.currencyExchangeService.converterForm;
 
-        this.converterForm.controls[FormNames.FromControl].disable();
-        this.converterForm.controls[FormNames.ToControl].disable();
+        this.disableInputAreas([FormNames.FromControl, FormNames.ToControl]);
 
-        if (
-            this.currencyExchangeService.exchangeRates === undefined ||
-            this.currencyExchangeService.exchangeRates.length <= 0
-        ) {
-            this.apiRequestService.getExchangeRates(Currency.USD).subscribe(
-                (exchangeRate: ExchangeRatesResponse) => {
-                    this.currencyExchangeService.exchangeRates = this.mapResponseData(exchangeRate);
-
-                    this.currencyExchangeService.fromCurrencies = this.mapItemCurrencies();
-
-                    this.currencyExchangeService.toCurrencies = this.mapItemCurrencies();
-
-                    this.converterForm.controls[FormNames.FromControl].enable();
-                    this.converterForm.controls[FormNames.ToControl].enable();
-                },
-                (error) => {
-                    this.alertService.error(`Error: ${error.message}`);
-                },
-            );
-        } else {
-            this.converterForm.controls[FormNames.FromControl].enable();
-            this.converterForm.controls[FormNames.ToControl].enable();
-        }
+        this.getRates();
 
         this.filteredFromValues = this.getFromValueChanges(FormNames.FromControl);
 
         this.filteredToValues = this.getToValueChanges(FormNames.ToControl);
 
-        this.statisticalData = [
-            {
-                name: StatisticalDataTableFields.Lowest,
-                summary: this.getLowestRate(this.currencyExchangeService.periodicHistoryExchangeRates),
-            },
-            {
-                name: StatisticalDataTableFields.Highest,
-                summary: this.getHighestRate(this.currencyExchangeService.periodicHistoryExchangeRates),
-            },
-            {
-                name: StatisticalDataTableFields.Average,
-                summary:
-                    this.getAverageRate(this.currencyExchangeService.periodicHistoryExchangeRates) > -1
-                        ? this.getAverageRate(this.currencyExchangeService.periodicHistoryExchangeRates)
-                        : 0,
-            },
-        ];
+        this.getStatisticalDataValues();
 
         this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
 
@@ -129,42 +90,13 @@ export class ConverterComponent implements OnInit {
 
         this.incrementNumberForID();
 
-        this.currencyExchangeService.periodicHistoryExchangeRates.unshift({
-            id: this.id,
-            date: `${this.currencyExchangeService.getCurrentDate('/')}
-\n@${this.currencyExchangeService.getCurrentTime(':')}`,
-            time: this.currencyExchangeService.getCurrentTime(':'),
-            exchangeRate: `${this.fromCurrency} to ${this.toCurrency}
-\n${(this.toRate / this.fromRate).toFixed(5)}`,
-            pureExchangeRate: Number((this.toRate / this.fromRate).toFixed(5)),
-            creationDate: this.currencyExchangeService.getCurrentDate('/'),
-            fromCurrency: this.fromCurrency,
-            toCurrency: this.toCurrency,
-            amount: this.amount,
-        });
+        this.currencyExchangeService.periodicHistoryExchangeRates.unshift(this.setPeriodicHistoryElement());
 
-        StorageService.setObject(LocalStorageItems.ExchangeRates, [
-            ...this.currencyExchangeService.periodicHistoryExchangeRates,
-        ]);
+        this.setExchangeRates();
 
         this.dataSource = new MatTableDataSource(this.periodicHistoryData);
-        this.statisticalData = [
-            {
-                name: StatisticalDataTableFields.Lowest,
-                summary: this.getLowestRate(this.currencyExchangeService.periodicHistoryExchangeRates),
-            },
-            {
-                name: StatisticalDataTableFields.Highest,
-                summary: this.getHighestRate(this.currencyExchangeService.periodicHistoryExchangeRates),
-            },
-            {
-                name: StatisticalDataTableFields.Average,
-                summary:
-                    this.getAverageRate(this.currencyExchangeService.periodicHistoryExchangeRates) > -1
-                        ? this.getAverageRate(this.currencyExchangeService.periodicHistoryExchangeRates)
-                        : 0,
-            },
-        ];
+
+        this.getStatisticalDataValues();
 
         this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
 
@@ -229,8 +161,6 @@ export class ConverterComponent implements OnInit {
             map((value) => this.filterToInputValue(value)),
         );
     }
-
-    // TODO: five digits after comma
 
     getHighestRate(calculationArray: PeriodicHistoryElement[]): number {
         return calculationArray
@@ -349,6 +279,84 @@ export class ConverterComponent implements OnInit {
         }
 
         StorageService.setItem(LocalStorageItems.SelectedTimeInterval, this.selectedDuration);
+    }
+
+    getRates(): void {
+        if (
+            this.currencyExchangeService.exchangeRates === undefined ||
+            this.currencyExchangeService.exchangeRates.length <= 0
+        ) {
+            this.apiRequestService.getExchangeRates(Currency.USD).subscribe(
+                (exchangeRate: ExchangeRatesResponse): void => {
+                    this.currencyExchangeService.exchangeRates = this.mapResponseData(exchangeRate);
+
+                    this.currencyExchangeService.fromCurrencies = this.mapItemCurrencies();
+
+                    this.currencyExchangeService.toCurrencies = this.mapItemCurrencies();
+
+                    this.enableInputAreas([FormNames.FromControl, FormNames.ToControl]);
+                },
+                (error): void => {
+                    this.alertService.error(`Error: ${error.message}`);
+                },
+            );
+        } else {
+            this.enableInputAreas([FormNames.FromControl, FormNames.ToControl]);
+        }
+    }
+
+    setPeriodicHistoryElement(): PeriodicHistoryElement {
+        return {
+            id: this.id,
+            date: `${this.currencyExchangeService.getCurrentDate('/')}
+\n@${this.currencyExchangeService.getCurrentTime(':')}`,
+            time: this.currencyExchangeService.getCurrentTime(':'),
+            exchangeRate: `${this.fromCurrency} to ${this.toCurrency}
+\n${(this.toRate / this.fromRate).toFixed(5)}`,
+            pureExchangeRate: Number((this.toRate / this.fromRate).toFixed(5)),
+            creationDate: this.currencyExchangeService.getCurrentDate('/'),
+            fromCurrency: this.fromCurrency,
+            toCurrency: this.toCurrency,
+            amount: this.amount,
+        };
+    }
+
+    setExchangeRates(): void {
+        return StorageService.setObject(LocalStorageItems.ExchangeRates, [
+            ...this.currencyExchangeService.periodicHistoryExchangeRates,
+        ]);
+    }
+
+    getStatisticalDataValues(): Statistics[] {
+        return (this.statisticalData = [
+            {
+                name: StatisticalDataTableFields.Lowest,
+                summary: this.getLowestRate(this.currencyExchangeService.periodicHistoryExchangeRates),
+            },
+            {
+                name: StatisticalDataTableFields.Highest,
+                summary: this.getHighestRate(this.currencyExchangeService.periodicHistoryExchangeRates),
+            },
+            {
+                name: StatisticalDataTableFields.Average,
+                summary:
+                    this.getAverageRate(this.currencyExchangeService.periodicHistoryExchangeRates) > -1
+                        ? this.getAverageRate(this.currencyExchangeService.periodicHistoryExchangeRates)
+                        : 0,
+            },
+        ]);
+    }
+
+    disableInputAreas(inputNames: string[]): void {
+        for (let inputName of inputNames) {
+            this.converterForm.controls[inputName].disable();
+        }
+    }
+
+    enableInputAreas(inputNames: string[]): void {
+        for (let inputName of inputNames) {
+            this.converterForm.controls[inputName].enable();
+        }
     }
 
     private filterFromInputValue(value: string): string[] {
