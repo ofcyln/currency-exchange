@@ -162,20 +162,12 @@ export class ConverterComponent implements OnInit {
         );
     }
 
-    getHighestRate(calculationArray: PeriodicHistoryElement[]): number {
+    getSortedRate(calculationArray: PeriodicHistoryElement[]): number[] {
         return calculationArray
             .map((item: PeriodicHistoryElement) => {
                 return Number(item.pureExchangeRate);
             })
-            .sort((firstItem, secondItem) => firstItem - secondItem)[calculationArray.length - 1];
-    }
-
-    getLowestRate(calculationArray: PeriodicHistoryElement[]): number {
-        return calculationArray
-            .map((item: PeriodicHistoryElement) => {
-                return Number(item.pureExchangeRate);
-            })
-            .sort((firstItem, secondItem) => secondItem - firstItem)[calculationArray.length - 1];
+            .sort((firstItem, secondItem) => firstItem - secondItem);
     }
 
     getAverageRate(calculationArray: PeriodicHistoryElement[]): number {
@@ -218,11 +210,11 @@ export class ConverterComponent implements OnInit {
         this.statisticalData = [
             {
                 name: StatisticalDataTableFields.Lowest,
-                summary: this.getLowestRate(newDataTableArray),
+                summary: this.getSortedRate(newDataTableArray)[0],
             },
             {
                 name: StatisticalDataTableFields.Highest,
-                summary: this.getHighestRate(newDataTableArray),
+                summary: this.getSortedRate(newDataTableArray)[newDataTableArray.length - 1],
             },
             {
                 name: StatisticalDataTableFields.Average,
@@ -328,21 +320,20 @@ export class ConverterComponent implements OnInit {
     }
 
     getStatisticalDataValues(): Statistics[] {
+        const periodicHistoryArray = this.currencyExchangeService.periodicHistoryExchangeRates;
+
         return (this.statisticalData = [
             {
                 name: StatisticalDataTableFields.Lowest,
-                summary: this.getLowestRate(this.currencyExchangeService.periodicHistoryExchangeRates),
+                summary: this.getSortedRate(periodicHistoryArray)[0],
             },
             {
                 name: StatisticalDataTableFields.Highest,
-                summary: this.getHighestRate(this.currencyExchangeService.periodicHistoryExchangeRates),
+                summary: this.getSortedRate(periodicHistoryArray)[periodicHistoryArray.length - 1],
             },
             {
                 name: StatisticalDataTableFields.Average,
-                summary:
-                    this.getAverageRate(this.currencyExchangeService.periodicHistoryExchangeRates) > -1
-                        ? this.getAverageRate(this.currencyExchangeService.periodicHistoryExchangeRates)
-                        : 0,
+                summary: this.getAverageRate(periodicHistoryArray) > -1 ? this.getAverageRate(periodicHistoryArray) : 0,
             },
         ]);
     }
