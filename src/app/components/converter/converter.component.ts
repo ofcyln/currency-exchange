@@ -151,14 +151,14 @@ export class ConverterComponent implements OnInit {
     getFromValueChanges(stringValue: string): Observable<string[]> {
         return this.converterForm.get(stringValue).valueChanges.pipe(
             startWith(''),
-            map((value) => this.filterFromInputValue(value)),
+            map((value) => this.filterInputValue(value, this.currencyExchangeService.fromCurrencies)),
         );
     }
 
     getToValueChanges(stringValue: string): Observable<string[]> {
         return this.converterForm.get(stringValue).valueChanges.pipe(
             startWith(''),
-            map((value) => this.filterToInputValue(value)),
+            map((value) => this.filterInputValue(value, this.currencyExchangeService.toCurrencies)),
         );
     }
 
@@ -350,17 +350,9 @@ export class ConverterComponent implements OnInit {
         }
     }
 
-    private filterFromInputValue(value: string): string[] {
+    private filterInputValue(value: string, arrayGoingFiltered: string[]): string[] {
         const filterValue = value.toLowerCase();
 
-        return this.currencyExchangeService.fromCurrencies.filter((option) =>
-            option.toLowerCase().includes(filterValue),
-        );
-    }
-
-    private filterToInputValue(value: string): string[] {
-        const filterValue = value.toLowerCase();
-
-        return this.currencyExchangeService.toCurrencies.filter((option) => option.toLowerCase().includes(filterValue));
+        return arrayGoingFiltered.filter((option) => option.toLowerCase().includes(filterValue));
     }
 }
