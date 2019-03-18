@@ -60,7 +60,7 @@ The build artifacts will be stored in the `dist/` directory.
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 ## App's Architecture
-*  Used latest Angular CLI v7.3.3
+*   Used latest Angular CLI v7.3.3
 
 *  Used code scaffolding for effective working and clean development environment. Specialized `build`, `deploy`, `lint`, `pre-commit` scripts added to package.json.
 
