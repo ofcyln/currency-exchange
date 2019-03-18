@@ -13,7 +13,6 @@ Currency Exchange Project authored by Osman Fikret Ceylan.
 
 The final app hosted on [https://currencyexchange.work](https://currencyexchange.work).
 
-
 ### Using the project with Stackblitz
 
 Simply go to this URL: [https://stackblitz.com/github/ofcyln/currency-exchange](https://stackblitz.com/github/ofcyln/currency-exchange)
