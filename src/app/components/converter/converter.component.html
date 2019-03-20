@@ -26,7 +26,8 @@
             class="pb-0 from-control"
             matInput
             formControlName="fromControl"
-            [matAutocomplete]="fromAutoComplete">
+            [matAutocomplete]="fromAutoComplete"
+            (keydown)="selectCurrencyByEnter($event, 'fromControl')">
 
         <mat-autocomplete #fromAutoComplete="matAutocomplete">
             <mat-option *ngFor="let fromItem of filteredFromValues | async" [value]="fromItem">
@@ -49,7 +50,8 @@
             class="pb-0 to-control"
             matInput
             formControlName="toControl"
-            [matAutocomplete]="toAutoComplete">
+            [matAutocomplete]="toAutoComplete"
+            (keydown)="selectCurrencyByEnter($event, 'toControl')">
 
         <mat-autocomplete #toAutoComplete="matAutocomplete">
             <mat-option *ngFor="let toItem of filteredToValues | async" [value]="toItem">

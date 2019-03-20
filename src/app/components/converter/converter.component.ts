@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { Observable, of, Subscription } from 'rxjs';
+import { map, startWith, take, takeLast, tap } from 'rxjs/operators';
 
 import { ExchangeRatesApiRequestService } from '../../shared/service/exchange-rates-api-request.service';
 import { AlertService } from '../../core/alert/alert.service';
@@ -75,6 +75,15 @@ export class ConverterComponent implements OnInit {
         this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
 
         this.selectedTimeInterval();
+    }
+
+    selectCurrencyByEnter(event, inputName: string): void {
+        if (event.key === 'Enter') {
+            let inputValue: string = this.converterForm.get(inputName).value;
+            inputValue = inputValue.toUpperCase();
+
+            this.converterForm.get(inputName).setValue(inputValue);
+        }
     }
 
     exchangeRates(): void {
