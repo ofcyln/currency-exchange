@@ -104,12 +104,10 @@ describe('ConverterComponent', () => {
     it('form should be valid while input fields are filled', async(() => {
         fixture.detectChanges();
 
-        fakeAsync(() => {
-            compiled.converterForm.controls['amountControl'].setValue(1);
-            compiled.converterForm.controls['fromControl'].setValue('EUR');
-            compiled.converterForm.controls['toControl'].setValue('TRY');
-        });
+        compiled.converterForm.controls['amountControl'].setValue(1);
+        compiled.converterForm.controls['fromControl'].setValue('EUR');
+        compiled.converterForm.controls['toControl'].setValue('TRY');
 
-        expect(compiled.converterForm.valid).toBeFalsy();
+        expect(compiled.converterForm.valid).toBeTruthy();
     }));
 });
