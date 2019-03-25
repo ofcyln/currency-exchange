@@ -76,19 +76,19 @@
     <section class="conversion-result-area justify-content-center mt-4 row">
         <p class="title--font-size">{{ amount }} {{ fromCurrency }}</p>
         <p class="title--font-size ml-3 mr-3">=</p>
-        <p class="title--font-size font--roboto-bold accent--color">{{ result }} {{ toCurrency }}</p>
+        <p class="title--font-size font--roboto-bold accent--color">{{ result | number:'1.5-5' }} {{ toCurrency }}</p>
     </section>
 
     <section class="conversion-info-area justify-content-center row">
         <p class="body-text--font-size no--margin">
             1 {{ fromCurrency }}
             =
-            {{ (+toRate / +fromRate).toFixed(5) }} {{ toCurrency }}
+            {{ (+toRate / +fromRate) | number:'1.5-5' }} {{ toCurrency }}
         </p>
 
         <p class="w-100 no--margin"></p>
 
-        <p class="body-text--font-size no--margin">1 {{ toCurrency }} = {{ (+fromRate / +toRate).toFixed(5) }} {{ fromCurrency }}</p>
+        <p class="body-text--font-size no--margin">1 {{ toCurrency }} = {{ (+fromRate / +toRate) | number:'1.5-5' }} {{ fromCurrency }}</p>
     </section>
 </article>
 
@@ -151,7 +151,7 @@
                     <!-- Summary Column -->
                     <ng-container matColumnDef="summary">
                         <th mat-header-cell *matHeaderCellDef></th>
-                        <td mat-cell *matCellDef="let element"> {{element.summary}}</td>
+                        <td mat-cell *matCellDef="let element"> {{element.summary | number:'1.5-5'}}</td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedStatisticalColumns"></tr>
