@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material';
-import { Observable, of, Subscription } from 'rxjs';
-import { map, startWith, take, takeLast, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 import { ExchangeRatesApiRequestService } from '../../shared/service/exchange-rates-api-request.service';
 import { AlertService } from '../../core/alert/alert.service';
