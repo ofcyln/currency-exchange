@@ -30,8 +30,10 @@
             (keydown)="selectCurrencyByEnter($event, 'fromControl')">
 
         <mat-autocomplete #fromAutoComplete="matAutocomplete">
-            <mat-option *ngFor="let fromItem of filteredFromValues | async" [value]="fromItem">
-                {{fromItem}}
+            <mat-option *ngFor="let fromItem of filteredFromValues | async" [value]="fromItem" class="d-flex justify-content-start">
+                <b class="primary--color symbol--font-size">{{ getSymbol(fromItem) }} </b>
+                <span class="margin-sm-left"> - </span>
+                <small class="margin-sm-left">{{fromItem}}</small>
             </mat-option>
         </mat-autocomplete>
     </mat-form-field>
@@ -55,7 +57,9 @@
 
         <mat-autocomplete #toAutoComplete="matAutocomplete">
             <mat-option *ngFor="let toItem of filteredToValues | async" [value]="toItem">
-                {{toItem}}
+                <b class="primary--color symbol--font-size">{{ getSymbol(toItem) }} </b>
+                <span class="margin-sm-left"> - </span>
+                <small class="margin-sm-left">{{toItem}}</small>
             </mat-option>
         </mat-autocomplete>
     </mat-form-field>
