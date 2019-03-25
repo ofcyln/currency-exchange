@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material';
 import { Observable } from 'rxjs';
@@ -18,6 +18,8 @@ import {
     TimeIntervalTypes,
 } from '../../shared/interface/enums.model';
 
+import getSymbolFromCurrency from 'currency-symbol-map';
+
 export interface Statistics {
     name: string;
     summary: number;
@@ -27,6 +29,7 @@ export interface Statistics {
     selector: 'app-converter',
     templateUrl: './converter.component.html',
     styleUrls: ['./converter.component.scss'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class ConverterComponent implements OnInit {
     public periodicHistoryData: PeriodicHistoryElement[] = this.currencyExchangeService.periodicHistoryExchangeRates;
@@ -357,6 +360,10 @@ export class ConverterComponent implements OnInit {
         for (let inputName of inputNames) {
             this.converterForm.controls[inputName].enable();
         }
+    }
+
+    getSymbol(rate: string): string {
+        return getSymbolFromCurrency(rate);
     }
 
     private filterInputValue(value: string, arrayGoingFiltered: string[]): string[] {

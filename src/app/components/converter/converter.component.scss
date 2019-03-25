@@ -2,6 +2,11 @@
 	margin-bottom: 45px;
 }
 
+.mat-option-text {
+	display: flex !important;
+	justify-content: flex-start;
+}
+
 .conversion-area {
 	.opposite-arrows {
 		font-size: 24px;
