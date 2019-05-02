@@ -2,6 +2,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0daf17f0d00b492e980b79cb9f1b2980)](https://www.codacy.com/app/ofcyln/currency-exchange?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ofcyln/currency-exchange&amp;utm_campaign=Badge_Grade)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e0d6ef4966fdaffb362d/maintainability)](https://codeclimate.com/github/ofcyln/currency-exchange/maintainability)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Open Source Love svg2](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
 # Currency Exchange Project
 
