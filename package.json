@@ -54,8 +54,8 @@
 		"zone.js": "^0.8.29"
 	},
 	"devDependencies": {
-		"@angular-devkit/build-angular": "^0.13.3",
-		"@angular/cli": "^7.3.3",
+		"@angular-devkit/build-angular": "^0.13.9",
+		"@angular/cli": "^7.3.9",
 		"@angular/compiler-cli": "^7.2.7",
 		"@angular/language-service": "^7.2.7",
 		"@types/jasmine": "^2.8.9",
@@ -78,12 +78,12 @@
 		"lint-staged": "^4.3.0",
 		"prettier": "^1.13.7",
 		"protractor": "^5.4.1",
-		"puppeteer": "^1.7.0",
+		"puppeteer": "^1.15.0",
 		"stylelint": "^9.10.1",
 		"stylelint-config-standard": "^18.2.0",
 		"ts-node": "^7.0.1",
 		"tslint": "^5.13.0",
 		"typescript": "3.2.4",
-		"webpack-bundle-analyzer": "^3.1.0"
+		"webpack-bundle-analyzer": "^3.3.2"
 	}
 }
