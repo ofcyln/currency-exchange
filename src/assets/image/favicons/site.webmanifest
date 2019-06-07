@@ -1,6 +1,6 @@
 {
-    "name": "Currency Converter",
-    "short_name": "Currency Converter",
+    "name": "Currency Exchange",
+    "short_name": "Currency Exchange",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
@@ -14,6 +14,6 @@
         }
     ],
     "theme_color": "#079f90",
-    "background_color": "#079f90",
+    "background_color": "#fff",
     "display": "standalone"
 }

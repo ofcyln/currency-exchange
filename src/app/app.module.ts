@@ -22,6 +22,8 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 
 import { ExchangeRatesApiRequestService } from './shared/service/exchange-rates-api-request.service';
 import { CurrencyExchangeService } from './shared/service/currency-exchange.service';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
     declarations: [AppComponent, ConverterComponent, HistoryComponent],
@@ -40,6 +42,7 @@ import { CurrencyExchangeService } from './shared/service/currency-exchange.serv
         MatSelectModule,
         MatTableModule,
         MatAutocompleteModule,
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ],
     providers: [ExchangeRatesApiRequestService, CurrencyExchangeService],
     bootstrap: [AppComponent],
