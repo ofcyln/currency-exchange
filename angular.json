@@ -43,9 +43,9 @@
             "production": {
               "budgets": [
                 {
-                  "type": "all",
-                  "maximumWarning": "3000kb",
-                  "maximumError": "3250kb"
+                  "type": "bundle",
+                  "maximumWarning": "1000kb",
+                  "maximumError": "1250kb"
                 }
               ],
               "fileReplacements": [
