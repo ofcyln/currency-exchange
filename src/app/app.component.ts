@@ -10,7 +10,7 @@ import { StorageService } from './shared/service/storage.service';
 })
 export class AppComponent implements OnInit {
     public isBannerShown: string;
-    private showBanner: boolean = true;
+    public showBanner: boolean = true;
 
     constructor(public authService: AuthService) {}
 
