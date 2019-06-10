@@ -2,7 +2,6 @@
 	font-family: 'fontello';
 	src: url('../font/fontello/fontello.eot?82928597');
 	src:
-
 		url('../font/fontello/fontello.eot?82928597#iefix') format('embedded-opentype'),
 		url('../font/fontello/fontello.woff2?82928597') format('woff2'),
 		url('../font/fontello/fontello.woff?82928597') format('woff'),
@@ -64,23 +63,26 @@
 	/* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
 
+.icon-ios-share::before {
+	content: '\e800';
+}
+
 .icon-compare-arrows::before {
 	content: '\e804';
 }
 
-/* '' */
 .icon-delete-forever::before {
 	content: '\e805';
 }
 
-/* '' */
 .icon-find-replace::before {
 	content: '\e806';
 }
 
-/* '' */
 .icon-red-eye::before {
 	content: '\e807';
 }
 
-/* '' */
+.icon-plus-squared::before {
+	content: '\f0fe';
+}
