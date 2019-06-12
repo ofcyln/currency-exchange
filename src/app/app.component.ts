@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 
 import { AuthService } from './auth/auth.service';
 import { StorageService } from './shared/service/storage.service';
@@ -13,10 +13,12 @@ export class AppComponent implements OnInit {
     public showBanner: boolean = true;
     public deferredPrompt: any;
 
-    constructor(public authService: AuthService) {}
+    constructor(public authService: AuthService, public element: ElementRef, public renderer: Renderer2) {}
 
     ngOnInit(): void {
         this.assignBannerShown();
+
+        this.beforeInstallPromt();
 
         if (this.isChrome()) {
             StorageService.setItem('isBannerShown', 'true');
@@ -25,6 +27,16 @@ export class AppComponent implements OnInit {
         }
 
         this.showIosBanner();
+    }
+
+    beforeInstallPromt() {
+        this.renderer.listen('window', 'beforeinstallprompt', (event) => {
+            event.preventDefault();
+
+            this.deferredPrompt = event;
+
+            this.addToHomeScreen();
+        });
     }
 
     assignBannerShown() {
@@ -51,20 +63,12 @@ export class AppComponent implements OnInit {
         ) {
             StorageService.setItem('isBannerShown', 'true');
         }
-
-        window.addEventListener('beforeinstallprompt', (event) => {
-            event.preventDefault();
-
-            this.deferredPrompt = event;
-
-            this.addToHomeScreen();
-        });
     }
 
     addToHomeScreen() {
         this.deferredPrompt.prompt();
 
-        this.deferredPrompt.userChoice.then(function(choiceResult) {
+        this.deferredPrompt.userChoice.then((choiceResult) => {
             if (choiceResult.outcome === 'accepted') {
                 StorageService.setItem('isBannerShown', 'true');
             }
