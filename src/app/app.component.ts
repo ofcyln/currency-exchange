@@ -9,7 +9,7 @@ import { StorageService } from './shared/service/storage.service';
     styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-    public isBannerShown: string;
+    public isBannerShown: string = 'false';
     public showBanner: boolean = true;
     public deferredPrompt: any;
 
