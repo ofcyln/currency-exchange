@@ -11,6 +11,7 @@ import { StorageService } from './shared/service/storage.service';
 export class AppComponent implements OnInit {
     public isBannerShown: string;
     public showBanner: boolean = true;
+    public deferredPrompt: any;
 
     constructor(public authService: AuthService) {}
 
@@ -50,6 +51,26 @@ export class AppComponent implements OnInit {
         ) {
             StorageService.setItem('isBannerShown', 'true');
         }
+
+        window.addEventListener('beforeinstallprompt', (event) => {
+            event.preventDefault();
+
+            this.deferredPrompt = event;
+
+            this.addToHomeScreen();
+        });
+    }
+
+    addToHomeScreen() {
+        this.deferredPrompt.prompt();
+
+        this.deferredPrompt.userChoice.then(function(choiceResult) {
+            if (choiceResult.outcome === 'accepted') {
+                StorageService.setItem('isBannerShown', 'true');
+            }
+
+            this.deferredPrompt = null;
+        });
     }
 
     close() {
