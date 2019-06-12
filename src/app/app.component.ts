@@ -15,13 +15,27 @@ export class AppComponent implements OnInit {
     constructor(public authService: AuthService) {}
 
     ngOnInit(): void {
-        this.isBannerShown = StorageService.getItem('isBannerShown');
+        this.assignBannerShown();
+
+        if (this.isChrome()) {
+            StorageService.setItem('isBannerShown', 'true');
+
+            this.assignBannerShown();
+        }
 
         this.showIosBanner();
     }
 
+    assignBannerShown() {
+        this.isBannerShown = StorageService.getItem('isBannerShown');
+    }
+
     isIos() {
         return /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+    }
+
+    isChrome() {
+        return /google inc./.test(window.navigator.vendor.toLowerCase());
     }
 
     isInStandaloneMode() {
