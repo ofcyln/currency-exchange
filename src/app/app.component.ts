@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
     }
 
     assignBannerShown() {
-        this.isBannerShown = StorageService.getItem('isBannerShown');
+        this.isBannerShown = StorageService.getItem('isBannerShown') || 'false';
     }
 
     isIos() {

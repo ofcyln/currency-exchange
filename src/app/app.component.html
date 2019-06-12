@@ -15,7 +15,7 @@
             [ngClass]="authService.isAuthenticated() ? 'initial-margin' : 'mt-0'">
             <router-outlet></router-outlet>
 
-            <section *ngIf="!isBannerShown && this.isIos() && this.showBanner" class="banner-area">
+            <section *ngIf="isBannerShown !== 'true' && this.isIos() && this.showBanner" class="banner-area">
                 <section class="flex-column installation-banner">
                     <article class="col banner-header">
                         <strong class="mr-auto font-weight-bold">Install PWA</strong>
