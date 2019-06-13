@@ -1,6 +1,10 @@
 {
     "index": "/index.html",
     "start_url": "/",
+    "appData": {
+        "version": "2.0.0",
+        "changelog": "PWA integration has been completed."
+    },
     "assetGroups": [
         {
             "name": "app",
