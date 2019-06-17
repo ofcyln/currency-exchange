@@ -264,7 +264,7 @@ bower_components
 .idea/**/uiDesigner.xml
 
 #firebase
-.firebase
+.firebase/
 
 # Gradle:
 .idea/**/gradle.xml
