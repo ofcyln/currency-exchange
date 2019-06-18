@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material';
+import { MatOptionSelectionChange, MatTableDataSource } from '@angular/material';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, take } from 'rxjs/operators';
 
 import { ExchangeRatesApiRequestService } from '../../shared/service/exchange-rates-api-request.service';
 import { AlertService } from '../../core/alert/alert.service';
@@ -80,13 +80,20 @@ export class ConverterComponent implements OnInit {
         this.selectedTimeInterval();
     }
 
-    selectCurrencyByEnter(event, inputName: string): void {
-        if (event.key === 'Enter') {
-            let inputValue: string = this.converterForm.get(inputName).value;
-            inputValue = inputValue.toUpperCase();
-
-            this.converterForm.get(inputName).setValue(inputValue);
+    selectCurrencyByEnter(event: MatOptionSelectionChange, inputName: string): void {
+        if (event.isUserInput) {
+            inputName = event.source.value;
         }
+    }
+
+    selectWrittenCurrency(event: any, inputName: string): void {
+        const writtenCurrency = event.target.value.toUpperCase();
+
+        const currencyList = this.mapItemCurrencies();
+
+        const matchedCurrency = currencyList.filter((currency) => currency === writtenCurrency).toString();
+
+        this.converterForm.controls[inputName].setValue(matchedCurrency);
     }
 
     exchangeRates(): void {

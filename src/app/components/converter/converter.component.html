@@ -8,6 +8,7 @@
     class="conversion-area row"
     [formGroup]="converterForm"
     (ngSubmit)="exchangeRates()"
+    (keyup.enter)="$event.preventDefault()"
     novalidate>
 
     <mat-form-field class="margin-sm-right col-12 col-md-12 col-lg-3 col-xl-3">
@@ -26,12 +27,17 @@
             class="pb-0 from-control"
             matInput
             formControlName="fromControl"
-            [matAutocomplete]="fromAutoComplete"
-            (keydown)="selectCurrencyByEnter($event, 'fromControl')">
+            (keydown.enter)="selectWrittenCurrency($event, 'fromControl')"
+            [matAutocomplete]="fromAutoComplete">
 
         <mat-autocomplete #fromAutoComplete="matAutocomplete">
-            <mat-option *ngFor="let fromItem of filteredFromValues | async" [value]="fromItem" class="d-flex justify-content-start">
+            <mat-option
+                *ngFor="let fromItem of filteredFromValues | async"
+                [value]="fromItem"
+                class="d-flex justify-content-start"
+                (onSelectionChange)="selectCurrencyByEnter($event, this.fromCurrency)">
                 <span>{{fromItem}}</span>
+
                 <b class="primary--color">{{ getSymbol(fromItem) }} </b>
             </mat-option>
         </mat-autocomplete>
@@ -51,12 +57,16 @@
             class="pb-0 to-control"
             matInput
             formControlName="toControl"
-            [matAutocomplete]="toAutoComplete"
-            (keydown)="selectCurrencyByEnter($event, 'toControl')">
+            (keydown.enter)="selectWrittenCurrency($event, 'toControl')"
+            [matAutocomplete]="toAutoComplete">
 
         <mat-autocomplete #toAutoComplete="matAutocomplete">
-            <mat-option *ngFor="let toItem of filteredToValues | async" [value]="toItem">
+            <mat-option
+                *ngFor="let toItem of filteredToValues | async"
+                [value]="toItem"
+                (onSelectionChange)="selectCurrencyByEnter($event, this.toCurrency)">
                 <span>{{toItem}}</span>
+
                 <b class="primary--color">{{ getSymbol(toItem) }} </b>
             </mat-option>
         </mat-autocomplete>
@@ -92,7 +102,9 @@
     </section>
 </article>
 
-<article class="row" *ngIf="currencyExchangeService.periodicHistoryExchangeRates.length > 0">
+<article
+    class="row"
+    *ngIf="currencyExchangeService.periodicHistoryExchangeRates.length > 0">
     <div class="col-12 mt-4 mb-2">
         <hr>
     </div>
@@ -113,7 +125,9 @@
         </mat-form-field>
     </div>
 
-    <section class="history-table col-12 mb-4 pl-3 pr-3" *ngIf="this.dataSource.data.length > 0; else noDataTimeline">
+    <section
+        class="history-table col-12 mb-4 pl-3 pr-3"
+        *ngIf="this.dataSource.data.length > 0; else noDataTimeline">
         <div class="row flex-xl-row flex-lg-row flex-md-row flex-sm-column no--padding m-0 mb-4">
             <div class="col-12 col-md-6 col-lg-6 col-xl-6 p-0 pr-lg-2 pr-md-2 pr-xl-2">
                 <table
