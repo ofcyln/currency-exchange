@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatAutocompleteTrigger, MatOptionSelectionChange, MatTableDataSource } from '@angular/material';
+import { MatOptionSelectionChange, MatTableDataSource } from '@angular/material';
 import { Observable } from 'rxjs';
-import { map, startWith, take } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 
 import { ExchangeRatesApiRequestService } from '../../shared/service/exchange-rates-api-request.service';
 import { AlertService } from '../../core/alert/alert.service';
@@ -32,9 +32,6 @@ export interface Statistics {
     encapsulation: ViewEncapsulation.None,
 })
 export class ConverterComponent implements OnInit {
-    @ViewChild(MatAutocompleteTrigger)
-    autocomplete: MatAutocompleteTrigger;
-
     public periodicHistoryData: PeriodicHistoryElement[] = this.currencyExchangeService.periodicHistoryExchangeRates;
 
     public dataSource = new MatTableDataSource(this.periodicHistoryData);
