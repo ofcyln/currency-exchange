@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatOptionSelectionChange, MatTableDataSource } from '@angular/material';
+import { MatAutocompleteTrigger, MatOptionSelectionChange, MatTableDataSource } from '@angular/material';
 import { Observable } from 'rxjs';
 import { map, startWith, take } from 'rxjs/operators';
 
@@ -32,6 +32,9 @@ export interface Statistics {
     encapsulation: ViewEncapsulation.None,
 })
 export class ConverterComponent implements OnInit {
+    @ViewChild(MatAutocompleteTrigger)
+    autocomplete: MatAutocompleteTrigger;
+
     public periodicHistoryData: PeriodicHistoryElement[] = this.currencyExchangeService.periodicHistoryExchangeRates;
 
     public dataSource = new MatTableDataSource(this.periodicHistoryData);
@@ -55,6 +58,8 @@ export class ConverterComponent implements OnInit {
     public toRate: number;
     public toCurrency: string;
     public result: string;
+
+    private readonly FIRST_ITEM = 0;
 
     constructor(
         public currencyExchangeService: CurrencyExchangeService,
@@ -89,11 +94,15 @@ export class ConverterComponent implements OnInit {
     selectWrittenCurrency(event: any, inputName: string): void {
         const writtenCurrency = event.target.value.toUpperCase();
 
-        const currencyList = this.mapItemCurrencies();
+        if (writtenCurrency.length >= 2 && writtenCurrency.length <= 3) {
+            const currencyList = this.mapItemCurrencies();
 
-        const matchedCurrency = currencyList.filter((currency) => currency === writtenCurrency).toString();
+            const matchedCurrency = currencyList
+                .filter((currency) => currency.includes(writtenCurrency))
+                [this.FIRST_ITEM].toString();
 
-        this.converterForm.controls[inputName].setValue(matchedCurrency);
+            this.converterForm.controls[inputName].setValue(matchedCurrency);
+        }
     }
 
     exchangeRates(): void {
@@ -127,8 +136,14 @@ export class ConverterComponent implements OnInit {
             amountControl: new FormControl(this.converterForm.get(FormNames.AmountControl).value, [
                 Validators.required,
             ]),
-            fromControl: new FormControl(this.converterForm.get(FormNames.ToControl).value, [Validators.required]),
-            toControl: new FormControl(this.converterForm.get(FormNames.FromControl).value, [Validators.required]),
+            fromControl: new FormControl(this.converterForm.get(FormNames.ToControl).value, [
+                Validators.required,
+                Validators.minLength(2),
+            ]),
+            toControl: new FormControl(this.converterForm.get(FormNames.FromControl).value, [
+                Validators.required,
+                Validators.minLength(2),
+            ]),
         });
 
         this.incrementNumberForID();
