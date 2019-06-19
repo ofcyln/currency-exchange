@@ -93,11 +93,15 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 *   Modular components created for reusing components elsewhere to improve modularity in the app.
 
+*   PWA integration has been made for the installation of the app to the devices which supports installation.
+
 ## Motivation of Choices on Implementation
 
 *   The form immediately responses to user interactions with its `validation` checkers.
 
 *   `tabindex` values added for form elements in a numeric order to complete the form just with the use of keyboard for accessibility.
+
+*   `Enter` key press in the selection of currencies helps users to select the currency that they want to exchange easily.
 
 *   In case of navigating to a page which doesn't exist in the app, a `wildcard route (404)` is integrated to the project. It redirects users to the `Not Found` page. 
 
@@ -124,6 +128,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 *   Added `Logout` button to the app which redirects the user to the `Login` page. When user routes to the `Login` page, user token is getting removed from localStorage and the user is being unauthorized. 
 
 *   Mobile device UI behaviours designed to improve User Experience in a performing way and coded with the usage of the @media queries.
+
+*   `PWA` support helps users to install the app on their mobile phone and make them use it as a native app. With the integration of `PWA`, it is possible to use the app even if there is no connection to the internet. The offline mode makes the app run under unexpected circumstances. `PWA` integration caches the files with the developer choices. Mostly static files for example image files, icons, font libraries etc.
 
 *   `Angular production build configuration` is used for optimizing bundle, using tree-shaking, aot compilation, compression.
 
