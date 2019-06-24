@@ -223,7 +223,7 @@ export class ConverterComponent implements OnInit {
             if (Math.abs(+item.creationDate.split('/')[1] - +date.split('/')[1]) === 1) {
                 return Math.abs(+item.creationDate.split('/')[0] - +date.split('/')[0]) >= 30 - dayInterval;
             } else if (Math.abs(+item.creationDate.split('/')[1] - +date.split('/')[1]) === 0) {
-                return Math.abs(+item.creationDate.split('/')[0] - +date.split('/')[0]) <= dayInterval;
+                return Math.abs(+(Math.abs(+item.creationDate.split('/')[0] - +date.split('/')[0]) <= dayInterval));
             }
         });
     }
