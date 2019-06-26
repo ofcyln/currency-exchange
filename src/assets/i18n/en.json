@@ -1,0 +1,50 @@
+{
+    "main": {
+        "title": "I want to convert",
+        "general": {
+            "login": "Login",
+            "logout": "Logout",
+            "username": "Username",
+            "password": "Password"
+        },
+        "error": {
+            "empty-username": "Username field can not be empty!",
+            "empty-password": "Password field can not be empty!",
+            "invalid-credentials": "Username or password is wrong!",
+            "no-history": "There is no historical data yet to show!",
+            "no-data": "There is no data for the selected timeline!"
+        },
+        "nav": {
+            "currency": "Currency",
+            "exchange": "Exchange",
+            "currency-exchange": "CURRENCY EXCHANGE",
+            "view-exchange-history": "VIEW EXCHANGE HISTORY"
+        },
+        "exchange-field": {
+            "amount": "Amount",
+            "from": "From",
+            "to": "To",
+            "convert": "CONVERT"
+        },
+        "tables": {
+            "exchange-history": "Exchange History",
+            "duration": "Duration",
+            "all": "All",
+            "days": "Days",
+            "date": "Date",
+            "exchange-rate": "Exchange Rate",
+            "statistics": "Statistics",
+            "lowest": "Lowest",
+            "highest": "Highest",
+            "average": "Average",
+            "conversion-history": "Exchange History",
+            "event": "Event",
+            "actions": "Actions",
+            "view": "View",
+            "delete": "Delete from history",
+            "converted-an-amount-of": "Converted an amount of",
+            "from": "from",
+            "to": "to"
+        }
+    }
+}

@@ -18,7 +18,7 @@
 		"update:cli": "ng update @angular/cli",
 		"update:core": "ng update @angular/core",
 		"e2e": "ng e2e",
-        "resources": "node resources/generate-resources.js",
+		"resources": "node resources/generate-resources.js",
 		"precommit": "lint-staged"
 	},
 	"lint-staged": {
@@ -32,10 +32,10 @@
 			"git add"
 		]
 	},
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/ofcyln/currency-exchange.git"
-    },
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ofcyln/currency-exchange.git"
+	},
 	"private": true,
 	"dependencies": {
 		"@angular/animations": "^7.2.7",
@@ -51,6 +51,8 @@
 		"@angular/router": "^7.2.7",
 		"@angular/service-worker": "^7.2.7",
 		"@ngx-loading-bar/http-client": "^2.2.0",
+		"@ngx-translate/core": "^11.0.1",
+		"@ngx-translate/http-loader": "^4.0.0",
 		"bootstrap": "4.3.1",
 		"core-js": "^2.5.4",
 		"currency-symbol-map": "^4.0.4",
@@ -84,12 +86,12 @@
 		"lint-staged": "^4.3.0",
 		"prettier": "^1.13.7",
 		"protractor": "^5.4.1",
-		"puppeteer": "^1.7.0",
+		"puppeteer": "^1.18.0",
 		"stylelint": "^9.10.1",
 		"stylelint-config-standard": "^18.2.0",
 		"ts-node": "^7.0.1",
 		"tslint": "^5.13.0",
 		"typescript": "3.2.4",
-		"webpack-bundle-analyzer": "^3.1.0"
+		"webpack-bundle-analyzer": "^3.3.2"
 	}
 }

@@ -90,3 +90,23 @@ button:focus {
 	outline: none;
 	box-shadow: 0 0 1px 1px #333 !important;
 }
+
+app-converter,
+app-history {
+	margin-bottom: auto;
+}
+
+app-language-buttons {
+	margin-top: auto;
+}
+
+.mat-mini-fab {
+	line-height: 1 !important;
+	width: 30px !important;
+	height: 30px !important;
+
+	.mat-button-wrapper {
+		line-height: 1 !important;
+		font-size: 12px !important;
+	}
+}

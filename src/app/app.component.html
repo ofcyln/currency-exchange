@@ -9,7 +9,7 @@
         <app-alert></app-alert>
 
         <main
-            class="col no--padding"
+            class="col no--padding d-flex flex-column initial-margin"
             [ngClass]="authService.isAuthenticated() ? 'initial-margin' : 'mt-0'">
             <router-outlet></router-outlet>
 
@@ -38,6 +38,8 @@
                     </article>
                 </section>
             </section>
+
+            <app-language-buttons></app-language-buttons>
         </main>
     </article>
 </section>

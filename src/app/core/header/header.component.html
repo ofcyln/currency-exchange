@@ -5,7 +5,10 @@
 
             <p
                 class="m-0 pl-1 col d-inline-block"
-                aria-label="Currency Exchange">Currency<b>Exchange</b></p>
+                [attr.aria-expanded]="'main.nav.currency-exchange' | translate">
+                    <span>{{ 'main.nav.currency' | translate }}</span>
+                    <b>{{ 'main.nav.exchange' | translate }}</b>
+            </p>
         </a>
 
         <div
@@ -18,7 +21,9 @@
                     <a
                         class="nav-link cursor-pointer mt-0 mt-md-2 mt-lg-2 mt-xl-2"
                         routerLink="converter"
-                        aria-label="Currency converter">CURRENCY CONVERTER</a>
+                        aria-label="Currency Converter">
+                        {{ 'main.nav.currency-exchange' | translate }}
+                    </a>
                 </li>
 
                 <li
@@ -27,7 +32,10 @@
                     <a
                         class="nav-link cursor-pointer mt-0 mt-md-2 mt-lg-2 mt-xl-2"
                         routerLink="history"
-                        aria-label="View conversion history">VIEW CONVERSION HISTORY</a>
+                        aria-label="View Conversion History"
+                        translate="main.nav.view-exchange-history">
+                        {{ 'main.nav.view-exchange-history' | translate }}
+                    </a>
                 </li>
             </ul>
         </div>
@@ -38,6 +46,8 @@
             class="nav-link cursor--pointer logout-button"
             (click)="authService.logout()"
             *ngIf="authService.isAuthenticated()"
-            title="Logout">LOGOUT</button>
+            title="Logout">
+            {{ 'main.general.logout' | translate }}
+        </button>
     </nav>
 </header>

@@ -11,30 +11,32 @@
             *ngIf="periodicHistoryData.length > 0; else noHistoricalData">
             <!-- Date Column -->
             <ng-container matColumnDef="date">
-                <th mat-header-cell *matHeaderCellDef> Date</th>
+                <th mat-header-cell *matHeaderCellDef> {{ 'main.tables.date' | translate }}</th>
                 <td mat-cell *matCellDef="let element"> {{element.date}}</td>
             </ng-container>
 
             <!-- Event Rate Column -->
             <ng-container matColumnDef="event">
-                <th mat-header-cell *matHeaderCellDef> Event</th>
+                <th mat-header-cell *matHeaderCellDef> {{ 'main.tables.event' | translate }}</th>
                 <td mat-cell *matCellDef="let element"> {{element.event}}</td>
             </ng-container>
 
             <!-- Actions Column -->
             <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef> Actions</th>
+                <th mat-header-cell *matHeaderCellDef> {{ 'main.tables.actions' | translate }}</th>
                 <td mat-cell *matCellDef="let element">
                     <button
                         mat-button
                         (click)="setCurrencyJob(element.amount, element.fromCurrency, element.toCurrency)"
-                        class="icon-red-eye primary--color">View
+                        class="icon-red-eye primary--color">
+                        {{ 'main.tables.view' | translate }}
                     </button>
 
                     <button
                         mat-button
                         (click)="removeCurrencyItem(element)"
-                        class="icon-delete-forever warn--color ml-2">Delete from history
+                        class="icon-delete-forever warn--color ml-2">
+                        {{ 'main.tables.delete' | translate }}
                     </button>
                 </td>
             </ng-container>
@@ -45,7 +47,7 @@
 
         <ng-template #noHistoricalData>
             <p class="p-4 no--margin color--matte-red">
-                There is no historical data yet to show!
+                {{ 'main.error.no-history' | translate }}
             </p>
         </ng-template>
     </section>

@@ -1,0 +1,50 @@
+{
+    "main": {
+        "title": "Dönüştürmek istiyorum",
+        "general": {
+            "login": "Giriş",
+            "logout": "Çıkış",
+            "username": "Kullanıcı adı",
+            "password": "Şifre"
+        },
+        "error": {
+            "empty-username": "Kullanıcı adı alanı boş olamaz!",
+            "empty-password": "Şifre alanı boş olamaz!",
+            "invalid-credentials": "Kullanıcı adı ve ya şifre yanlış!",
+            "no-history": "Gösterilecek veri yok!",
+            "no-data": "Seçilen zaman çizelgesi için veri yok!"
+        },
+        "nav": {
+            "currency": "Currency",
+            "exchange": "Exchange",
+            "currency-exchange": "DÖVİZ DÖNÜŞTÜRÜCÜ",
+            "view-exchange-history": "DÖNÜŞTÜRME GEÇMİŞİ"
+        },
+        "exchange-field": {
+            "amount": "Tutar",
+            "from": "Para biriminden",
+            "to": "Para birimine",
+            "convert": "DÖNÜŞTÜR"
+        },
+        "tables": {
+            "exchange-history": "Dönüştürme Geçmişi",
+            "duration": "Periyod",
+            "all": "Tümü",
+            "days": "Gün",
+            "date": "Tarih",
+            "exchange-rate": "Dönüştürme Rate",
+            "statistics": "İstatistik",
+            "lowest": "En düşük",
+            "highest": "En yüksek",
+            "average": "Ortalama",
+            "conversion-history": "Dönüştürme Geçmişi",
+            "event": "Durum",
+            "actions": "Düzenle",
+            "view": "Gör",
+            "delete": "Bu geçmişi sil",
+            "converted-an-amount-of": "Miktar olarak",
+            "from": "adet",
+            "to": "dan"
+        }
+    }
+}

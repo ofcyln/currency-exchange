@@ -1,5 +1,5 @@
 <article class="d-flex align-items-start">
-    <h1 class="page-title title--font-size font--roboto-bold">
+    <h1 class="page-title title--font-size font--roboto-bold" translate="main.title">
         I want to convert
     </h1>
 </article>
@@ -14,7 +14,8 @@
     <mat-form-field class="margin-sm-right col-12 col-md-12 col-lg-3 col-xl-3">
         <input
             matInput
-            placeholder="Amount"
+            placeholder="{{ 'main.exchange-field.amount' | translate }}"
+            [attr.aria-expanded]="'main.exchange-field.amount' | translate"
             formControlName="amountControl"
             type="number">
     </mat-form-field>
@@ -22,7 +23,8 @@
     <mat-form-field class="margin-sm-left-right col-12 col-md-12 col-lg-3 col-xl-3">
         <input
             type="text"
-            placeholder="From"
+            placeholder="{{ 'main.exchange-field.from' | translate }}"
+            [attr.aria-expanded]="'main.exchange-field.from' | translate"
             aria-label="From"
             class="pb-0 from-control"
             matInput
@@ -52,7 +54,8 @@
     <mat-form-field class="margin-sm-left col-12 col-md-12 col-lg-3 col-xl-3">
         <input
             type="text"
-            placeholder="To"
+            placeholder="{{ 'main.exchange-field.to' | translate }}"
+            [attr.aria-expanded]="'main.exchange-field.to' | translate"
             aria-label="To"
             class="pb-0 to-control"
             matInput
@@ -77,8 +80,9 @@
         class="margin-sm-left convert-button"
         color="primary"
         type="submit"
+        [attr.aria-expanded]="'main.exchange-field.convert' | translate"
         [disabled]="converterForm.invalid"
-    >CONVERT
+    >{{ 'main.exchange-field.convert' | translate }}
     </button>
 </form>
 
@@ -109,18 +113,20 @@
         <hr>
     </div>
 
-    <p class="section-title--font-size font--roboto-bold col-12">Exchange History</p>
+    <p class="section-title--font-size font--roboto-bold col-12">
+        {{ 'main.tables.exchange-history' | translate }}
+    </p>
 
     <div class="col-12 mt-4">
         <mat-form-field>
             <mat-select
                 [(value)]="selectedDuration"
                 (valueChange)="selectedTimeInterval()"
-                placeholder="Duration">
-                <mat-option value="allTime">All</mat-option>
-                <mat-option value="sevenDays">7 Days</mat-option>
-                <mat-option value="fourteenDays">14 Days</mat-option>
-                <mat-option value="thirtyDaysConversions">30 Days</mat-option>
+                placeholder="{{ 'main.tables.duration' | translate }}">
+                <mat-option value="allTime">{{ 'main.tables.all' | translate }}</mat-option>
+                <mat-option value="sevenDays">7 {{ 'main.tables.days' | translate }}</mat-option>
+                <mat-option value="fourteenDays">14 {{ 'main.tables.days' | translate }}</mat-option>
+                <mat-option value="thirtyDaysConversions">30 {{ 'main.tables.days' | translate }}</mat-option>
             </mat-select>
         </mat-form-field>
     </div>
@@ -136,13 +142,13 @@
                     class="mat-elevation-z8 w-100">
                     <!-- Date Column -->
                     <ng-container matColumnDef="date">
-                        <th mat-header-cell *matHeaderCellDef> Date</th>
+                        <th mat-header-cell *matHeaderCellDef> {{ 'main.tables.date' | translate }}</th>
                         <td mat-cell *matCellDef="let element"> {{element.date}}</td>
                     </ng-container>
 
                     <!-- Exchange Rate Column -->
                     <ng-container matColumnDef="exchangeRate">
-                        <th mat-header-cell *matHeaderCellDef> Exchange rate</th>
+                        <th mat-header-cell *matHeaderCellDef> {{ 'main.tables.exchange-rate' | translate }}</th>
                         <td mat-cell *matCellDef="let element"> {{element.exchangeRate}}</td>
                     </ng-container>
 
@@ -158,7 +164,7 @@
                     class="mat-elevation-z8 w-100">
                     <!-- Name Column -->
                     <ng-container matColumnDef="name">
-                        <th mat-header-cell *matHeaderCellDef> Statistics</th>
+                        <th mat-header-cell *matHeaderCellDef> {{ 'main.tables.statistics' | translate }}</th>
                         <td mat-cell *matCellDef="let element"> {{element.name}}</td>
                     </ng-container>
 
@@ -178,7 +184,7 @@
     <ng-template #noDataTimeline>
         <div class="col-12">
             <p class="mat-elevation-z8 p-4 color--matte-red">
-                There is no data for selected timeline!
+                {{ 'main.error.no-data' | translate }}
             </p>
         </div>
     </ng-template>

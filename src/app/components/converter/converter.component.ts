@@ -2,13 +2,15 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatOptionSelectionChange, MatTableDataSource } from '@angular/material';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 
+import { map, startWith } from 'rxjs/operators';
 import { ExchangeRatesApiRequestService } from '../../shared/service/exchange-rates-api-request.service';
 import { AlertService } from '../../core/alert/alert.service';
 import { CurrencyExchangeService, PeriodicHistoryElement } from '../../shared/service/currency-exchange.service';
 import { ExchangeRatesResponse, MappedCurrencyRateObject } from '../../shared/interface/exchange-rates.model';
+
 import { StorageService } from '../../shared/service/storage.service';
+
 import {
     Currency,
     FormNames,
@@ -17,7 +19,6 @@ import {
     TableColumnNames,
     TimeIntervalTypes,
 } from '../../shared/interface/enums.model';
-
 import getSymbolFromCurrency from 'currency-symbol-map';
 
 export interface Statistics {
@@ -236,6 +237,8 @@ export class ConverterComponent implements OnInit {
             );
         });
     }
+
+    // TODO: reactive translations for TS files
 
     calculateStatisticsFromNewArray(newDataTableArray: PeriodicHistoryElement[]): void {
         this.statisticalData = [
