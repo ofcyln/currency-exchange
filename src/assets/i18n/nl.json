@@ -1,0 +1,51 @@
+{
+    "main": {
+        "title": "Ik wil ruilen",
+        "general": {
+            "login": "Inloggen",
+            "logout": "Afmelden",
+            "username": "Gebruikersnaam",
+            "password": "Wachtwoord"
+        },
+        "error": {
+            "empty-username": "Gebruikersnaamveld mag niet leeg zijn!",
+            "empty-password": "Wachtwoordveld kan niet leeg zijn!",
+            "invalid-credentials": "Gebruikersnaam of wachtwoord klopt niet!",
+            "no-history": "Er zijn nog geen historische gegevens te zien!",
+            "no-data": "Er zijn geen gegevens voor de geselecteerde tijdlijn!"
+        },
+        "nav": {
+            "currency": "Currency",
+            "exchange": "Exchange",
+            "currency-exchange": "VALUTAWISSELAAR",
+            "view-exchange-history": "CONVERSIE GESCHIEDENIS BEKIJKEN"
+        },
+        "exchange-field": {
+            "amount": "Bedrag",
+            "from": "Van",
+            "to": "Naar",
+            "convert": "CONVERTEREN"
+        },
+        "tables": {
+            "exchange-history": "Uitwisselingsgeschiedenis",
+            "duration": "Looptijd",
+            "all": "Alle",
+            "days": "Dagen",
+            "date": "Datum",
+            "exchange-rate": "Wisselkoers",
+            "statistics": "Statistieken",
+            "lowest": "Laagste",
+            "highest": "Hoogste",
+            "average": "Gemiddeld",
+            "conversion-history": "Uitwisselingsgeschiedenis",
+            "event": "Evenement",
+            "actions": "Acties",
+            "view": "Bekijken",
+            "delete": "Verwijderen uit geschiedenis",
+            "converted-an-amount-of": "Een hoeveelheid geconverteerd",
+            "from": "van",
+            "to": "naar"
+        }
+    }
+}
+

@@ -6,7 +6,9 @@
 
     <section class="login-section col-12">
         <div class="row">
-            <h1 class="mb-4 col-12 title--font-size font--roboto-bold">Login</h1>
+            <h1 class="mb-4 col-12 title--font-size font--roboto-bold">
+                {{ 'main.general.login' | translate }}
+            </h1>
         </div>
 
         <div class="col-12 p-0">
@@ -18,13 +20,16 @@
                     type="text"
                     tabindex="1"/>
 
-                <label>Username</label>
+                <label>
+                    {{ 'main.general.username' | translate }}
+                </label>
 
                 <span class="bar"></span>
 
                 <div
                     *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched"
-                    class="has-error help-block">Username field can not be empty!
+                    class="has-error help-block">
+                    {{ 'main.error.empty-password' | translate }}
                 </div>
             </div>
 
@@ -36,13 +41,16 @@
                     type="password"
                     tabindex="2"/>
 
-                <label>Password</label>
+                <label>
+                    {{ 'main.general.password' | translate }}
+                </label>
 
                 <span class="bar"></span>
 
                 <div
                     *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched"
-                    class="has-error help-block">Password field can not be empty!
+                    class="has-error help-block">
+                    {{ 'main.error.empty-username' | translate }}
                 </div>
             </div>
         </div>
@@ -57,7 +65,9 @@
                     type="submit"
                     [disabled]="loading || loginForm.invalid"
                     tabindex="3"
-                >Login</button>
+                >
+                    {{ 'main.general.login' | translate }}
+                </button>
             </div>
         </div>
     </section>

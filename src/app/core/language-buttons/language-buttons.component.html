@@ -1,0 +1,12 @@
+<article class="navbar-nav language-area">
+    <div class="language-area mt-1 d-flex flex-row">
+        <button
+            *ngFor="let language of languages"
+            mat-mini-fab
+            (click)="languageService.changeLanguage(language.abbreviation)"
+            [ngClass]="languageService.languagePreference === language.abbreviation ? 'bg-exchange' : 'bg-secondary'"
+            [title]="language.name"
+            [attr.aria-expanded]="language.name"
+            [class]="'text-white ' + language.gap">{{ language.abbreviation | uppercase }}</button>
+    </div>
+</article>

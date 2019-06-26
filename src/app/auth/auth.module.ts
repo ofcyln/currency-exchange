@@ -6,9 +6,10 @@ import { MatButtonModule } from '@angular/material';
 import { LoginComponent } from './login/login.component';
 import { AuthGuardService } from './auth-guard.service';
 import { AuthService } from './auth.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-    imports: [CommonModule, ReactiveFormsModule, MatButtonModule],
+    imports: [CommonModule, ReactiveFormsModule, MatButtonModule, TranslateModule],
     providers: [AuthGuardService, AuthService],
     declarations: [LoginComponent],
 })
