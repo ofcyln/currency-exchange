@@ -20,6 +20,7 @@ import {
     TimeIntervalTypes,
 } from '../../shared/interface/enums.model';
 import getSymbolFromCurrency from 'currency-symbol-map';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 export interface Statistics {
     name: string;
@@ -63,7 +64,15 @@ export class ConverterComponent implements OnInit {
         public currencyExchangeService: CurrencyExchangeService,
         private apiRequestService: ExchangeRatesApiRequestService,
         private alertService: AlertService,
-    ) {}
+        private translate: TranslateService,
+    ) {
+        translate.onLangChange.subscribe((event: LangChangeEvent) => {
+            // Statistics table column name translations
+            this.statisticalData[0].name = translate.instant('main.tables.lowest');
+            this.statisticalData[1].name = translate.instant('main.tables.highest');
+            this.statisticalData[2].name = translate.instant('main.tables.average');
+        });
+    }
 
     ngOnInit() {
         this.converterForm = this.currencyExchangeService.converterForm;
@@ -238,8 +247,6 @@ export class ConverterComponent implements OnInit {
         });
     }
 
-    // TODO: reactive translations for TS files
-
     calculateStatisticsFromNewArray(newDataTableArray: PeriodicHistoryElement[]): void {
         this.statisticalData = [
             {
@@ -337,7 +344,7 @@ export class ConverterComponent implements OnInit {
             date: `${this.currencyExchangeService.getCurrentDate('/')}
 \n@${this.currencyExchangeService.getCurrentTime(':')}`,
             time: this.currencyExchangeService.getCurrentTime(':'),
-            exchangeRate: `${this.fromCurrency} to ${this.toCurrency}
+            exchangeRate: `${this.fromCurrency} → ${this.toCurrency}
 \n${(this.toRate / this.fromRate).toFixed(5)}`,
             pureExchangeRate: Number((this.toRate / this.fromRate).toFixed(5)),
             creationDate: this.currencyExchangeService.getCurrentDate('/'),
