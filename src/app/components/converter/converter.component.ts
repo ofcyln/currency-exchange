@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatOptionSelectionChange, MatTableDataSource } from '@angular/material';
+import { MatOptionSelectionChange } from '@angular/material/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 
 import { map, startWith } from 'rxjs/operators';
