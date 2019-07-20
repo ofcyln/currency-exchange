@@ -31,6 +31,7 @@
 			bottom: 15px;
 			width: calc(100% - 59px);
 			max-width: 900px;
+			z-index: 999;
 
 			&::after {
 				content: '';
