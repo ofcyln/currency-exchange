@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
 
 import { CurrencyExchangeService, PeriodicHistoryElement } from '../../shared/service/currency-exchange.service';
 import { StorageService } from '../../shared/service/storage.service';
