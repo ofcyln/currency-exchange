@@ -37,7 +37,9 @@
               "src/assets/css/media-queries.scss"
             ],
             "scripts": [],
-            "es5BrowserSupport": true
+            "aot": true,
+            "es5BrowserSupport": false,
+            "buildOptimizer": true
           },
           "configurations": {
             "production": {
