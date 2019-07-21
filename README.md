@@ -133,4 +133,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 *   `Angular production build configuration` is used for optimizing bundle, using tree-shaking, aot compilation, compression.
 
-*   The total bundle size of the app is `~500KB` including all CSS, JS, FONT and HTML files.
+*   The total bundle size of the app is `~500KB` including all CSS, JS, FONT, ICONS for PWA and HTML files.
