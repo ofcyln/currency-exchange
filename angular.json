@@ -46,8 +46,8 @@
               "budgets": [
                 {
                   "type": "bundle",
-                  "maximumWarning": "1000kb",
-                  "maximumError": "1250kb"
+                  "maximumWarning": "750kb",
+                  "maximumError": "500kb"
                 }
               ],
               "fileReplacements": [
