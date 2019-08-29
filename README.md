@@ -10,11 +10,11 @@ Currency Exchange Project authored by Osman Fikret Ceylan.
 
 ## Usage
 
-### Using the project on your local environment
+### Using the project on live environment
 
 The final app hosted on [https://currencyexchange.work](https://currencyexchange.work).
 
-### Using the project with Stackblitz
+### Using the project on local environment and using it on Stackblitz
 
 Simply go to this URL: [https://stackblitz.com/github/ofcyln/currency-exchange](https://stackblitz.com/github/ofcyln/currency-exchange)
 
