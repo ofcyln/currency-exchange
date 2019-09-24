@@ -21,7 +21,8 @@
 			"%",
 			"s",
 			"vw",
-			"vh"
+			"vh",
+			"ms"
 		],
 		"max-empty-lines": null,
 		"block-closing-brace-newline-before": "always-multi-line",
