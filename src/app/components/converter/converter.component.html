@@ -139,7 +139,7 @@
                 <table
                     mat-table
                     [dataSource]="dataSource"
-                    class="mat-elevation-z8 w-100">
+                    class="w-100">
                     <!-- Date Column -->
                     <ng-container matColumnDef="date">
                         <th mat-header-cell *matHeaderCellDef> {{ 'main.tables.date' | translate }}</th>
@@ -161,7 +161,7 @@
                 <table
                     mat-table
                     [dataSource]="statisticalDataSource"
-                    class="mat-elevation-z8 w-100">
+                    class="w-100">
                     <!-- Name Column -->
                     <ng-container matColumnDef="name">
                         <th mat-header-cell *matHeaderCellDef> {{ 'main.tables.statistics' | translate }}</th>
@@ -183,7 +183,7 @@
 
     <ng-template #noDataTimeline>
         <div class="col-12">
-            <p class="mat-elevation-z8 p-4 color--matte-red">
+            <p class="color--matte-red">
                 {{ 'main.error.no-data' | translate }}
             </p>
         </div>

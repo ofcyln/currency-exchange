@@ -5,6 +5,7 @@
 			true,
 			{
 				"ignoreAtRules": [
+                    "mixin",
 					"extends",
 					"ignores",
 					"include"

@@ -29,12 +29,12 @@
 
 			&.mat-footer-row,
 			&.mat-row {
-				height: 48px;
+				height: initial;
 				flex-direction: column;
 				display: flex;
 				flex: 1;
 				min-height: max-content;
-				border-bottom: 2px groove #eaeaea;
+				border-bottom: 1px solid #009688;
 			}
 		}
 

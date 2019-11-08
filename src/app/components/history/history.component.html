@@ -5,7 +5,7 @@
 </article>
 
 <article class="row no--margin">
-    <section class="history-area-table col-12 mb-4 mat-elevation-z8 no--padding">
+    <section class="history-area-table col-12 mb-4 no--padding">
         <table
             mat-table
             [dataSource]="periodicHistoryDataSource"
@@ -48,7 +48,7 @@
         </table>
 
         <ng-template #noHistoricalData>
-            <p class="p-4 no--margin color--matte-red">
+            <p class="no--margin color--matte-red">
                 {{ 'main.error.no-history' | translate }}
             </p>
         </ng-template>
