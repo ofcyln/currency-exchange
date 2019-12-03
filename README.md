@@ -85,7 +85,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 *   Used readonly private properties to prevent magic numbers and strings in the project where it needed into the methods.
 
-*   Instead of using images for icons, font icons are integrated into the project with `Fontello` icon package. `Fontello` just includes preferred icons, this helps to balance the file size of the icon package. Created special Chuck Norris SVG font-icon for the project.
+*   Instead of using images for icons, font icons are integrated into the project with `Fontello` icon package. `Fontello` just includes preferred icons, this helps to balance the file size of the icon package. Created special CurrencyExchange logo SVG font-icon for the project from search font-icon.
 
 *   The app has multiple icons for various Android, IOS devices.
 
