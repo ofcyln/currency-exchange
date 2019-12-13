@@ -17,6 +17,7 @@ local.properties
 
 # External tool builders
 .externalToolBuilders/
+.angulardoc.json
 
 # Locally stored "Eclipse launch configurations"
 *.launch
