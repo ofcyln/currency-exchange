@@ -48,6 +48,10 @@
                   "type": "bundle",
                   "maximumWarning": "750kb",
                   "maximumError": "500kb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ],
               "fileReplacements": [
@@ -61,7 +65,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
