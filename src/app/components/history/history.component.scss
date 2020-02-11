@@ -1,19 +1,9 @@
-@mixin min-height-50vh {
-	min-height: 50vh;
-}
-
 .page-title {
 	margin-bottom: 45px;
 }
 
 .history-area-table {
-	@include min-height-50vh;
-
 	overflow-y: auto;
-
-	table {
-		@include min-height-50vh;
-	}
 
 	.mat-column-actions {
 		min-width: 230px;

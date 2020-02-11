@@ -1,15 +1,15 @@
 <section class="container-fluid container-section font--roboto default--text-color body-text--font-size">
-    <article class="row sticky-header">
+    <article class="sticky-header">
         <app-header class="w-100"></app-header>
 
         <ngx-loading-bar></ngx-loading-bar>
     </article>
 
-    <article class="row app-content p-3">
+    <article class="d-flex flex-fill app-content p-3">
         <app-alert></app-alert>
 
         <main
-            class="col no--padding d-flex flex-column initial-margin"
+            class="flex-fill mt-0 d-flex flex-column initial-margin"
             [ngClass]="authService.isAuthenticated() ? 'initial-margin' : 'mt-0'">
             <router-outlet></router-outlet>
 
@@ -39,7 +39,7 @@
                 </section>
             </section>
 
-            <app-language-buttons class="mb-5"></app-language-buttons>
+            <app-language-buttons class="d-flex justify-content-end mb-1 mh-100px"></app-language-buttons>
         </main>
     </article>
 </section>

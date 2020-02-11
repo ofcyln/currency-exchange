@@ -4,12 +4,12 @@
     </h1>
 </article>
 
-<article class="row no--margin">
-    <section class="history-area-table col-12 mb-4 no--padding">
+<article class="d-flex flex-fill">
+    <section class="history-area-table w-100 mb-4">
         <table
             mat-table
             [dataSource]="periodicHistoryDataSource"
-            class="col mr-2"
+            class="w-100"
             *ngIf="periodicHistoryData.length > 0; else noHistoricalData">
             <!-- Date Column -->
             <ng-container matColumnDef="date">

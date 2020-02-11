@@ -9,6 +9,9 @@ import { AlertService } from '../../core/alert/alert.service';
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
+    host: {
+        class: 'd-flex flex-fill flex-column',
+    },
 })
 export class LoginComponent implements OnInit {
     public loginForm: FormGroup;

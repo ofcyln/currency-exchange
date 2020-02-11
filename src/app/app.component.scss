@@ -4,26 +4,27 @@
 		overflow-y: scroll;
 		-webkit-overflow-scrolling: touch;
 		background-color: #f7f7f7;
-		padding-left: 30px !important;
-		padding-right: 30px !important;
+		padding: 0;
 	}
 
 	.sticky-header {
 		position: sticky;
 		top: 0;
 		z-index: 2;
-		margin: 0 -15px;
 	}
 
 	.container-section {
 		height: 100%;
 		display: flex;
 		flex-direction: column;
+		padding: 0;
 	}
 
 	main {
 		max-width: 900px;
-		margin: 45px auto 0;
+		padding: 45px 0;
+		margin-left: auto;
+		margin-right: auto;
 
 		.banner-area {
 			opacity: 0.9;
