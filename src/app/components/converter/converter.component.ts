@@ -60,6 +60,8 @@ export class ConverterComponent implements OnInit {
     public result: string;
 
     private readonly FIRST_ITEM = 0;
+    private readonly SECOND_ITEM = 1;
+    private readonly THIRD_ITEM = 2;
 
     constructor(
         public currencyExchangeService: CurrencyExchangeService,
@@ -69,9 +71,9 @@ export class ConverterComponent implements OnInit {
     ) {
         translate.onLangChange.subscribe((event: LangChangeEvent) => {
             // Statistics table column name translations
-            this.statisticalData[0].name = translate.instant('main.tables.lowest');
-            this.statisticalData[1].name = translate.instant('main.tables.highest');
-            this.statisticalData[2].name = translate.instant('main.tables.average');
+            this.statisticalData[this.FIRST_ITEM].name = translate.instant('main.tables.lowest');
+            this.statisticalData[this.SECOND_ITEM].name = translate.instant('main.tables.highest');
+            this.statisticalData[this.THIRD_ITEM].name = translate.instant('main.tables.average');
         });
     }
 
@@ -168,7 +170,7 @@ export class ConverterComponent implements OnInit {
     filterSelectedValue(value: string): MappedCurrencyRateObject {
         return this.currencyExchangeService.exchangeRates.filter((item: MappedCurrencyRateObject) => {
             return item.currency === this.converterForm.get(value).value;
-        })[0];
+        })[this.FIRST_ITEM];
     }
 
     mapItemCurrencies(): string[] {
@@ -252,7 +254,7 @@ export class ConverterComponent implements OnInit {
         this.statisticalData = [
             {
                 name: StatisticalDataTableFields.Lowest,
-                summary: this.getSortedRate(newDataTableArray)[0],
+                summary: this.getSortedRate(newDataTableArray)[this.FIRST_ITEM],
             },
             {
                 name: StatisticalDataTableFields.Highest,
@@ -367,7 +369,7 @@ export class ConverterComponent implements OnInit {
         return (this.statisticalData = [
             {
                 name: StatisticalDataTableFields.Lowest,
-                summary: this.getSortedRate(periodicHistoryArray)[0],
+                summary: this.getSortedRate(periodicHistoryArray)[this.FIRST_ITEM],
             },
             {
                 name: StatisticalDataTableFields.Highest,
