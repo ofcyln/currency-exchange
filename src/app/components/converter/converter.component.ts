@@ -33,9 +33,6 @@ export interface Statistics {
     templateUrl: './converter.component.html',
     styleUrls: ['./converter.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'd-flex flex-column flex-fill',
-    },
 })
 export class ConverterComponent implements OnInit {
     public periodicHistoryData: PeriodicHistoryElement[] = this.currencyExchangeService.periodicHistoryExchangeRates;
