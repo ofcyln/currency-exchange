@@ -20,9 +20,6 @@ export interface HistoryElement {
     selector: 'app-history',
     templateUrl: './history.component.html',
     styleUrls: ['./history.component.scss'],
-    host: {
-        class: 'd-flex flex-fill flex-column',
-    },
 })
 export class HistoryComponent implements OnInit {
     public periodicHistoryData: HistoryElement[];
