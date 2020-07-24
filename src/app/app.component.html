@@ -9,35 +9,9 @@
         <app-alert></app-alert>
 
         <main
-            class="flex-fill mt-0 d-flex flex-column initial-margin"
+            class="flex-fill d-flex flex-column"
             [ngClass]="authService.isAuthenticated() ? 'initial-margin' : 'mt-0'">
             <router-outlet></router-outlet>
-
-            <section *ngIf="isBannerShown !== 'true' && this.isIos() && this.showBanner" class="banner-area">
-                <section class="flex-column installation-banner">
-                    <article class="col banner-header">
-                        <strong class="mr-auto font-weight-bold">Install PWA</strong>
-
-                        <button type="button" class="ml-2 ml-auto font-weight-bold cursor--pointer close" (click)="close()">
-                            <span>&times;</span>
-                        </button>
-                    </article>
-
-                    <article class="col banner-body">
-                        <section class="d-inline-block">
-                            <span class="">Install this webapp on your iPhone: tap </span>
-
-                            <span class="icon-ios-share"></span>
-
-                            <span>and then </span>
-
-                            <span class="icon-plus-squared"></span>
-
-                            <span> 'Add to Home Screen'!</span>
-                        </section>
-                    </article>
-                </section>
-            </section>
 
             <app-language-buttons></app-language-buttons>
         </main>
