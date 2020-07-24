@@ -4,6 +4,9 @@
         "node_modules/rxjs-tslint"
     ],
     "rules": {
+    "deprecation": {
+      "severity": "warning"
+    },
         "rxjs-collapse-imports": true,
         "rxjs-pipeable-operators-only": true,
         "rxjs-no-static-observable-methods": true,
@@ -65,7 +68,6 @@
         "no-switch-case-fall-through": true,
         "no-trailing-whitespace": false,
         "no-unused-expression": true,
-        "no-use-before-declare": true,
         "no-var-keyword": true,
         "no-var-requires": false,
         "object-literal-sort-keys": false,
@@ -156,9 +158,6 @@
         "no-input-rename": true,
         "no-output-rename": true,
         "no-forward-ref": true,
-        "no-unused-variable": [
-            false
-        ],
         "use-lifecycle-interface": false,
         "use-pipe-transform-interface": true,
         "component-class-suffix": false,
